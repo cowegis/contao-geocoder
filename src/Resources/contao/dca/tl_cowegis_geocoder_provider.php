@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Cowegis\ContaoGeocoder\EventListener\Dca\ProviderDcaListener;
 
-$GLOBALS['TL_DCA']['tl_cowegis_geocode_provider'] = [
+$GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
     'config'          => [
         'dataContainer'    => 'Table',
         'enableVersioning' => true,
@@ -54,7 +54,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocode_provider'] = [
         'pid'                => ['sql' => 'int(10) unsigned NOT NULL default \'0\''],
         'tstamp'             => ['sql' => 'int(10) unsigned NOT NULL default \'0\''],
         'title'              => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['title'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['title'],
             'exclude'   => true,
             'search'    => true,
             'inputType' => 'text',
@@ -62,12 +62,12 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocode_provider'] = [
             'sql'       => 'varchar(255) NOT NULL default \'\'',
         ],
         'type'               => [
-            'label'            => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['type'],
+            'label'            => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['type'],
             'exclude'          => true,
             'filter'           => true,
             'inputType'        => 'select',
             'options_callback' => [ProviderDcaListener::class, 'typeOptions'],
-            'reference'        => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['types'],
+            'reference'        => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['types'],
             'eval'             => [
                 'mandatory'          => true,
                 'helpwizard'         => true,
@@ -79,41 +79,41 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocode_provider'] = [
             'sql'              => 'varchar(64) NOT NULL default \'\'',
         ],
         'isDefault'          => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['isDefault'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['isDefault'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
             'sql'       => 'char(1) NOT NULL default \'\'',
         ],
         'scope'              => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['scope'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['scope'],
             'exclude'   => true,
             'inputType' => 'select',
             'options'   => ['contao_frontend', 'contao_backend'],
-            'reference' => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['scopes'],
+            'reference' => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['scopes'],
             'eval'      => [
                 'tl_class'           => 'w50',
                 'includeBlankOption' => true,
-                'blankOptionLabel'   => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['scopes'][''],
+                'blankOptionLabel'   => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['scopes'][''],
             ],
             'sql'       => 'varchar(16) NOT NULL default \'\'',
         ],
         'cache'              => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['cache'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['cache'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
             'sql'       => 'char(1) NOT NULL default \'\'',
         ],
         'cache_ttl'          => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['cache_ttl'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['cache_ttl'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['tl_class' => 'w50', 'rgxp' => 'natural'],
             'sql'       => 'int(10) UNSIGNED NOT NULL default \'0\'',
         ],
         'chain_providers'    => [
-            'label'            => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['chain_providers'],
+            'label'            => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['chain_providers'],
             'exclude'          => true,
             'filter'           => true,
             'inputType'        => 'checkboxWizard',
@@ -125,21 +125,21 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocode_provider'] = [
             'sql'              => 'varchar(64) NOT NULL default \'\'',
         ],
         'nominatim_root_url' => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['nominatim_root_url'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['nominatim_root_url'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['maxlength' => 255, 'tl_class' => 'clr long'],
             'sql'       => 'varchar(255) NOT NULL default \'\'',
         ],
         'google_api_key'     => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['google_api_key'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['google_api_key'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['maxlength' => 255, 'mandatory' => true, 'tl_class' => 'clr long'],
             'sql'       => 'varchar(255) NOT NULL default \'\'',
         ],
         'google_region'      => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocode_provider']['google_region'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['google_region'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['maxlength' => 255, 'tl_class' => 'w50'],

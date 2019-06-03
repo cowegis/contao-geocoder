@@ -12,5 +12,5 @@ use Contao\Model;
 final class ProviderModel extends Model
 {
     /** @var string */
-    protected static $strTable = 'tl_cowegis_geocode_provider';
+    protected static $strTable = 'tl_cowegis_geocoder_provider';
 }

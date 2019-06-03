@@ -15,7 +15,7 @@ use function sprintf;
 final class ProviderDcaListener extends AbstractListener
 {
     /** @var string */
-    protected static $name = 'tl_conwegis_geocode_provider';
+    protected static $name = 'tl_cowegis_geocoder_provider';
 
     /** @var ProviderFactory */
     private $providerFactory;

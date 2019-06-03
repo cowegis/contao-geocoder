@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 $GLOBALS['BE_MOD']['cowegis'] = [
     'cowegis_geocode' => [
-        'tables' => ['tl_cowegis_geocode_provider'],
+        'tables' => ['tl_cowegis_geocoder_provider'],
     ],
 ];
 
