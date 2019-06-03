@@ -1,0 +1,12 @@
+/*
+!/.gitignore
+!/.gitattributes
+!/src/
+!/build.xml
+!/CHANGELOG.md
+!/README.md
+!/composer.json
+!/screenshot*.jpg
+!/screenshot*.png
+!phpcs.xml.dist
+!.composer-require-checker.json

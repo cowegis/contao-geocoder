@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="cowegis.geocode.cache_dir">%kernel.cache_dir%/cowegis/geocode</parameter>
+    </parameters>
+
+    <services>
+        <defaults autowire="false" autoconfigure="false" public="false"/>
+
+        <!-- Repository -->
+        <service id="Cowegis\ContaoGeocoder\Model\ProviderRepository">
+            <tag name="netzmacht.contao_toolkit.repository" model="Cowegis\ContaoGeocoder\Model\ProviderModel" />
+        </service>
+        
+        <!-- Cache -->
+        <service id="cowegis.geocode.cache.file_system" class="Doctrine\Common\Cache\FilesystemCache">
+            <argument type="string">%cowegis.geocode.cache_dir%</argument>
+        </service>
+
+        <service id="cowegis.geocode.cache" class="Roave\DoctrineSimpleCache\SimpleCacheAdapter">
+            <argument type="service" id="cowegis.geocode.cache.file_system"/>
+        </service>
+
+        <!-- HTTP client -->
+        <service id="cowegis.geocode.http_client" class="Http\Adapter\Guzzle6\Client" />
+
+        <!-- Provider factories -->
+        <service id="Cowegis\ContaoGeocoder\Provider\ProviderType\GoogleMapsProviderFactory">
+            <argument type="service" id="cowegis.geocode.http_client" />
+            <tag name="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\ProviderType\NominatimProviderFactory">
+            <argument type="service" id="cowegis.geocode.http_client" />
+            <tag name="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\ProviderType\ChainProviderFactory">
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
+            <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\ProviderFactory"
+                 class="Cowegis\ContaoGeocoder\Provider\AggregateProviderFactory">
+            <argument type="tagged" tag="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\Provider"
+                 class="Cowegis\ContaoGeocoder\Provider\ProviderAggregator">
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
+            <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
+            <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory" decorates="Cowegis\ContaoGeocoder\Provider\Provider">
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory.inner" />
+            <argument type="service" id="cowegis.geocode.cache" />
+        </service>
+    </services>
+</container>
