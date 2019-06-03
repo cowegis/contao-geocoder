@@ -57,9 +57,21 @@
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
         </service>
 
-        <service id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory" decorates="Cowegis\ContaoGeocoder\Provider\Provider">
+        <service id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory" decorates="Cowegis\ContaoGeocoder\Provider\ProviderFactory">
             <argument type="service" id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory.inner" />
             <argument type="service" id="cowegis.geocode.cache" />
+        </service>
+
+        <!-- Actions -->
+        <service id="Cowegis\ContaoGeocoder\Action\BackendPlaygroundAction" public="true">
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\Provider" />
+            <argument type="service" id="templating.engine.twig" />
+            <argument type="service" id="form.factory" />
+        </service>
+
+        <!-- Forms -->
+        <service id="Cowegis\ContaoGeocoder\Form\PlaygroundFormType">
+            <tag name="form.type" />
         </service>
     </services>
 </container>

@@ -1,0 +1,42 @@
+{% extends "@ContaoCore/Backend/be_page.html.twig" %}
+{% form_theme form '@NetzmachtContaoForm/form/contao_backend.html.twig' %}
+
+{% block headline %}Cowegis Geocoder Playground{% endblock %}
+
+{% block error %}{% endblock %}
+
+{% block main %}
+    {{ form_start(form, {attr: {class: 'my-form-class'} }) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    <table class="cowegis-geocoder-playground-result-list">
+    <thead>
+        <tr>
+            <th>Address</th>
+            <th>Latitude</th>
+            <td>Longitude</td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for address in result %}
+        <tr>
+            <td>
+            {{ address.country }} {{ address.locality }}
+            {% if address.streetName %}, {{ address.streetName }} {{ address.streetNumber }}{% endif %}
+            {% if address.adminLevels.count > 0 %}
+            <br><small>
+                {% for adminLevel in address.adminLevels %}
+                    <span class="cowegis-geocoder-playground-admin-level">{{ adminLevel.name }}</span>
+                {% endfor %}
+            </small>
+            {% endif %}
+            </td>
+            <td>{{ address.coordinates.latitude }}</td>
+            <td>{{ address.coordinates.longitude }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+

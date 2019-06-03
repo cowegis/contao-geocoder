@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider;
 
-use Geocoder\Provider\Provider;
+use Geocoder\Provider\Provider as GeocodeProvider;
 
 interface ProviderTypeFactory
 {
@@ -13,5 +13,5 @@ interface ProviderTypeFactory
     public function supports(string $feature) : bool;
 
     /** @param mixed[] $config */
-    public function create(array $config) : Provider;
+    public function create(array $config) : GeocodeProvider;
 }

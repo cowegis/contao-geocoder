@@ -11,6 +11,7 @@ use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use function sprintf;
+use Symfony\Component\Routing\RouterInterface;
 
 final class ProviderDcaListener extends AbstractListener
 {
@@ -23,15 +24,21 @@ final class ProviderDcaListener extends AbstractListener
     /** @var ProviderRepository */
     private $providerRepository;
 
+    /** @var RouterInterface */
+    private $router;
+
     public function __construct(
         DcaManager $dcaManager,
         ProviderRepository $providerRepository,
-        ProviderFactory $providerFactory
-    ) {
+        ProviderFactory $providerFactory,
+        RouterInterface $router
+    )
+    {
         parent::__construct($dcaManager);
 
         $this->providerFactory    = $providerFactory;
         $this->providerRepository = $providerRepository;
+        $this->router             = $router;
     }
 
     /** @param mixed[] $row */
@@ -60,5 +67,15 @@ final class ProviderDcaListener extends AbstractListener
         }
 
         return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
+    }
+
+    public function playgroundButton(?string $href, string $label, string $title, $icon, $attributes) : string
+    {
+        return sprintf(
+            '<a href="%s" title="%s">%s</a> ',
+            $this->router->generate('cowegis_geocoder_playground'),
+            $title,
+            $label
+        );
     }
 }

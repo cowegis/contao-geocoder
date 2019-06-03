@@ -72,7 +72,7 @@ final class ProviderAggregator implements Provider
         return $this->providers[$providerId];
     }
 
-    private function defaultProvider() : Provider
+    private function defaultProvider() : GeocodeProvider
     {
         if ($this->defaultProvider !== null) {
             return $this->defaultProvider;

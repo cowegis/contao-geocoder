@@ -11,6 +11,7 @@
             <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
             <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
             <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
+            <argument type="service" id="router" />
         </service>
     </services>
 </container>
