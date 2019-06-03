@@ -8,6 +8,8 @@ use Geocoder\Provider\Provider;
 
 interface ProviderFactory
 {
+    public function register(ProviderTypeFactory $factory) : void;
+
     public function supports(string $type, string $feature) : bool;
 
     /** @param mixed[] $config */
