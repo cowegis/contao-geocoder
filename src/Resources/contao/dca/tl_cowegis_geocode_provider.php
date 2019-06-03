@@ -26,6 +26,9 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocode_provider'] = [
             'label_callback' => [ProviderDcaListener::class, 'formatLabel'],
         ],
     ],
+    'palettes' => [
+        '__selector__' => ['type']
+    ],
     'metapalettes'    => [
         'default'                     => [
             'title'  => ['title', 'type', 'isDefault'],
