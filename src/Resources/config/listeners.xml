@@ -8,6 +8,8 @@
         <defaults autowire="false" autoconfigure="false" public="false"/>
 
         <service id="Cowegis\ContaoGeocoder\EventListener\Dca\ProviderDcaListener" public="true">
+            <argument type="service" id="netzmacht.contao_toolkit.dca.manager" />
+            <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
             <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
         </service>
     </services>
