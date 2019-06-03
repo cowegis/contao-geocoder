@@ -17,16 +17,53 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
         ],
     ],
     'list'            => [
-        'sorting' => [
+        'sorting'           => [
             'fields' => ['title'],
             'mode'   => 1,
         ],
-        'label'   => [
+        'label'             => [
             'fields'         => ['title', 'type'],
             'label_callback' => [ProviderDcaListener::class, 'formatLabel'],
         ],
+        'global_operations' => [
+            'all' =>
+                [
+                    'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
+                    'href'       => 'act=select',
+                    'class'      => 'header_edit_all',
+                    'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"'
+                ]
+        ],
+        'operations'        => [
+            'edit'   =>
+                [
+                    'label' => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['edit'],
+                    'href'  => 'act=edit',
+                    'icon'  => 'edit.svg'
+                ],
+            'copy'   =>
+                [
+                    'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['copy'],
+                    'href'       => 'act=copy',
+                    'icon'       => 'copy.svg',
+                    'attributes' => 'onclick="Backend.getScrollOffset()"'
+                ],
+            'delete' =>
+                [
+                    'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['delete'],
+                    'href'       => 'act=delete',
+                    'icon'       => 'delete.svg',
+                    'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"',
+                ],
+            'show'   =>
+                [
+                    'label' => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['show'],
+                    'href'  => 'act=show',
+                    'icon'  => 'show.svg'
+                ]
+        ],
     ],
-    'palettes' => [
+    'palettes'        => [
         '__selector__' => ['type']
     ],
     'metapalettes'    => [
