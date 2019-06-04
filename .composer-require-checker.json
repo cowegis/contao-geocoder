@@ -6,5 +6,7 @@
     "Contao\\ManagerPlugin\\Bundle\\BundlePluginInterface",
     "Contao\\ManagerPlugin\\Bundle\\Parser\\ParserInterface",
     "Contao\\ManagerPlugin\\Bundle\\Config\\BundleConfig",
+    "Contao\\ManagerPlugin\\Routing\\RoutingPluginInterface",
+    "array_insert"
   ]
 }
