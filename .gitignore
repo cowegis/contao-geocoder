@@ -1,6 +1,7 @@
 /*
 !/.gitignore
 !/.gitattributes
+!/.travis.yml
 !/src/
 !/spec/
 !/build.xml
