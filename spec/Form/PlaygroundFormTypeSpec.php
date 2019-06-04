@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class PlaygroundFormTypeSpec extends ObjectBehavior
+final class PlaygroundFormTypeSpec extends ObjectBehavior
 {
     public function let(Geocoder $geocoder) : void
     {

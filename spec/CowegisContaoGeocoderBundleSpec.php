@@ -9,7 +9,7 @@ use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class CowegisContaoGeocoderBundleSpec extends ObjectBehavior
+final class CowegisContaoGeocoderBundleSpec extends ObjectBehavior
 {
     public function it_is_initializable() : void
     {

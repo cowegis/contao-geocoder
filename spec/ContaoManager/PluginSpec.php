@@ -15,7 +15,7 @@ use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouteCollection;
 
-class PluginSpec extends ObjectBehavior
+final class PluginSpec extends ObjectBehavior
 {
     public function it_is_initializable() : void
     {
