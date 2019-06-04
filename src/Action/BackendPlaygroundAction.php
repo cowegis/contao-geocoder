@@ -55,7 +55,7 @@ final class BackendPlaygroundAction
         }
 
         return $this->twig->renderResponse(
-            '@CowegisContaoGeocode/backend/playground.html.twig',
+            '@CowegisContaoGeocoder/backend/playground.html.twig',
             [
                 'form'   => $form->createView(),
                 'result' => $result,

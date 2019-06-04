@@ -44,7 +44,7 @@ final class ProviderDcaListener extends AbstractListener
     public function formatLabel(array $row, string $label, DataContainer $dataContainer) : string
     {
         return sprintf(
-            '%s <span class="tl_gray">%s</span>',
+            '%s <small class="tl_gray">[%s]</small>',
             $row['title'],
             $this->getFormatter()->formatValue('type', $row['type'], $dataContainer)
         );

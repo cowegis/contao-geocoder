@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+    <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en">
+        <body>
+            <trans-unit id="MOD.cowegis_geocoder.0">
+                <source>Geocoder</source>
+            </trans-unit>
+            <trans-unit id="MOD.cowegis_geocoder.1">
+                <source>Manage Geocoder providers</source>
+            </trans-unit>
+            <trans-unit id="MOD.tl_cowegis_geocoder_provider">
+                <source>Provider</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

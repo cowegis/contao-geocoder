@@ -18,7 +18,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
     ],
     'list'            => [
         'sorting'           => [
-            'fields' => ['title'],
+            'fields' => ['type'],
             'mode'   => 1,
         ],
         'label'             => [
