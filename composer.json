@@ -48,7 +48,14 @@
   "require-dev": {
     "contao/manager-plugin": "^2.1",
     "doctrine/coding-standard": "^5.0",
-    "phpspec/phpspec": "^5.1"
+    "phpspec/phpspec": "^5.1",
+    "phpcq/phpcq": "^1.2",
+    "phpcq/autoload-validation": "^1.2",
+    "phpcq/branch-alias-validation": "^1.2",
+    "phploc/phploc": "^5.0",
+    "sebastian/phpcpd": "^4.1",
+    "pdepend/pdepend": "^2.5",
+    "phpmd/phpmd": "^2.6"
   },
   "extra": {
     "branch-alias": {

@@ -15,26 +15,26 @@ final class GeocoderProviderDecorator implements Provider
     private $provider;
 
     /** @var string */
-    private $id;
+    private $providerId;
 
     /** @var string|null */
     private $title;
 
     public function __construct(GeocoderProvider $provider, string $providerId, ?string $title = null)
     {
-        $this->provider = $provider;
-        $this->id       = $providerId;
-        $this->title    = $title;
+        $this->provider   = $provider;
+        $this->providerId = $providerId;
+        $this->title      = $title;
     }
 
     public function title() : string
     {
-        return $this->title ?: $this->id();
+        return $this->title ?: $this->providerId();
     }
 
-    public function id() : string
+    public function providerId() : string
     {
-        return $this->id;
+        return $this->providerId;
     }
 
     public function type() : string

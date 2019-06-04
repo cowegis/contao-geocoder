@@ -47,7 +47,7 @@ final class PlaygroundFormType extends AbstractType
 
                     /** @var Provider $provider */
                     foreach ($this->geocoder as $provider) {
-                        $choices[$provider->id()] = $provider;
+                        $choices[$provider->providerId()] = $provider;
                     }
 
                     return $choices;

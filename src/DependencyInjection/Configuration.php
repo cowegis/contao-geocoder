@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\DependencyInjection;
 
+use function array_keys;
 use Assert\Assert;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -53,7 +54,7 @@ final class Configuration implements ConfigurationInterface
                 ->end()
                 ->beforeNormalization()
                     ->always(static function ($value) {
-                        foreach ($value['providers'] as $providerId => $config) {
+                        foreach (array_keys($value['providers']) as $providerId) {
                             $value['providers'][$providerId]['config']['id'] = $providerId;
                         }
 

@@ -17,7 +17,11 @@ use Symfony\Component\Routing\RouteCollection;
 
 final class Plugin implements BundlePluginInterface, RoutingPluginInterface
 {
-    /** @return ConfigInterface[] */
+    /**
+     * @return ConfigInterface[]
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function getBundles(ParserInterface $parser) : array
     {
         return [BundleConfig::create(CowegisContaoGeocoderBundle::class)
@@ -25,6 +29,7 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
         ];
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel) : ?RouteCollection
     {
         $loader = $resolver->resolve(__DIR__ . '/../Resources/config/routing.xml');

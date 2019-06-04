@@ -10,7 +10,7 @@ interface Provider extends GeocoderProvider
 {
     public function title() : string;
 
-    public function id() : string;
+    public function providerId() : string;
 
     public function type() : string;
 }

@@ -64,7 +64,7 @@ final class MyService
 {
     private $geocoder;
     
-    // Geocode is provided as service with Service id 'Cowegis\ContaoGeocoder\Provider\Geocoder'
+    providerId
     public function __construct(Geocoder $geocoder)
     {
         $this->geocoder = $geocoder;
