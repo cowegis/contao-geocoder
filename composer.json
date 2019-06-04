@@ -19,6 +19,7 @@
   ],
   "require": {
     "php": ">=7.1",
+    "beberlei/assert": "^3.0",
     "contao-community-alliance/meta-palettes": "^2.0",
     "contao/core-bundle": "^4.4",
     "doctrine/cache": "^1.8",
@@ -26,6 +27,7 @@
     "geocoder-php/chain-provider": "^4.0",
     "geocoder-php/google-maps-provider": "^4.4",
     "geocoder-php/nominatim-provider": "^5.1",
+    "netzmacht/contao-form-bundle": "^1.0",
     "netzmacht/contao-toolkit": "^3.3",
     "php-http/guzzle6-adapter": "^1.1 || ^2.0",
     "roave/doctrine-simplecache": "^2.2",
@@ -33,9 +35,7 @@
     "symfony/dependency-injection": "^3.3 || ^4.0",
     "symfony/form": "^3.4 || ^4.0",
     "symfony/http-kernel": "^3.3 || ^4.0",
-    "willdurand/geocoder": "^4.2",
-    "netzmacht/contao-form-bundle": "^1.0",
-    "beberlei/assert": "^3.2"
+    "willdurand/geocoder": "^4.2"
   },
   "conflict": {
     "contao/manager-plugin": "<2.1 || >= 3.0"
@@ -46,7 +46,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "3.0.x-dev"
+      "dev-master": "0.1.x-dev"
     },
     "contao-manager-plugin": "Cowegis\\ContaoGeocoder\\ContaoManager\\Plugin"
   },
