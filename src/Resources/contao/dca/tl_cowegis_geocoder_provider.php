@@ -29,42 +29,45 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'playground' => [
                 'label'           => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['playground'],
                 'button_callback' => [ProviderDcaListener::class, 'playgroundButton'],
-                'class'           => 'header_cowegis_geocoder_playground'
+                'class'           => 'header_cowegis_geocoder_playground',
             ],
             'all'        => [
                 'label'      => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',
-                'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"'
-            ]
+                'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"',
+            ],
         ],
         'operations'        => [
             'edit'   => [
                 'label' => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['edit'],
                 'href'  => 'act=edit',
-                'icon'  => 'edit.svg'
+                'icon'  => 'edit.svg',
             ],
             'copy'   => [
                 'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['copy'],
                 'href'       => 'act=copy',
                 'icon'       => 'copy.svg',
-                'attributes' => 'onclick="Backend.getScrollOffset()"'
+                'attributes' => 'onclick="Backend.getScrollOffset()"',
             ],
             'delete' => [
                 'label'      => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['delete'],
                 'href'       => 'act=delete',
                 'icon'       => 'delete.svg',
-                'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"',
+                'attributes' => sprintf(
+                    'onclick="if(!confirm(\'%s\'))return false;Backend.getScrollOffset()"',
+                    $GLOBALS['TL_LANG']['MSC']['deleteConfirm']
+                ),
             ],
             'show'   => [
                 'label' => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['show'],
                 'href'  => 'act=show',
-                'icon'  => 'show.svg'
-            ]
+                'icon'  => 'show.svg',
+            ],
         ],
     ],
     'palettes'        => [
-        '__selector__' => ['type']
+        '__selector__' => ['type'],
     ],
     'metapalettes'    => [
         'default'                     => [
@@ -78,7 +81,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
         'google_maps extends default' => [
             'config' => ['google_api_key', 'google_region'],
         ],
-        'chain'                       => [
+        'chain extends default' => [
             'config' => ['chain_providers'],
         ],
     ],
@@ -126,7 +129,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['scope'],
             'exclude'   => true,
             'inputType' => 'select',
-            'options'   => ['contao_frontend', 'contao_backend'],
+            'options'   => ['frontend', 'backend'],
             'reference' => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['scopes'],
             'eval'      => [
                 'tl_class'           => 'w50',

@@ -71,6 +71,7 @@
 
         <!-- Forms -->
         <service id="Cowegis\ContaoGeocoder\Form\PlaygroundFormType">
+            <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
             <tag name="form.type" />
         </service>
     </services>

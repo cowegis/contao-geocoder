@@ -3,7 +3,7 @@
 
 {% block headline %}Cowegis Geocoder Playground{% endblock %}
 
-{% block error %}{% endblock %}
+{% block error %}{{ error }}{% endblock %}
 
 {% block main %}
     {{ form_start(form, {attr: {class: 'my-form-class'} }) }}

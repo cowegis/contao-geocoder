@@ -6,6 +6,7 @@ namespace Cowegis\ContaoGeocoder\Action;
 
 use Cowegis\ContaoGeocoder\Form\PlaygroundFormType;
 use Cowegis\ContaoGeocoder\Provider\Provider;
+use Geocoder\Exception\Exception as GeocoderException;
 use Geocoder\Query\GeocodeQuery;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -32,23 +33,33 @@ final class BackendPlaygroundAction
 
     public function __invoke(Request $request) : Response
     {
-        $address = $request->query->get('address');
-        $result  = [];
-
-        $form = $this->formFactory->create(PlaygroundFormType::class);
+        $result = [];
+        $error  = '';
+        $form   = $this->formFactory->create(PlaygroundFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            $address = $form->get('address')->getData();
-            \dump($address);
-            $result = $this->provider->geocodeQuery(GeocodeQuery::create($address))->all();
+            try {
+                $data     = $form->getData();
+                $query    = GeocodeQuery::create($data['address'])->withLocale($GLOBALS['TL_LANGUAGE']);
+                $provider = $this->provider;
+
+                if ($data['provider']) {
+                    $provider = $provider->using((int) $data['provider']);
+                }
+
+                $result = $provider->geocodeQuery($query)->all();
+            } catch (GeocoderException $e) {
+                $error = $e->getMessage();
+            }
         }
 
         return $this->twig->renderResponse(
             '@CowegisContaoGeocode/backend/playground.html.twig',
             [
+                'form'   => $form->createView(),
                 'result' => $result,
-                'form' => $form
+                'error'  => $error,
             ]
         );
     }
