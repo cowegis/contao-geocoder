@@ -10,7 +10,7 @@ use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Config\ConfigInterface;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use Contao\ManagerPlugin\Routing\RoutingPluginInterface;
-use Cowegis\ContaoGeocoder\CowegisContaoGeocodeBundle;
+use Cowegis\ContaoGeocoder\CowegisContaoGeocoderBundle;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouteCollection;
@@ -20,7 +20,7 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
     /** @return ConfigInterface[] */
     public function getBundles(ParserInterface $parser) : array
     {
-        return [BundleConfig::create(CowegisContaoGeocodeBundle::class)
+        return [BundleConfig::create(CowegisContaoGeocoderBundle::class)
                 ->setLoadAfter([ContaoCoreBundle::class]),
         ];
     }

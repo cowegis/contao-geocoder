@@ -2,6 +2,7 @@
 !/.gitignore
 !/.gitattributes
 !/src/
+!/spec/
 !/build.xml
 !/CHANGELOG.md
 !/README.md
@@ -10,4 +11,5 @@
 !/screenshot*.jpg
 !/screenshot*.png
 !phpcs.xml.dist
+!phpspec.yml
 !.composer-require-checker.json

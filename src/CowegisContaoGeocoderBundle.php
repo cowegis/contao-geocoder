@@ -8,7 +8,7 @@ use Cowegis\ContaoGeocoder\DependencyInjection\Compiler\RegisterProviderTypeFact
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-final class CowegisContaoGeocodeBundle extends Bundle
+final class CowegisContaoGeocoderBundle extends Bundle
 {
     public function build(ContainerBuilder $container) : void
     {
