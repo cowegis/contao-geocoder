@@ -81,3 +81,8 @@ final class MyService
 }
 
 ```
+
+License
+-------
+
+This extension is licensed under [LGPL-3.0-or-later](LICENSE)
