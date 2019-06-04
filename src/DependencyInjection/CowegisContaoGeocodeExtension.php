@@ -19,6 +19,11 @@ final class CowegisContaoGeocodeExtension extends Extension
             new FileLocator(__DIR__ . '/../Resources/config')
         );
 
+        $config = $this->processConfiguration(new Configuration(), $configs);
+
+        $container->setParameter('cowegis.contao_geocoder.config.default_provider', $config['default_provider']);
+        $container->setParameter('cowegis.contao_geocoder.config.providers', $config['providers']);
+
         $loader->load('services.xml');
         $loader->load('listeners.xml');
     }

@@ -12,5 +12,5 @@ interface Provider extends GeocoderProvider
 
     public function id() : string;
 
-    public function type(): string;
+    public function type() : string;
 }

@@ -5,7 +5,7 @@
         https://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="cowegis.geocode.cache_dir">%kernel.cache_dir%/cowegis/geocode</parameter>
+        <parameter key="cowegis.contao_geocoder.cache_dir">%kernel.cache_dir%/cowegis/geocode</parameter>
     </parameters>
 
     <services>
@@ -17,25 +17,25 @@
         </service>
         
         <!-- Cache -->
-        <service id="cowegis.geocode.cache.file_system" class="Doctrine\Common\Cache\FilesystemCache">
-            <argument type="string">%cowegis.geocode.cache_dir%</argument>
+        <service id="cowegis.contao_geocoder.cache.file_system" class="Doctrine\Common\Cache\FilesystemCache">
+            <argument type="string">%cowegis.contao_geocoder.cache_dir%</argument>
         </service>
 
-        <service id="cowegis.geocode.cache" class="Roave\DoctrineSimpleCache\SimpleCacheAdapter">
-            <argument type="service" id="cowegis.geocode.cache.file_system"/>
+        <service id="cowegis.contao_geocoder.cache" class="Roave\DoctrineSimpleCache\SimpleCacheAdapter">
+            <argument type="service" id="cowegis.contao_geocoder.cache.file_system"/>
         </service>
 
         <!-- HTTP client -->
-        <service id="cowegis.geocode.http_client" class="Http\Adapter\Guzzle6\Client" />
+        <service id="cowegis.contao_geocoder.http_client" class="Http\Adapter\Guzzle6\Client" />
 
         <!-- Provider factories -->
         <service id="Cowegis\ContaoGeocoder\Provider\ProviderType\GoogleMapsProviderFactory">
-            <argument type="service" id="cowegis.geocode.http_client" />
+            <argument type="service" id="cowegis.contao_geocoder.http_client" />
             <tag name="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
         </service>
 
         <service id="Cowegis\ContaoGeocoder\Provider\ProviderType\NominatimProviderFactory">
-            <argument type="service" id="cowegis.geocode.http_client" />
+            <argument type="service" id="cowegis.contao_geocoder.http_client" />
             <tag name="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
         </service>
 
@@ -50,16 +50,30 @@
             <argument type="tagged" tag="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
         </service>
 
+        <!-- Geocoder -->
         <service id="Cowegis\ContaoGeocoder\Provider\Geocoder"
-                 class="Cowegis\ContaoGeocoder\Provider\GeocoderAggregator">
+                 class="Cowegis\ContaoGeocoder\Provider\GeocoderChain">
+            <argument type="tagged" tag="Cowegis\ContaoGeocoder\Provider\Geocoder" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\ConfigDrivenGeocoder">
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
+            <argument>%cowegis.contao_geocoder.config.providers%</argument>
+            <argument>%cowegis.contao_geocoder.config.default_provider%</argument>
+            <tag name="Cowegis\ContaoGeocoder\Provider\Geocoder" priority="10" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\DatabaseDrivenGeocoder">
             <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
             <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
+            <tag name="Cowegis\ContaoGeocoder\Provider\Geocoder" />
         </service>
 
-        <service id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory" decorates="Cowegis\ContaoGeocoder\Provider\ProviderFactory">
+        <service id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory"
+                 decorates="Cowegis\ContaoGeocoder\Provider\ProviderFactory">
             <argument type="service" id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory.inner" />
-            <argument type="service" id="cowegis.geocode.cache" />
+            <argument type="service" id="cowegis.contao_geocoder.cache" />
         </service>
 
         <!-- Actions -->

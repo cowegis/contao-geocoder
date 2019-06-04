@@ -6,7 +6,6 @@ namespace Cowegis\ContaoGeocoder\Form;
 
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Cowegis\ContaoGeocoder\Provider\Provider;
-use Geocoder\Provider\Provider as GeocodeProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;

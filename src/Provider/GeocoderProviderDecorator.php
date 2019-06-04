@@ -37,7 +37,7 @@ final class GeocoderProviderDecorator implements Provider
         return $this->id;
     }
 
-    public function type(): string
+    public function type() : string
     {
         return $this->getName();
     }

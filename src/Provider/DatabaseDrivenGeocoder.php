@@ -15,53 +15,34 @@ use Geocoder\Query\ReverseQuery;
 use IteratorAggregate;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 
-final class GeocoderAggregator implements IteratorAggregate, Geocoder
+final class DatabaseDrivenGeocoder implements IteratorAggregate, Geocoder
 {
-    /** @var ProviderFactory */
-    private $factory;
-
     /** @var ProviderRepository */
     private $repository;
-
-    /** @var GeocodeProvider */
-    private $defaultProvider;
 
     /** @var RequestScopeMatcher */
     private $scopeMatcher;
 
-    /** @var array<string,Geocoder> */
-    private $providers;
-
     /** @var bool */
-    private $dbLoaded = false;
+    private $loaded = false;
+
+    /** @var Provider[]|array<string,Provider> */
+    private $providers = [];
+
+    /** @var ProviderFactory */
+    private $factory;
+
+    /** @var Provider|null */
+    private $defaultProvider;
 
     public function __construct(
         ProviderFactory $factory,
         ProviderRepository $repository,
-        RequestScopeMatcher $scopeMatcher,
-        array $providers = [],
-        GeocodeProvider $defaultProvider = null
+        RequestScopeMatcher $scopeMatcher
     ) {
-        $this->factory         = $factory;
-        $this->repository      = $repository;
-        $this->scopeMatcher    = $scopeMatcher;
-        $this->providers       = $providers;
-        $this->defaultProvider = $defaultProvider;
-    }
-
-    public function geocodeQuery(GeocodeQuery $query) : Collection
-    {
-        return $this->defaultProvider()->geocodeQuery($query);
-    }
-
-    public function reverseQuery(ReverseQuery $query) : Collection
-    {
-        return $this->defaultProvider()->reverseQuery($query);
-    }
-
-    public function getName() : string
-    {
-        return 'cowegis_provider';
+        $this->repository   = $repository;
+        $this->scopeMatcher = $scopeMatcher;
+        $this->factory      = $factory;
     }
 
     public function using(string $providerId) : Provider
@@ -70,7 +51,7 @@ final class GeocoderAggregator implements IteratorAggregate, Geocoder
             return $this->providers[$providerId];
         }
 
-        if ($this->dbLoaded) {
+        if ($this->loaded) {
             throw ProviderNotRegistered::create($providerId);
         }
 
@@ -85,20 +66,34 @@ final class GeocoderAggregator implements IteratorAggregate, Geocoder
         return $this->providers[$providerId];
     }
 
-    /** {@inheritDoc} */
+    public function geocodeQuery(GeocodeQuery $query) : Collection
+    {
+        return $this->defaultProvider()->geocodeQuery($query);
+    }
+
+    public function reverseQuery(ReverseQuery $query) : Collection
+    {
+        return $this->defaultProvider()->reverseQuery($query);
+    }
+
+    public function getName() : string
+    {
+        return 'cowegis_database';
+    }
+
+    /** @return Provider[] */
     public function getIterator() : iterable
     {
-        if ($this->dbLoaded) {
+        if ($this->loaded) {
             return new ArrayIterator($this->providers);
         }
 
-        $collection = $this->repository->findAll();
+        $this->loaded = true;
+        $collection   = $this->repository->findAll();
 
         foreach ($collection ?: [] as $model) {
             $this->providers[$model->id] = $this->factory->create($model->type, $model->row());
         }
-
-        $this->dbLoaded = true;
 
         return new ArrayIterator($this->providers);
     }
@@ -109,8 +104,7 @@ final class GeocoderAggregator implements IteratorAggregate, Geocoder
             return $this->defaultProvider;
         }
 
-        $scope = $this->getScope();
-        $model = $this->repository->findDefaultForScope($scope);
+        $model = $this->repository->findDefaultForScope($this->getScope());
         if ($model === null) {
             throw new ProviderNotRegistered('No default provider registered');
         }
@@ -124,11 +118,11 @@ final class GeocoderAggregator implements IteratorAggregate, Geocoder
     private function getScope() : ?string
     {
         if ($this->scopeMatcher->isBackendRequest()) {
-            return 'contao_backend';
+            return 'backend';
         }
 
         if ($this->scopeMatcher->isFrontendRequest()) {
-            return 'contao_frontend';
+            return 'frontend';
         }
 
         return null;
