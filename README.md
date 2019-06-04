@@ -1,6 +1,11 @@
 Cowegis Contao Geocoder
 =======================
 
+[![Build Status](http://img.shields.io/travis/cowegis/contao-geocoder/master.svg?style=flat-square)](https://travis-ci.org/cowegis/contao-geocoder)
+[![Version](http://img.shields.io/packagist/v/cowegis/contao-geocoder.svg?style=flat-square)](http://packagist.org/packages/cowegis/contao-geocoder)
+[![License](http://img.shields.io/packagist/l/cowegis/contao-geocoder.svg?style=flat-square)](http://packagist.org/packages/cowegis/contao-geocoder)
+[![Downloads](http://img.shields.io/packagist/dt/cowegis/contao-geocoder.svg?style=flat-square)](http://packagist.org/packages/cowegis/contao-geocoder)
+
 This extension integrates the [Geocoder PHP library](http://geocoder-php.org) into Contao CMS.
 It's designed for other extensions to use a common geocoder implementation.
 
