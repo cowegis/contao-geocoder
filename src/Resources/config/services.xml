@@ -50,8 +50,8 @@
             <argument type="tagged" tag="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
         </service>
 
-        <service id="Cowegis\ContaoGeocoder\Provider\Provider"
-                 class="Cowegis\ContaoGeocoder\Provider\ProviderAggregator">
+        <service id="Cowegis\ContaoGeocoder\Provider\Geocoder"
+                 class="Cowegis\ContaoGeocoder\Provider\GeocoderAggregator">
             <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
             <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
             <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
@@ -64,14 +64,14 @@
 
         <!-- Actions -->
         <service id="Cowegis\ContaoGeocoder\Action\BackendPlaygroundAction" public="true">
-            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\Provider" />
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\Geocoder" />
             <argument type="service" id="templating.engine.twig" />
             <argument type="service" id="form.factory" />
         </service>
 
         <!-- Forms -->
         <service id="Cowegis\ContaoGeocoder\Form\PlaygroundFormType">
-            <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\Geocoder" />
             <tag name="form.type" />
         </service>
     </services>

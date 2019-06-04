@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Form;
 
-use Cowegis\ContaoGeocoder\Model\ProviderRepository;
+use Cowegis\ContaoGeocoder\Provider\Geocoder;
+use Cowegis\ContaoGeocoder\Provider\Provider;
+use Geocoder\Provider\Provider as GeocodeProvider;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -15,12 +17,12 @@ use function sprintf;
 
 final class PlaygroundFormType extends AbstractType
 {
-    /** @var ProviderRepository */
-    private $providerRepository;
+    /** @var Geocoder */
+    private $geocoder;
 
-    public function __construct(ProviderRepository $providerRepository)
+    public function __construct(Geocoder $geocoder)
     {
-        $this->providerRepository = $providerRepository;
+        $this->geocoder = $geocoder;
     }
 
     /** {@inheritDoc} */
@@ -44,17 +46,15 @@ final class PlaygroundFormType extends AbstractType
                 'choice_loader'             => new CallbackChoiceLoader(function () {
                     $choices = [];
 
-                    foreach ($this->providerRepository->findAll() ?: [] as $provider) {
-                        $choices[$provider->id] = $provider;
+                    /** @var Provider $provider */
+                    foreach ($this->geocoder as $provider) {
+                        $choices[$provider->id()] = $provider;
                     }
 
                     return $choices;
                 }),
-                'choice_label'              => static function ($choice, $key, $value) {
-                    return sprintf('%s [%s]', $choice->title, $choice->type);
-                },
-                'preferred_choices'         => static function ($choice) {
-                    return $choice->isDefault && $choice->scope !== 'frontend';
+                'choice_label'              => static function (Provider $provider) {
+                    return sprintf('%s [%s]', $provider->title(), $provider->type());
                 },
             ]
         );

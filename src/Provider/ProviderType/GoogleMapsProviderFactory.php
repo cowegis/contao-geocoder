@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
+use Cowegis\ContaoGeocoder\Provider\Provider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFeature;
 use Geocoder\Provider\GoogleMaps\GoogleMaps;
-use Geocoder\Provider\Provider;
 
-final class GoogleMapsProviderFactory extends BaseProviderTypeFactory
+final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
 {
     protected const FEATURES = [ProviderFeature::ADDRESS, ProviderFeature::REVERSE];
 
@@ -22,9 +22,8 @@ final class GoogleMapsProviderFactory extends BaseProviderTypeFactory
     {
         $region = $config['google_region'] ?? null;
         $region = $region ?: null;
-
         $apiKey = $config['google_api_key'] ?? '';
 
-        return new GoogleMaps($this->httpClient, $region, $apiKey);
+        return $this->createDecorator(new GoogleMaps($this->httpClient, $region, $apiKey), $config);
     }
 }

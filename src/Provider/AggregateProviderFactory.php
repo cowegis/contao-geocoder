@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider;
 
 use Geocoder\Exception\ProviderNotRegistered;
-use Geocoder\Provider\Provider;
 use function array_key_exists;
 use function array_keys;
 

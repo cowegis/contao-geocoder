@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider;
 
 use Geocoder\Provider\Cache\ProviderCache;
-use Geocoder\Provider\Provider;
 use Psr\SimpleCache\CacheInterface;
 
 final class CacheProviderFactory implements ProviderFactory
 {
+    use GeocoderProviderDecoratorFactory;
+
     /** @var ProviderFactory */
     private $factory;
 
@@ -49,6 +50,6 @@ final class CacheProviderFactory implements ProviderFactory
             return $provider;
         }
 
-        return new ProviderCache($provider, $this->cache, $lifeTime);
+        return $this->createDecorator(new ProviderCache($provider, $this->cache, $lifeTime), $config);
     }
 }

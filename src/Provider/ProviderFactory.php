@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider;
 
-use Geocoder\Provider\Provider;
-
 interface ProviderFactory
 {
     public function register(ProviderTypeFactory $factory) : void;

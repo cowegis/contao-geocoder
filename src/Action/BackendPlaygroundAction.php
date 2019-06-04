@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Action;
 
 use Cowegis\ContaoGeocoder\Form\PlaygroundFormType;
-use Cowegis\ContaoGeocoder\Provider\Provider;
+use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Geocoder\Exception\Exception as GeocoderException;
 use Geocoder\Query\GeocodeQuery;
 use Symfony\Bundle\TwigBundle\TwigEngine;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class BackendPlaygroundAction
 {
-    /** @var Provider */
+    /** @var Geocoder */
     private $provider;
 
     /** @var TwigEngine */
@@ -24,7 +24,7 @@ final class BackendPlaygroundAction
     /** @var FormFactoryInterface */
     private $formFactory;
 
-    public function __construct(Provider $provider, TwigEngine $twig, FormFactoryInterface $formFactory)
+    public function __construct(Geocoder $provider, TwigEngine $twig, FormFactoryInterface $formFactory)
     {
         $this->provider    = $provider;
         $this->twig        = $twig;
@@ -45,7 +45,7 @@ final class BackendPlaygroundAction
                 $provider = $this->provider;
 
                 if ($data['provider']) {
-                    $provider = $provider->using((int) $data['provider']);
+                    $provider = $data['provider'];
                 }
 
                 $result = $provider->geocodeQuery($query)->all();

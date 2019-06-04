@@ -6,14 +6,12 @@ namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
 use Contao\StringUtil;
 use Cowegis\ContaoGeocoder\Model\ProviderRepository;
+use Cowegis\ContaoGeocoder\Provider\Provider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Cowegis\ContaoGeocoder\Provider\ProviderFeature;
-use Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory;
 use Geocoder\Provider\Chain\Chain;
-use Geocoder\Provider\Provider;
-use function in_array;
 
-final class ChainProviderFactory implements ProviderTypeFactory
+final class ChainProviderFactory extends BaseProviderTypeFactory
 {
     protected const FEATURES = [ProviderFeature::ADDRESS, ProviderFeature::REVERSE];
 
@@ -34,11 +32,6 @@ final class ChainProviderFactory implements ProviderTypeFactory
         return 'chain';
     }
 
-    public function supports(string $feature) : bool
-    {
-        return in_array($feature, static::FEATURES, true);
-    }
-
     /** {@inheritDoc} */
     public function create(array $config) : Provider
     {
@@ -50,6 +43,6 @@ final class ChainProviderFactory implements ProviderTypeFactory
             $chain->add($this->factory->create($provider->type, $provider->row()));
         }
 
-        return $chain;
+        return $this->createDecorator($chain, $config);
     }
 }

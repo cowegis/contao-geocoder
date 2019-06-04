@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider;
 
-use Geocoder\Provider\Provider as GeocodeProvider;
+use Geocoder\Provider\Provider as GeocoderProvider;
 
-interface Provider extends GeocodeProvider
+interface Provider extends GeocoderProvider
 {
-    public function using(int $providerId) : GeocodeProvider;
+    public function title() : string;
+
+    public function id() : string;
+
+    public function type(): string;
 }
