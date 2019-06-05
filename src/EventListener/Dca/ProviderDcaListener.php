@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\EventListener\Dca;
 
 use Contao\DataContainer;
-use Cowegis\ContaoGeocoder\Model\ProviderRepository;
+use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
-use Netzmacht\Contao\Toolkit\Dca\Options\OptionsBuilder;
 use Symfony\Component\Routing\RouterInterface;
 use function sprintf;
 
@@ -21,23 +20,23 @@ final class ProviderDcaListener extends AbstractListener
     /** @var ProviderFactory */
     private $providerFactory;
 
-    /** @var ProviderRepository */
-    private $providerRepository;
+    /** @var Geocoder */
+    private $geocoder;
 
     /** @var RouterInterface */
     private $router;
 
     public function __construct(
         DcaManager $dcaManager,
-        ProviderRepository $providerRepository,
         ProviderFactory $providerFactory,
+        Geocoder $geocoder,
         RouterInterface $router
     ) {
         parent::__construct($dcaManager);
 
-        $this->providerFactory    = $providerFactory;
-        $this->providerRepository = $providerRepository;
-        $this->router             = $router;
+        $this->providerFactory = $providerFactory;
+        $this->router          = $router;
+        $this->geocoder        = $geocoder;
     }
 
     /** @param mixed[] $row */
@@ -59,13 +58,17 @@ final class ProviderDcaListener extends AbstractListener
     /** @return string[] */
     public function providerOptions(?DataContainer $dataContainer = null) : array
     {
-        if ($dataContainer) {
-            $collection = $this->providerRepository->findBy(['.id != ?'], [$dataContainer->id], ['order' => '.title']);
-        } else {
-            $collection = $this->providerRepository->findAll(['order' => '.title']);
+        $options = [];
+
+        foreach ($this->geocoder as $provider) {
+            if ($dataContainer && $dataContainer->id === $provider->providerId()) {
+                continue;
+            }
+
+            $options[$provider->providerId()] = $provider->title();
         }
 
-        return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
+        return $options;
     }
 
     public function playgroundButton(?string $href, string $label, string $title) : string

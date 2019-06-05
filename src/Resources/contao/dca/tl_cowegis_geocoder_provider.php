@@ -161,8 +161,9 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'eval'             => [
                 'mandatory' => true,
                 'tl_class'  => 'clr',
+                'multiple' => true,
             ],
-            'sql'              => 'varchar(64) NOT NULL default \'\'',
+            'sql'              => 'blob NULL',
         ],
         'nominatim_root_url' => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['nominatim_root_url'],
