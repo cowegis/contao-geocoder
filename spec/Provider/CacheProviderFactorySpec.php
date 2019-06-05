@@ -12,7 +12,7 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Psr\SimpleCache\CacheInterface;
 
-class CacheProviderFactorySpec extends ObjectBehavior
+final class CacheProviderFactorySpec extends ObjectBehavior
 {
     public function let(ProviderFactory $factory, CacheInterface $cache) : void
     {
