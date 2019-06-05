@@ -56,4 +56,9 @@ final class GeocoderProviderDecorator implements Provider
     {
         return $this->provider->getName();
     }
+
+    public function provider() : GeocoderProvider
+    {
+        return $this->provider;
+    }
 }
