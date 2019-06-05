@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider;
 
+use function array_keys;
 use ArrayIterator;
 use Geocoder\Collection;
 use Geocoder\Exception\ProviderNotRegistered;
@@ -15,7 +16,7 @@ use IteratorAggregate;
 final class Geocoder implements GeocodeProvider, IteratorAggregate
 {
     /** @var Provider[] */
-    private $providers;
+    private $providers = [];
 
     /** @var Provider|null */
     private $defaultProvider;
@@ -29,18 +30,13 @@ final class Geocoder implements GeocodeProvider, IteratorAggregate
         $this->providers[$provider->providerId()] = $provider;
     }
 
-    public function registerDefaultProvider(Provider $provider) : void
-    {
-        $this->defaultProvider = $provider;
-    }
-
     public function using(string $providerId) : Provider
     {
         if (isset($this->providers[$providerId])) {
             return $this->providers[$providerId];
         }
 
-        throw ProviderNotRegistered::create($providerId, $this->providers);
+        throw ProviderNotRegistered::create($providerId, array_keys($this->providers));
     }
 
     /** @return Provider[] */
