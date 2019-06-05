@@ -45,13 +45,12 @@ Usage
 ```yaml
 # app/config/config.yml
 
-cowegis_contao_geocode:
+cowegis_contao_geocoder:
     providers:
       foo:
         title: "Foo Geocoder"
         type: "google_maps"
-        config:
-          google_api_key: "ABC"
+        google_api_key: "ABC"
       bar:
         title: "Bar Geocoder"
         type: "nominatim"

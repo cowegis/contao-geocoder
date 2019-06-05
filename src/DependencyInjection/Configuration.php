@@ -23,16 +23,12 @@ final class Configuration implements ConfigurationInterface
                 ->end()
                 ->arrayNode('providers')
                     ->arrayPrototype()
+                        ->scalarPrototype()
+                        ->end()
                         ->children()
                             ->scalarNode('type')
                             ->end()
-                            ->arrayNode('config')
-                                ->scalarPrototype()
-                                ->end()
-                                ->children()
-                                    ->scalarNode('title')
-                                    ->end()
-                                ->end()
+                            ->scalarNode('title')
                             ->end()
                         ->end()
                         ->beforeNormalization()
@@ -42,8 +38,8 @@ final class Configuration implements ConfigurationInterface
                                 }
                             )->then(
                                 static function ($value) {
-                                        Assert::that($value['config'])->keyExists('google_api_key');
-                                        Assert::that($value['config']['google_api_key'])->string();
+                                        Assert::that($value)->keyExists('google_api_key');
+                                        Assert::that($value['google_api_key'])->string();
 
                                         return $value;
                                 }
@@ -55,7 +51,7 @@ final class Configuration implements ConfigurationInterface
                 ->beforeNormalization()
                     ->always(static function ($value) {
                         foreach (array_keys($value['providers']) as $providerId) {
-                            $value['providers'][$providerId]['config']['id'] = $providerId;
+                            $value['providers'][$providerId]['id'] = $providerId;
                         }
 
                         return $value;

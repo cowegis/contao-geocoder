@@ -50,30 +50,37 @@
             <argument type="tagged" tag="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
         </service>
 
-        <!-- Geocoder -->
-        <service id="Cowegis\ContaoGeocoder\Provider\Geocoder"
-                 class="Cowegis\ContaoGeocoder\Provider\GeocoderChain">
-            <argument type="tagged" tag="Cowegis\ContaoGeocoder\Provider\Geocoder" />
-        </service>
-
-        <service id="Cowegis\ContaoGeocoder\Provider\ConfigDrivenGeocoder">
-            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
-            <argument>%cowegis.contao_geocoder.config.providers%</argument>
-            <argument>%cowegis.contao_geocoder.config.default_provider%</argument>
-            <tag name="Cowegis\ContaoGeocoder\Provider\Geocoder" priority="10" />
-        </service>
-
-        <service id="Cowegis\ContaoGeocoder\Provider\DatabaseDrivenGeocoder">
-            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
-            <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
-            <argument type="service" id="netzmacht.contao_toolkit.routing.scope_matcher" />
-            <tag name="Cowegis\ContaoGeocoder\Provider\Geocoder" />
-        </service>
-
         <service id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory"
                  decorates="Cowegis\ContaoGeocoder\Provider\ProviderFactory">
             <argument type="service" id="Cowegis\ContaoGeocoder\Provider\CacheProviderFactory.inner" />
             <argument type="service" id="cowegis.contao_geocoder.cache" />
+        </service>
+
+        <!-- Config providers -->
+        <service id="Cowegis\ContaoGeocoder\Provider\ConfigProvider"
+                 class="Cowegis\ContaoGeocoder\Provider\ConfigProvider\ConfigProviderChain">
+            <argument type="tagged" tag="Cowegis\ContaoGeocoder\Provider\ConfigProvider" />
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\ConfigProvider\DatabaseConfigProvider">
+            <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
+            <tag name="Cowegis\ContaoGeocoder\Provider\ConfigProvider" priority="0" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\ConfigProvider\ApplicationConfigProvider">
+            <argument>%cowegis.contao_geocoder.config.providers%</argument>
+            <tag name="Cowegis\ContaoGeocoder\Provider\ConfigProvider" priority="10" />
+        </service>
+
+        <!-- Geocoder -->
+        <service id="Cowegis\ContaoGeocoder\Provider\GeocoderFactory">
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ConfigProvider" />
+            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
+        </service>
+
+        <service id="Cowegis\ContaoGeocoder\Provider\Geocoder" class="Cowegis\ContaoGeocoder\Provider\Geocoder">
+            <factory service="Cowegis\ContaoGeocoder\Provider\GeocoderFactory" method="__invoke" />
         </service>
 
         <!-- Actions -->
