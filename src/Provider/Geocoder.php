@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider;
 
-use function array_keys;
 use ArrayIterator;
 use Geocoder\Collection;
 use Geocoder\Exception\ProviderNotRegistered;
@@ -12,6 +11,7 @@ use Geocoder\Provider\Provider as GeocodeProvider;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
 use IteratorAggregate;
+use function array_keys;
 
 final class Geocoder implements GeocodeProvider, IteratorAggregate
 {
