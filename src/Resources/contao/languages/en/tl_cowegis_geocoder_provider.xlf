@@ -65,12 +65,6 @@
             <trans-unit id="tl_cowegis_geocoder_provider.isDefault.1">
                 <source>Use this provider as default provider.</source>
             </trans-unit>
-            <trans-unit id="tl_cowegis_geocoder_provider.scope.0">
-                <source>Scope</source>
-            </trans-unit>
-            <trans-unit id="tl_cowegis_geocoder_provider.scope.1">
-                <source>Choose a scope there which provider is defined as default provider.</source>
-            </trans-unit>
             <trans-unit id="tl_cowegis_geocoder_provider.cache.0">
                 <source>Cache results</source>
             </trans-unit>

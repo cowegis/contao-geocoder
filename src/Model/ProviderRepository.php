@@ -14,15 +14,6 @@ final class ProviderRepository extends ContaoRepository
         parent::__construct(ProviderModel::class);
     }
 
-    public function findDefaultForScope(?string $scope) : ?ProviderModel
-    {
-        if ($scope) {
-            return $this->findOneBy(['.isDefault=?', '.scope=?'], ['1', $scope]);
-        }
-
-        return $this->findOneBy(['.isDefault=?', '.scope=?'], ['1', '']);
-    }
-
     /**
      * @param int[] $providerIds
      *

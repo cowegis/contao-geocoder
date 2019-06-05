@@ -81,13 +81,12 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
         'google_maps extends default' => [
             'config' => ['google_api_key', 'google_region'],
         ],
-        'chain extends default' => [
+        'chain extends default'       => [
             'config' => ['chain_providers'],
         ],
     ],
     'metasubpalettes' => [
-        'isDefault' => ['scope'],
-        'cache'     => ['cache_ttl'],
+        'cache' => ['cache_ttl'],
     ],
     'fields'          => [
         'id'                 => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
@@ -122,21 +121,8 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['isDefault'],
             'exclude'   => true,
             'inputType' => 'checkbox',
-            'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
+            'eval'      => ['tl_class' => 'w50'],
             'sql'       => 'char(1) NOT NULL default \'\'',
-        ],
-        'scope'              => [
-            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['scope'],
-            'exclude'   => true,
-            'inputType' => 'select',
-            'options'   => ['frontend', 'backend'],
-            'reference' => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['scopes'],
-            'eval'      => [
-                'tl_class'           => 'w50',
-                'includeBlankOption' => true,
-                'blankOptionLabel'   => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['scopes'][''],
-            ],
-            'sql'       => 'varchar(16) NOT NULL default \'\'',
         ],
         'cache'              => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['cache'],
@@ -161,7 +147,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'eval'             => [
                 'mandatory' => true,
                 'tl_class'  => 'clr',
-                'multiple' => true,
+                'multiple'  => true,
             ],
             'sql'              => 'blob NULL',
         ],
