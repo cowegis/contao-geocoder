@@ -8,12 +8,11 @@ use Contao\StringUtil;
 use Cowegis\ContaoGeocoder\Model\ProviderRepository;
 use Cowegis\ContaoGeocoder\Provider\Provider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
-use Cowegis\ContaoGeocoder\Provider\ProviderFeature;
 use Geocoder\Provider\Chain\Chain;
 
 final class ChainProviderFactory extends BaseProviderTypeFactory
 {
-    protected const FEATURES = [ProviderFeature::ADDRESS, ProviderFeature::REVERSE];
+    protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
     /** @var ProviderFactory */
     private $factory;

@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
 use Cowegis\ContaoGeocoder\Provider\Provider;
-use Cowegis\ContaoGeocoder\Provider\ProviderFeature;
 use Geocoder\Provider\GoogleMaps\GoogleMaps;
 
 final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
 {
-    protected const FEATURES = [ProviderFeature::ADDRESS, ProviderFeature::REVERSE];
+    protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
     public function name() : string
     {
