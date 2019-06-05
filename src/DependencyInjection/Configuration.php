@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\DependencyInjection;
 
-use function array_keys;
 use Assert\Assert;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use function array_keys;
 
 final class Configuration implements ConfigurationInterface
 {

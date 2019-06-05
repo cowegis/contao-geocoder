@@ -40,11 +40,7 @@ final class ProviderDcaListener extends AbstractListener
         $this->router             = $router;
     }
 
-    /**
-     * @param mixed[] $row
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
+    /** @param mixed[] $row */
     public function formatLabel(array $row, string $label, DataContainer $dataContainer) : string
     {
         return sprintf(
@@ -72,9 +68,6 @@ final class ProviderDcaListener extends AbstractListener
         return OptionsBuilder::fromCollection($collection, 'title')->getOptions();
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
     public function playgroundButton(?string $href, string $label, string $title) : string
     {
         return sprintf(

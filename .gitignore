@@ -12,5 +12,7 @@
 !/screenshot*.jpg
 !/screenshot*.png
 !phpcs.xml.dist
+!phpmd.xml
 !phpspec.yml
 !.composer-require-checker.json
+!build.default.properties

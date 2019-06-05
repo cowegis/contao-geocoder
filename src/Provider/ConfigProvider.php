@@ -8,5 +8,4 @@ use Traversable;
 
 interface ConfigProvider extends Traversable
 {
-
 }

@@ -13,9 +13,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class PlaygroundFormTypeSpec extends ObjectBehavior
 {
-    public function let(Geocoder $geocoder) : void
+    public function let() : void
     {
-        $this->beConstructedWith($geocoder);
+        $this->beConstructedWith(new Geocoder());
     }
 
     public function it_is_initializable() : void

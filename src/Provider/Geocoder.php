@@ -14,14 +14,10 @@ use IteratorAggregate;
 
 final class Geocoder implements GeocodeProvider, IteratorAggregate
 {
-    /**
-     * @var Provider[]
-     */
+    /** @var Provider[] */
     private $providers;
 
-    /**
-     * @var Provider|null
-     */
+    /** @var Provider|null */
     private $defaultProvider;
 
     public function register(Provider $provider) : void
@@ -47,6 +43,7 @@ final class Geocoder implements GeocodeProvider, IteratorAggregate
         throw ProviderNotRegistered::create($providerId, $this->providers);
     }
 
+    /** @return Provider[] */
     public function getIterator() : iterable
     {
         return new ArrayIterator($this->providers);

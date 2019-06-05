@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<ruleset name="PHP code quality project PHPMD rule set"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0  http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation=" http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>
+        PHP code quality project PHPMD rule set
+    </description>
+
+    <rule ref="rulesets/codesize.xml">
+        <!-- 15 properties is too little for entities and some other class types -->
+        <exclude name="TooManyFields"/>
+        <!-- 10 methods is too little for entities and some other class types -->
+        <exclude name="TooManyMethods"/>
+        <!-- An overall complexity of 50 is too low in our mind, we increased it to 80 -->
+        <exclude name="ExcessiveClassComplexity"/>
+    </rule>
+    <rule ref="rulesets/controversial.xml"/>
+    <rule ref="rulesets/design.xml">
+        <!-- we love modular, dependency injection style programming that often have a higher coupling -->
+        <exclude name="CouplingBetweenObjects"/>
+    </rule>
+    <rule ref="rulesets/naming.xml">
+        <!-- we love descriptive variable names -->
+        <exclude name="LongVariable"/>
+    </rule>
+    <rule ref="rulesets/unusedcode.xml">
+        <exclude name="UnusedFormalParameter" />
+    </rule>
+
+    <rule name="ExcessiveClassComplexity"
+          since="0.2.5"
+          class="PHP_PMD_Rule_Design_WeightedMethodCount"
+          message="The class {0} has an overall complexity of {1} which is very high. The configured complexity threshold is {2}."
+          externalInfoUrl="http://phpmd.org/rules/codesize.html#excessiveclasscomplexity">
+        <description>
+            <![CDATA[
+The WMC of a class is a good indicator of how much time and effort is required
+to modify and maintain this class. A large number of methods also means that
+this class has a greater potential impact on derived classes.
+            ]]>
+        </description>
+        <priority>3</priority>
+        <properties>
+            <property name="maximum" description="The maximum WMC tolerable for a class." value="80"/>
+        </properties>
+        <example>
+            <![CDATA[
+class Foo {
+	public function bar()  {
+		if ($a == $b)  {
+			if ($a1 == $b1) {
+				fiddle();
+			} else if ($a2 == $b2) {
+				fiddle();
+			}  else {
+			}
+		}
+	}
+	public function baz()  {
+		if ($a == $b)  {
+			if ($a1 == $b1) {
+				fiddle();
+			} else if ($a2 == $b2) {
+				fiddle();
+			}  else {
+			}
+		}
+	}
+	// Several other complex methods
+}
+            ]]>
+        </example>
+    </rule>
+</ruleset>

@@ -29,7 +29,6 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
         ];
     }
 
-    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel) : ?RouteCollection
     {
         $loader = $resolver->resolve(__DIR__ . '/../Resources/config/routing.xml');

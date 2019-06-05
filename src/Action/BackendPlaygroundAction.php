@@ -31,6 +31,9 @@ final class BackendPlaygroundAction
         $this->formFactory = $formFactory;
     }
 
+    // phpcs:disable SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment
+    /** @SuppressWarnings(PHPMD.Superglobals) */
+    // phpcs:enable
     public function __invoke(Request $request) : Response
     {
         $result = [];

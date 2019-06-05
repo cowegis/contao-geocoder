@@ -68,7 +68,6 @@ final class MyService
 {
     private $geocoder;
     
-    providerId
     public function __construct(Geocoder $geocoder)
     {
         $this->geocoder = $geocoder;
