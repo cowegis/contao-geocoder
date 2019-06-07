@@ -11,7 +11,7 @@ use IteratorIterator;
 
 final class ConfigProviderChain implements IteratorAggregate, ConfigProvider
 {
-    /** @var ConfigProvider[] */
+    /** @var iterable|ConfigProvider[] */
     private $configProviders;
 
     /**

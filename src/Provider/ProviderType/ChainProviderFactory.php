@@ -9,6 +9,7 @@ use Cowegis\ContaoGeocoder\Model\ProviderRepository;
 use Cowegis\ContaoGeocoder\Provider\Provider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Geocoder\Provider\Chain\Chain;
+use function array_map;
 
 final class ChainProviderFactory extends BaseProviderTypeFactory
 {
@@ -35,8 +36,12 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
     public function create(array $config) : Provider
     {
         $chain       = new Chain();
-        $providerIds = StringUtil::deserialize($config['chain_providers'] ?? '', true);
-        $providers   = $this->repository->findByIds($providerIds);
+        $providerIds = array_map(
+            'intval',
+            (array) StringUtil::deserialize($config['chain_providers'] ?? '', true)
+        );
+
+        $providers = $this->repository->findByIds($providerIds);
 
         foreach ($providers ?: [] as $provider) {
             $chain->add($this->factory->create($provider->type, $provider->row()));

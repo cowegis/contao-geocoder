@@ -10,6 +10,8 @@ use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
 use Symfony\Component\Routing\RouterInterface;
+use function implode;
+use function is_array;
 use function sprintf;
 
 final class ProviderDcaListener extends AbstractListener
@@ -42,10 +44,15 @@ final class ProviderDcaListener extends AbstractListener
     /** @param mixed[] $row */
     public function formatLabel(array $row, string $label, DataContainer $dataContainer) : string
     {
+        $value = $this->getFormatter()->formatValue('type', $row['type'], $dataContainer);
+        if (is_array($value)) {
+            $value = implode(', ', $value);
+        }
+
         return sprintf(
             '%s <small class="tl_gray">[%s]</small>',
             $row['title'],
-            $this->getFormatter()->formatValue('type', $row['type'], $dataContainer)
+            (string) $value
         );
     }
 
@@ -61,7 +68,7 @@ final class ProviderDcaListener extends AbstractListener
         $options = [];
 
         foreach ($this->geocoder as $provider) {
-            if ($dataContainer && $dataContainer->id === $provider->providerId()) {
+            if ($dataContainer && ((string) $dataContainer->id) === $provider->providerId()) {
                 continue;
             }
 
