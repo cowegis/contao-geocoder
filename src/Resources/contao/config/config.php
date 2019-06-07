@@ -14,6 +14,6 @@ array_insert(
     ]
 );
 
-if (TL_MODE === 'BE') {
+if (\Contao\System::getContainer()->get('netzmacht.contao_toolkit.routing.scope_matcher')->isBackendRequest()) {
     $GLOBALS['TL_CSS'][] = 'bundles/cowegiscontaogeocode/css/backend.css|static';
 }

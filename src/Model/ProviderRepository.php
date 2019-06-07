@@ -21,6 +21,6 @@ final class ProviderRepository extends ContaoRepository
      */
     public function findByIds(array $providerIds) : ?Collection
     {
-        return $this->findMultipleByIds($providerIds);
+        return $this->__call('findMultipleByIds', [$providerIds]);
     }
 }

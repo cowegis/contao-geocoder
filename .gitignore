@@ -14,5 +14,6 @@
 !phpcs.xml.dist
 !phpmd.xml
 !phpspec.yml
+!phpstan.neon
 !.composer-require-checker.json
 !build.default.properties

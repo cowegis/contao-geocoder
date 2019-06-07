@@ -1,0 +1,3 @@
+parameters:
+  autoload_files:
+    - %currentWorkingDirectory%/vendor/contao/core-bundle/src/Resources/contao/helper/functions.php
