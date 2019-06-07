@@ -9,6 +9,7 @@ use Cowegis\ContaoGeocoder\Model\ProviderRepository;
 use Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use IteratorAggregate;
+use Traversable;
 use function count;
 use function sprintf;
 use function str_repeat;
@@ -27,8 +28,8 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
         $this->providerFactory = $providerFactory;
     }
 
-    /** @return mixed[][] */
-    public function getIterator() : iterable
+    /** @return Traversable|mixed[][] */
+    public function getIterator() : Traversable
     {
         $types = $this->providerFactory->typeNames();
         if (count($types) === 0) {
@@ -41,7 +42,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
             ['.isDefault \'1\',\'\'']
         );
 
-        if ($collection) {
+        if ($collection !== null) {
             return new ArrayIterator($collection->fetchAll());
         }
 

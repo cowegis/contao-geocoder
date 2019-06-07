@@ -8,6 +8,7 @@ use AppendIterator;
 use Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use IteratorAggregate;
 use IteratorIterator;
+use Traversable;
 
 final class ConfigProviderChain implements IteratorAggregate, ConfigProvider
 {
@@ -22,7 +23,7 @@ final class ConfigProviderChain implements IteratorAggregate, ConfigProvider
         $this->configProviders = $configProviders;
     }
 
-    /** @return mixed[][] */
+    /** @return Traversable|mixed[][] */
     public function getIterator() : iterable
     {
         $iterator = new AppendIterator();

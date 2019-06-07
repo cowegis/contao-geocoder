@@ -6,7 +6,7 @@
     <target name="phpstan">
         <exec dir="${basedir}" executable="${phpcq.php-cli.bin}" failonerror="true" taskname="phpstan">
             <arg value="vendor/bin/phpstan"/>
-            <arg line="analyse -l max -c phpstan.neon --no-progess ./src"/>
+            <arg line="analyse -l max -c phpstan.neon --no-progress ./src"/>
         </exec>
     </target>
 

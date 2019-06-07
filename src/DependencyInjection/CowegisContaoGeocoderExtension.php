@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 final class CowegisContaoGeocoderExtension extends Extension
 {
-    /** @param mixed[][] $configs */
+    /** @param array|mixed[] $configs */
     public function load(array $configs, ContainerBuilder $container) : void
     {
         $loader = new XmlFileLoader(

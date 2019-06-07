@@ -7,6 +7,7 @@ namespace Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use ArrayIterator;
 use Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use IteratorAggregate;
+use Traversable;
 
 final class ApplicationConfigProvider implements IteratorAggregate, ConfigProvider
 {
@@ -19,7 +20,7 @@ final class ApplicationConfigProvider implements IteratorAggregate, ConfigProvid
         $this->providers = $providers;
     }
 
-    /** @return mixed[][] */
+    /** @return Traversable|mixed[][] */
     public function getIterator() : iterable
     {
         return new ArrayIterator($this->providers);

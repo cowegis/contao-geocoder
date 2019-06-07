@@ -68,7 +68,7 @@ final class ProviderDcaListener extends AbstractListener
         $options = [];
 
         foreach ($this->geocoder as $provider) {
-            if ($dataContainer && ((string) $dataContainer->id) === $provider->providerId()) {
+            if ($dataContainer !== null && ((string) $dataContainer->id) === $provider->providerId()) {
                 continue;
             }
 
