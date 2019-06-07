@@ -10,8 +10,15 @@
         </exec>
     </target>
 
-    <target name="composer-require-checker">
-        <exec dir="${basedir}" executable="composer-require-checker" failonerror="true" taskname="composer-require-checker">
+    <target name="-detect-composer-require-checker" unless="composer-require-checker.task.bin">
+        <find-file-in-path
+                name="composer-require-checker"
+                property="composer-require-checker.task.bin"
+        />
+    </target>
+
+    <target name="composer-require-checker" depends="-detect-composer-require-checker">
+        <exec dir="${basedir}" executable="${composer-require-checker.task.bin}" failonerror="true" taskname="composer-require-checker">
             <arg line="check composer.json --config-file .composer-require-checker.json"/>
         </exec>
     </target>
