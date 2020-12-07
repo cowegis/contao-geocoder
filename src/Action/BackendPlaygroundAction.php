@@ -8,11 +8,10 @@ use Cowegis\ContaoGeocoder\Form\PlaygroundFormType;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Geocoder\Exception\Exception as GeocoderException;
 use Geocoder\Query\GeocodeQuery;
-use Netzmacht\Contao\Toolkit\View\Template\TemplateRenderer;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use function is_array;
+use Twig\Environment as Twig;
 
 /**
  * @psalm-type TFormData = array{address: string, provider: string}
@@ -22,16 +21,16 @@ final class BackendPlaygroundAction
     /** @var Geocoder */
     private $provider;
 
-    /** @var TemplateRenderer */
-    private $renderer;
+    /** @var Twig */
+    private $twig;
 
     /** @var FormFactoryInterface */
     private $formFactory;
 
-    public function __construct(Geocoder $provider, TemplateRenderer $renderer, FormFactoryInterface $formFactory)
+    public function __construct(Geocoder $provider, Twig $twig, FormFactoryInterface $formFactory)
     {
         $this->provider    = $provider;
-        $this->renderer    = $renderer;
+        $this->twig        = $twig;
         $this->formFactory = $formFactory;
     }
 
@@ -60,7 +59,7 @@ final class BackendPlaygroundAction
         }
 
         return new Response(
-            $this->renderer->render(
+            $this->twig->render(
                 '@CowegisContaoGeocoder/backend/playground.html.twig',
                 [
                     'form'   => $form->createView(),
