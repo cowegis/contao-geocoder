@@ -18,6 +18,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use function array_filter;
 use function assert;
+use function is_string;
 
 final class SearchAction
 {
@@ -35,6 +36,7 @@ final class SearchAction
         $query    = $this->buildQuery($request);
         $result   = $qeocoder->geocodeQuery($query);
         $format   = $request->query->get('format', 'json');
+        assert(is_string($format));
 
         switch ($format) {
             case 'json':
@@ -45,13 +47,9 @@ final class SearchAction
         }
     }
 
-    /**
-     * @param Request $request
-     * @return GeocodeQuery
-     */
     protected function buildQuery(Request $request) : GeocodeQuery
     {
-        $query = GeocodeQuery::create($request->query->get('q'));
+        $query = GeocodeQuery::create((string) $request->query->get('q'));
         $query = $query->withLocale($request->getLocale());
 
         if ($request->query->has('limit')) {
@@ -86,21 +84,21 @@ final class SearchAction
                 $record['lng'] = $coordinates->getLongitude();
             }
 
+            $country = $item->getCountry();
             $address = [
                 'street'        => $item->getStreetName(),
                 'street_number' => $item->getStreetNumber(),
                 'city'          => $item->getLocality(),
                 'postcode'      => $item->getPostalCode(),
-                'country'       => $item->getCountry() ? $item->getCountry()->getName() : null,
-                'country_code'  => $item->getCountry() ? $item->getCountry()->getCode() : null,
+                'country'       => $country ? $country->getName() : null,
+                'country_code'  => $country ? $country->getCode() : null,
                 'state'         => $item->getAdminLevels()->has(1) ? $item->getAdminLevels()->get(1)->getName() : null,
                 'state_county'  => $item->getAdminLevels()->has(2) ? $item->getAdminLevels()->get(2)->getName() : null,
                 'adminLevels'   => []
             ];
 
+            /** @psalm-var AdminLevel $adminLevel */
             foreach ($item->getAdminLevels() as $adminLevel) {
-                assert($adminLevel instanceof AdminLevel);
-
                 $address['adminLevels'][] = array_filter(
                     [
                         'level' => $adminLevel->getLevel(),

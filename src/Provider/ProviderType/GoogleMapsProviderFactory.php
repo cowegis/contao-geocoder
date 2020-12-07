@@ -7,6 +7,9 @@ namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 use Cowegis\ContaoGeocoder\Provider\Provider;
 use Geocoder\Provider\GoogleMaps\GoogleMaps;
 
+/**
+ * @psalm-type TGoogleMapsConfig = array{title: ?string, id: string, google_region?: ?string, google_api_key?: ?string }
+ */
 final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
 {
     protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
@@ -16,7 +19,11 @@ final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
         return 'google_maps';
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * @psalm-param TGoogleMapsConfig $config
+     * @psalm-suppress MoreSpecificImplementedParamType
+     */
     public function create(array $config) : Provider
     {
         $region = $config['google_region'] ?? null;

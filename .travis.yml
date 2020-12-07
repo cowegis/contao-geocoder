@@ -1,46 +1,52 @@
-dist: xenial
-
-addons:
-  apt:
-    packages:
-      - ant-optional
+dist: focal
 
 language: php
 
 php:
+  - "7.4"
   - "7.3"
   - "7.2"
   - "7.1"
-  - "7.4snapshot"
   - "nightly"
 
 env:
-  - CONTAO_VERSION=contao/core-bundle ~4.4.0
-  - CONTAO_VERSION=contao/core-bundle ~4.5.0
-  - CONTAO_VERSION=contao/core-bundle ~4.6.0
-  - CONTAO_VERSION=contao/core-bundle ~4.7.0
+  - CONTAO_VERSION=~4.9.0
+  - CONTAO_VERSION=~4.10.0
 
 matrix:
-  exclude:
+  fast_finish: true
   allow_failures:
     - php: "nightly"
-    - php: "7.4snapshot"
-    - env: CONTAO_VERSION=contao/core-bundle ~4.5.0
-    - env: CONTAO_VERSION=contao/core-bundle ~4.6.0
 
 before_script:
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - travis_retry composer self-update && composer --version
-  - travis_retry composer require $CONTAO_VERSION --no-update
-  - travis_retry composer update --prefer-dist --no-interaction
-  - export PATH=~/.composer/vendor/bin:$PATH
-  - travis_retry composer global require maglnet/composer-require-checker ^2.0
+  - travis_retry composer require contao/core-bundle contao/core-bundle $CONTAO_VERSION --no-update
+  - >
+    if [ "x${TRAVIS_TAG}" != "x" ]; then
+      export COMPOSER_ROOT_VERSION=${TRAVIS_TAG}
+    else
+      export COMPOSER_ROOT_VERSION=$([[ ${TRAVIS_BRANCH} =~ (hotfix|release)/([0-9.]*(-(alpha|beta|rc)[0-9]+)?) ]] \
+        && echo ${BASH_REMATCH[2]} \
+        || echo dev-${TRAVIS_BRANCH})
+    fi
+  - echo "Using root version ${COMPOSER_ROOT_VERSION}"
+  - >
+    echo "PHP version: ${TRAVIS_PHP_VERSION}";
+    if [ "x${TRAVIS_PHP_VERSION}" == "xnightly" ]; then
+      travis_retry composer update --ignore-platform-reqs --prefer-dist --no-interaction --no-suggest
+    else
+      travis_retry composer update --prefer-dist --no-interaction --no-suggest
+    fi
+  - vendor/bin/phpcq install
 
-script: ant -keep-going
+script: vendor/bin/phpcq -v -o github-action -o default
 
 git:
-  depth: 2147483647
+  depth: false
 
 cache:
   directories:
     - vendor
+    - .phpcq/gnupg
+    - .phpcq/plugins

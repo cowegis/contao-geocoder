@@ -9,11 +9,14 @@
 !/README.md
 !/LICENSE
 !/composer.json
-!/screenshot*.jpg
-!/screenshot*.png
 !phpcs.xml.dist
 !phpmd.xml
 !phpspec.yml
 !phpstan.neon
 !.composer-require-checker.json
 !build.default.properties
+!.phpcq.yaml.dist
+!.phpcq
+.phpcq/*
+!.phpcq/local
+!psalm.xml

@@ -10,20 +10,21 @@ use IteratorAggregate;
 use IteratorIterator;
 use Traversable;
 
+/** @implements IteratorAggregate<array{type: string, title: ?string, id: string}> */
 final class ConfigProviderChain implements IteratorAggregate, ConfigProvider
 {
-    /** @var iterable|ConfigProvider[] */
+    /** @var list<ConfigProvider> */
     private $configProviders;
 
     /**
-     * @param ConfigProvider[] $configProviders
+     * @param list<ConfigProvider> $configProviders
      */
     public function __construct(iterable $configProviders)
     {
         $this->configProviders = $configProviders;
     }
 
-    /** @return Traversable|mixed[][] */
+    /** @return Traversable<array{type: string, title: ?string, id: string}> */
     public function getIterator() : iterable
     {
         $iterator = new AppendIterator();

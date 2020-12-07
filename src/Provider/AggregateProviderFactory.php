@@ -10,7 +10,7 @@ use function array_keys;
 
 final class AggregateProviderFactory implements ProviderFactory
 {
-    /** @var ProviderTypeFactory[] */
+    /** @var array<string, ProviderTypeFactory> */
     private $factories = [];
 
     public function register(ProviderTypeFactory $factory) : void

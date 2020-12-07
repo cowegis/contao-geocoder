@@ -12,10 +12,12 @@ abstract class BaseProviderTypeFactory implements ProviderTypeFactory
 {
     use GeocoderProviderDecoratorFactory;
 
+    /** @const list<string> */
     protected const FEATURES = [];
 
     public function supports(string $feature) : bool
     {
+        /** @psalm-suppress MixedArgument - No idea how to fix ist */
         return in_array($feature, static::FEATURES, true);
     }
 }

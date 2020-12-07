@@ -47,7 +47,12 @@ final class ProviderDcaListener extends AbstractListener
         $this->connection      = $connection;
     }
 
-    /** @param mixed[] $row */
+    /**
+     * @param mixed[] $row
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @psalm-suppress MixedArgument
+     */
     public function formatLabel(array $row, string $label, DataContainer $dataContainer) : string
     {
         $value = $this->getFormatter()->formatValue('type', $row['type'], $dataContainer);
@@ -85,6 +90,7 @@ final class ProviderDcaListener extends AbstractListener
         return $options;
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     public function playgroundButton(?string $href, string $label, string $title) : string
     {
         return sprintf(
@@ -97,7 +103,7 @@ final class ProviderDcaListener extends AbstractListener
 
     public function setDefault(DataContainer $dataContainer): void
     {
-        if (!$dataContainer->activeRecord->isDefault) {
+        if (!$dataContainer->activeRecord || !$dataContainer->activeRecord->isDefault) {
             return;
         }
 

@@ -8,32 +8,33 @@ use Cowegis\ContaoGeocoder\Form\PlaygroundFormType;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Geocoder\Exception\Exception as GeocoderException;
 use Geocoder\Query\GeocodeQuery;
-use Symfony\Bundle\TwigBundle\TwigEngine;
+use Netzmacht\Contao\Toolkit\View\Template\TemplateRenderer;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function is_array;
 
+/**
+ * @psalm-type TFormData = array{address: string, provider: string}
+ */
 final class BackendPlaygroundAction
 {
     /** @var Geocoder */
     private $provider;
 
-    /** @var TwigEngine */
-    private $twig;
+    /** @var TemplateRenderer */
+    private $renderer;
 
     /** @var FormFactoryInterface */
     private $formFactory;
 
-    public function __construct(Geocoder $provider, TwigEngine $twig, FormFactoryInterface $formFactory)
+    public function __construct(Geocoder $provider, TemplateRenderer $renderer, FormFactoryInterface $formFactory)
     {
         $this->provider    = $provider;
-        $this->twig        = $twig;
+        $this->renderer    = $renderer;
         $this->formFactory = $formFactory;
     }
 
-    // phpcs:disable SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment
-    /** @SuppressWarnings(PHPMD.Superglobals) */
-    // phpcs:enable
     public function __invoke(Request $request) : Response
     {
         $result = [];
@@ -43,12 +44,13 @@ final class BackendPlaygroundAction
 
         if ($form->isSubmitted()) {
             try {
+                /** @psalm-var TFormData $data */
                 $data     = $form->getData();
-                $query    = GeocodeQuery::create($data['address'])->withLocale($GLOBALS['TL_LANGUAGE']);
+                $query    = GeocodeQuery::create($data['address'])->withLocale($request->getLocale());
                 $provider = $this->provider;
 
                 if ($data['provider']) {
-                    $provider = $data['provider'];
+                    $provider = $this->provider->using($data['provider']);
                 }
 
                 $result = $provider->geocodeQuery($query)->all();
@@ -57,13 +59,15 @@ final class BackendPlaygroundAction
             }
         }
 
-        return $this->twig->renderResponse(
-            '@CowegisContaoGeocoder/backend/playground.html.twig',
-            [
-                'form'   => $form->createView(),
-                'result' => $result,
-                'error'  => $error,
-            ]
+        return new Response(
+            $this->renderer->render(
+                '@CowegisContaoGeocoder/backend/playground.html.twig',
+                [
+                    'form'   => $form->createView(),
+                    'result' => $result,
+                    'error'  => $error,
+                ]
+            )
         );
     }
 }

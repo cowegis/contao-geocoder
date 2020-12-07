@@ -14,6 +14,7 @@ use IteratorAggregate;
 use Traversable;
 use function array_keys;
 
+/** @implements IteratorAggregate<Provider> */
 final class Geocoder implements GeocodeProvider, IteratorAggregate
 {
     /** @var Provider[] */
@@ -40,7 +41,7 @@ final class Geocoder implements GeocodeProvider, IteratorAggregate
         throw ProviderNotRegistered::create($providerId, array_keys($this->providers));
     }
 
-    /** @return Traversable|Provider[] */
+    /** @retun Traversable<Provider> */
     public function getIterator() : Traversable
     {
         return new ArrayIterator($this->providers);

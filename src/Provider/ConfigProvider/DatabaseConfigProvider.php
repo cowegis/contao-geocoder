@@ -15,6 +15,7 @@ use function count;
 use function sprintf;
 use function str_repeat;
 
+/** @implements IteratorAggregate<array{type: string, title: ?string, id: string}> */
 final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
 {
     /** @var ProviderRepository */
@@ -36,7 +37,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
         $this->framework       = $framework;
     }
 
-    /** @return Traversable|mixed[][] */
+    /** @return Traversable<array{type: string, title: ?string, id: string}> */
     public function getIterator() : Traversable
     {
         $types = $this->providerFactory->typeNames();
@@ -44,6 +45,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
             return new ArrayIterator();
         }
 
+        /** @psalm-suppress InternalMethod */
         $this->framework->initialize();
         $collection = $this->repository->findBy(
             [sprintf('.type IN (?%s)', str_repeat(',?', count($types) - 1))],

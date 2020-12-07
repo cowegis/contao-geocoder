@@ -9,17 +9,22 @@
     <!-- Ignore warnings, show progress of the run and show sniff names -->
     <arg value="nps"/>
 
-    <!-- Directories to be checked -->
-    <file>src</file>
+    <!-- Required for the SlevomatCodingStandard which utilizes composer dependencies -->
+    <autoload>vendor/autoload.php</autoload>
 
-    <!-- Include full Doctrine Coding Standard -->
-    <rule ref="Doctrine"/>
-
-    <rule ref="Generic.Files.LineLength">
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
         <properties>
-            <property name="lineLimit" value="120"/>
-            <property name="absoluteLineLimit" value="120"/>
+            <property name="enableObjectTypeHint" value="false" />
         </properties>
-        <exclude-pattern>languages/*</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+        <properties>
+            <property name="enableNativeTypeHint" value="false" />
+        </properties>
+    </rule>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern type="relative">/spec/*</exclude-pattern>
     </rule>
 </ruleset>
