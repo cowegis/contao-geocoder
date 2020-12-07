@@ -10,4 +10,11 @@
            methods="GET|POST">
         <default key="_scope">backend</default>
     </route>
+
+    <route id="cowegis_geocoder_search"
+           path="/cowegis/geocoder/search"
+           controller="Cowegis\ContaoGeocoder\Action\SearchAction"
+           methods="GET">
+        <default key="_scope">frontend</default>
+    </route>
 </routes>

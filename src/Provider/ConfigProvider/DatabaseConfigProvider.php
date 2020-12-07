@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 
 use ArrayIterator;
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Cowegis\ContaoGeocoder\Model\ProviderRepository;
 use Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
@@ -22,10 +23,17 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
     /** @var ProviderFactory */
     private $providerFactory;
 
-    public function __construct(ProviderRepository $repository, ProviderFactory $providerFactory)
-    {
+    /** @var ContaoFramework */
+    private $framework;
+
+    public function __construct(
+        ProviderRepository $repository,
+        ProviderFactory $providerFactory,
+        ContaoFramework $framework
+    ){
         $this->repository      = $repository;
         $this->providerFactory = $providerFactory;
+        $this->framework       = $framework;
     }
 
     /** @return Traversable|mixed[][] */
@@ -36,6 +44,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
             return new ArrayIterator();
         }
 
+        $this->framework->initialize();
         $collection = $this->repository->findBy(
             [sprintf('.type IN (?%s)', str_repeat(',?', count($types) - 1))],
             $types,
