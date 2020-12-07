@@ -41,6 +41,7 @@
     "symfony/http-kernel": "^3.3 || ^4.0",
     "symfony/routing": "^3.4 || ^4.0",
     "symfony/twig-bundle": "^3.4 || ^4.0",
+    "twig/twig": "^1.26 || ^2.0",
     "willdurand/geocoder": "^4.2"
   },
   "conflict": {

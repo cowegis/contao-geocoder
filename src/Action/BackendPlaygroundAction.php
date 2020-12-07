@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment as Twig;
 
 /**
- * @psalm-type TFormData = array{address: string, provider: string}
+ * @psalm-type TFormData = array{address: string, provider: ?\Cowegis\ContaoGeocoder\Provider\Provider}
  */
 final class BackendPlaygroundAction
 {
@@ -36,12 +36,15 @@ final class BackendPlaygroundAction
 
     public function __invoke(Request $request) : Response
     {
-        $result = [];
-        $error  = '';
-        $form   = $this->formFactory->create(PlaygroundFormType::class);
+        $result    = [];
+        $error     = '';
+        $submitted = false;
+        $form      = $this->formFactory->create(PlaygroundFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $submitted = true;
+
             try {
                 /** @psalm-var TFormData $data */
                 $data     = $form->getData();
@@ -49,7 +52,7 @@ final class BackendPlaygroundAction
                 $provider = $this->provider;
 
                 if ($data['provider']) {
-                    $provider = $this->provider->using($data['provider']);
+                    $provider = $data['provider'];
                 }
 
                 $result = $provider->geocodeQuery($query)->all();
@@ -62,9 +65,10 @@ final class BackendPlaygroundAction
             $this->twig->render(
                 '@CowegisContaoGeocoder/backend/playground.html.twig',
                 [
-                    'form'   => $form->createView(),
-                    'result' => $result,
-                    'error'  => $error,
+                    'form'      => $form->createView(),
+                    'result'    => $result,
+                    'error'     => $error,
+                    'submitted' => $submitted,
                 ]
             )
         );

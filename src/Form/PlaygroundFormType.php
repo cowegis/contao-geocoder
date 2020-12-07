@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+
 use function sprintf;
 
 final class PlaygroundFormType extends AbstractType
@@ -27,11 +28,20 @@ final class PlaygroundFormType extends AbstractType
     /** {@inheritDoc} */
     public function buildForm(FormBuilderInterface $builder, array $options) : void
     {
+        $builder
+            ->add(
+                'address',
+                TextType::class, [
+                    'label'  => 'Address query',
+                    'widget' => [
+                        'be_class' => 'w50',
+                    ]
+                ]
+            );
+
         $this->addGeocoderChoiceType($builder);
 
-        $builder
-            ->add('address', TextType::class, ['label' => 'Address'])
-            ->add('submit', SubmitType::class);
+        $builder->add('submit', SubmitType::class);
     }
 
     private function addGeocoderChoiceType(FormBuilderInterface $builder) : void
@@ -40,7 +50,10 @@ final class PlaygroundFormType extends AbstractType
             'provider',
             ChoiceType::class,
             [
-                'label' => 'Geocoder',
+                'label'                     => 'Geocoder',
+                'widget'                    => [
+                    'be_class' => 'w50',
+                ],
                 'choice_translation_domain' => false,
                 'choice_loader'             => new CallbackChoiceLoader(function () {
                     $choices = [];

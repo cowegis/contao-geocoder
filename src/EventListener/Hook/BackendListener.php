@@ -27,6 +27,6 @@ final class BackendListener
             return;
         }
 
-        $this->assetsManager->addStylesheet('bundles/cowegiscontaogeocode/css/backend.css', '');
+        $this->assetsManager->addStylesheet('bundles/cowegiscontaogeocoder/css/backend.css');
     }
 }
