@@ -28,7 +28,7 @@
     "geocoder-php/chain-provider": "^4.0",
     "geocoder-php/google-maps-provider": "^4.4",
     "geocoder-php/nominatim-provider": "^5.1",
-    "netzmacht/contao-form-bundle": "^1.0",
+    "netzmacht/contao-form-bundle": "^1.2",
     "netzmacht/contao-toolkit": "^3.5",
     "php-http/guzzle6-adapter": "^1.1 || ^2.0",
     "php-http/httplug": "^2.0",

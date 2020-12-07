@@ -10,7 +10,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
         'enableVersioning'  => true,
         'markAsCopy'        => 'headline',
         'onsubmit_callback' => [[ProviderDcaListener::class, 'setDefault']],
-        'sql' => [
+        'sql'               => [
             'keys' => [
                 'id'        => 'primary',
                 'isDefault' => 'index',
@@ -77,7 +77,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'cache'  => ['cache'],
         ],
         'nominatim extends default'   => [
-            'config' => ['nominatim_root_url'],
+            'config' => ['nominatim_root_url', 'nominatim_country_codes'],
         ],
         'google_maps extends default' => [
             'config' => ['google_api_key', 'google_region'],
@@ -90,10 +90,10 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
         'cache' => ['cache_ttl'],
     ],
     'fields'          => [
-        'id'                 => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
-        'pid'                => ['sql' => 'int(10) unsigned NOT NULL default \'0\''],
-        'tstamp'             => ['sql' => 'int(10) unsigned NOT NULL default \'0\''],
-        'title'              => [
+        'id'                      => ['sql' => 'int(10) unsigned NOT NULL auto_increment'],
+        'pid'                     => ['sql' => 'int(10) unsigned NOT NULL default \'0\''],
+        'tstamp'                  => ['sql' => 'int(10) unsigned NOT NULL default \'0\''],
+        'title'                   => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['title'],
             'exclude'   => true,
             'search'    => true,
@@ -101,7 +101,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'eval'      => ['maxlength' => 255, 'mandatory' => true, 'tl_class' => 'w50'],
             'sql'       => 'varchar(255) NOT NULL default \'\'',
         ],
-        'type'               => [
+        'type'                    => [
             'label'            => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['type'],
             'exclude'          => true,
             'filter'           => true,
@@ -118,28 +118,28 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             ],
             'sql'              => 'varchar(64) NOT NULL default \'\'',
         ],
-        'isDefault'          => [
+        'isDefault'               => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['isDefault'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'w50'],
             'sql'       => 'char(1) NOT NULL default \'\'',
         ],
-        'cache'              => [
+        'cache'                   => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['cache'],
             'exclude'   => true,
             'inputType' => 'checkbox',
             'eval'      => ['tl_class' => 'w50', 'submitOnChange' => true],
             'sql'       => 'char(1) NOT NULL default \'\'',
         ],
-        'cache_ttl'          => [
+        'cache_ttl'               => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['cache_ttl'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['tl_class' => 'w50', 'rgxp' => 'natural'],
             'sql'       => 'int(10) UNSIGNED NOT NULL default \'0\'',
         ],
-        'chain_providers'    => [
+        'chain_providers'         => [
             'label'            => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['chain_providers'],
             'exclude'          => true,
             'filter'           => true,
@@ -152,21 +152,28 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             ],
             'sql'              => 'blob NULL',
         ],
-        'nominatim_root_url' => [
+        'nominatim_root_url'      => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['nominatim_root_url'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['maxlength' => 255, 'tl_class' => 'clr long'],
             'sql'       => 'varchar(255) NOT NULL default \'\'',
         ],
-        'google_api_key'     => [
+        'nominatim_country_codes' => [
+            'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['nominatim_country_codes'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'eval'      => ['maxlength' => 255, 'tl_class' => 'w50'],
+            'sql'       => 'varchar(255) NOT NULL default \'\'',
+        ],
+        'google_api_key'          => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['google_api_key'],
             'exclude'   => true,
             'inputType' => 'text',
             'eval'      => ['maxlength' => 255, 'mandatory' => true, 'tl_class' => 'clr long'],
             'sql'       => 'varchar(255) NOT NULL default \'\'',
         ],
-        'google_region'      => [
+        'google_region'           => [
             'label'     => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['google_region'],
             'exclude'   => true,
             'inputType' => 'text',
