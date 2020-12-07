@@ -7,6 +7,7 @@ namespace Cowegis\ContaoGeocoder\EventListener\Dca;
 use Contao\DataContainer;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
+use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
 use Symfony\Component\Routing\RouterInterface;
@@ -28,17 +29,22 @@ final class ProviderDcaListener extends AbstractListener
     /** @var RouterInterface */
     private $router;
 
+    /** @var Connection */
+    private $connection;
+
     public function __construct(
         DcaManager $dcaManager,
         ProviderFactory $providerFactory,
         Geocoder $geocoder,
-        RouterInterface $router
+        RouterInterface $router,
+        Connection $connection
     ) {
         parent::__construct($dcaManager);
 
         $this->providerFactory = $providerFactory;
         $this->router          = $router;
         $this->geocoder        = $geocoder;
+        $this->connection      = $connection;
     }
 
     /** @param mixed[] $row */
@@ -50,8 +56,9 @@ final class ProviderDcaListener extends AbstractListener
         }
 
         return sprintf(
-            '%s <small class="tl_gray">[%s]</small>',
+            '%s %s<small class="tl_gray">[%s]</small>',
             $row['title'],
+            $row['isDefault'] ? sprintf('(%s) ', $this->getFormatter()->formatFieldLabel('isDefault')) : '',
             (string) $value
         );
     }
@@ -85,6 +92,21 @@ final class ProviderDcaListener extends AbstractListener
             $this->router->generate('cowegis_geocoder_playground'),
             $title,
             $label
+        );
+    }
+
+    public function setDefault(DataContainer $dataContainer): void
+    {
+        if (!$dataContainer->activeRecord->isDefault) {
+            return;
+        }
+
+        $this->connection->executeQuery(
+            'UPDATE tl_cowegis_geocoder_provider SET isDefault=:default WHERE id != :id ',
+            [
+                'default' => '',
+                'id' => $dataContainer->id
+            ]
         );
     }
 }

@@ -6,8 +6,10 @@ namespace Cowegis\ContaoGeocoder\Action;
 
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Geocoder\Collection;
+use Geocoder\Exception\ProviderNotRegistered;
 use Geocoder\Location;
 use Geocoder\Model\AdminLevel;
+use Geocoder\Provider\Provider;
 use Geocoder\Query\GeocodeQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,11 +29,12 @@ final class SearchAction
         $this->geocoder = $geocoder;
     }
 
-    public function __invoke(Request $request): Response
+    public function __invoke(?string $providerId = null, Request $request): Response
     {
-        $query  = $this->buildQuery($request);
-        $result = $this->geocoder->geocodeQuery($query);
-        $format = $request->query->get('format', 'json');
+        $qeocoder = $this->selectGeocoder($providerId);
+        $query    = $this->buildQuery($request);
+        $result   = $qeocoder->geocodeQuery($query);
+        $format   = $request->query->get('format', 'json');
 
         switch ($format) {
             case 'json':
@@ -112,5 +115,14 @@ final class SearchAction
         }
 
         return $data;
+    }
+
+    private function selectGeocoder(?string $providerId): Provider
+    {
+        if ($providerId) {
+            return $this->geocoder->using($providerId);
+        }
+
+        return $this->geocoder;
     }
 }

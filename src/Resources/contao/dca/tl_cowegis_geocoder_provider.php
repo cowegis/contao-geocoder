@@ -6,10 +6,11 @@ use Cowegis\ContaoGeocoder\EventListener\Dca\ProviderDcaListener;
 
 $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
     'config'          => [
-        'dataContainer'    => 'Table',
-        'enableVersioning' => true,
-        'markAsCopy'       => 'headline',
-        'sql'              => [
+        'dataContainer'     => 'Table',
+        'enableVersioning'  => true,
+        'markAsCopy'        => 'headline',
+        'onsubmit_callback' => [[ProviderDcaListener::class, 'setDefault']],
+        'sql' => [
             'keys' => [
                 'id'        => 'primary',
                 'isDefault' => 'index',

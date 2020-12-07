@@ -48,7 +48,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
         $collection = $this->repository->findBy(
             [sprintf('.type IN (?%s)', str_repeat(',?', count($types) - 1))],
             $types,
-            ['.isDefault \'1\',\'\'']
+            ['order' => 'FIELD( .isDefault, \'1\',\'\')']
         );
 
         if ($collection !== null) {
