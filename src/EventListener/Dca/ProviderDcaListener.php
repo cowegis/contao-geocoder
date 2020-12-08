@@ -91,12 +91,13 @@ final class ProviderDcaListener extends AbstractListener
     }
 
     /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
-    public function playgroundButton(?string $href, string $label, string $title) : string
+    public function playgroundButton(?string $href, string $label, string $title, string $class) : string
     {
         return sprintf(
-            '<a href="%s" title="%s">%s</a> ',
+            '<a href="%s" title="%s" class="%s">%s</a> ',
             $this->router->generate('cowegis_geocoder_playground'),
             $title,
+            $class,
             $label
         );
     }
