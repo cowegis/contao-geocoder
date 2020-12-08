@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider;
 
-use Geocoder\Provider\Cache\ProviderCache;
 use Psr\SimpleCache\CacheInterface;
 
 final class CacheProviderFactory implements ProviderFactory

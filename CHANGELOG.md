@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.1] - 2020-12-08
+
+### Fixed
+
+ - Prevent cache sharing between different providers
+
 ## [0.2.0] - 2020-12-08
 
 ### Added
