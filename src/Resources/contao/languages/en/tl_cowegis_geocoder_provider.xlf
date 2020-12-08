@@ -83,6 +83,12 @@
             <trans-unit id="tl_cowegis_geocoder_provider.nominatim_root_url.1">
                 <source><![CDATA[Define the default root url for nominatim. As Default <em>https://nominatim.openstreetmap.org</em> is used.]]></source>
             </trans-unit>
+            <trans-unit id="tl_cowegis_geocoder_provider.nominatim_country_codes.0">
+                <source>Nominatim country codes</source>
+            </trans-unit>
+            <trans-unit id="tl_cowegis_geocoder_provider.nominatim_country_codes.1">
+                <source>Limits the search to a specific country or a list of comma separated countries. Country codes must be in ISO 3166-1 alpha2.</source>
+            </trans-unit>
             <trans-unit id="tl_cowegis_geocoder_provider.google_api_key.0">
                 <source>Google API key</source>
             </trans-unit>

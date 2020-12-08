@@ -14,6 +14,7 @@ use Cowegis\ContaoGeocoder\CowegisContaoGeocoderBundle;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\RouteCollection;
+use function assert;
 
 final class Plugin implements BundlePluginInterface, RoutingPluginInterface
 {
@@ -29,13 +30,17 @@ final class Plugin implements BundlePluginInterface, RoutingPluginInterface
         ];
     }
 
+    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
     public function getRouteCollection(LoaderResolverInterface $resolver, KernelInterface $kernel) : ?RouteCollection
     {
         $loader = $resolver->resolve(__DIR__ . '/../Resources/config/routing.xml');
-        if (! $loader) {
+        if ($loader === false) {
             return null;
         }
 
-        return $loader->load(__DIR__ . '/../Resources/config/routing.xml');
+        $collection = $loader->load(__DIR__ . '/../Resources/config/routing.xml');
+        assert($collection instanceof RouteCollection || $collection === null);
+
+        return $collection;
     }
 }

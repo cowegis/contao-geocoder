@@ -13,7 +13,3 @@ array_insert(
         ],
     ]
 );
-
-if (TL_MODE === 'BE') {
-    $GLOBALS['TL_CSS'][] = 'bundles/cowegiscontaogeocode/css/backend.css|static';
-}

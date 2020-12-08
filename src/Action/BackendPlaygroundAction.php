@@ -8,43 +8,47 @@ use Cowegis\ContaoGeocoder\Form\PlaygroundFormType;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Geocoder\Exception\Exception as GeocoderException;
 use Geocoder\Query\GeocodeQuery;
-use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment as Twig;
 
+/**
+ * @psalm-type TFormData = array{address: string, provider: ?\Cowegis\ContaoGeocoder\Provider\Provider}
+ */
 final class BackendPlaygroundAction
 {
     /** @var Geocoder */
     private $provider;
 
-    /** @var TwigEngine */
+    /** @var Twig */
     private $twig;
 
     /** @var FormFactoryInterface */
     private $formFactory;
 
-    public function __construct(Geocoder $provider, TwigEngine $twig, FormFactoryInterface $formFactory)
+    public function __construct(Geocoder $provider, Twig $twig, FormFactoryInterface $formFactory)
     {
         $this->provider    = $provider;
         $this->twig        = $twig;
         $this->formFactory = $formFactory;
     }
 
-    // phpcs:disable SlevomatCodingStandard.TypeHints.TypeHintDeclaration.UselessDocComment
-    /** @SuppressWarnings(PHPMD.Superglobals) */
-    // phpcs:enable
     public function __invoke(Request $request) : Response
     {
-        $result = [];
-        $error  = '';
-        $form   = $this->formFactory->create(PlaygroundFormType::class);
+        $result    = [];
+        $error     = '';
+        $submitted = false;
+        $form      = $this->formFactory->create(PlaygroundFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
+            $submitted = true;
+
             try {
+                /** @psalm-var TFormData $data */
                 $data     = $form->getData();
-                $query    = GeocodeQuery::create($data['address'])->withLocale($GLOBALS['TL_LANGUAGE']);
+                $query    = GeocodeQuery::create($data['address'])->withLocale($request->getLocale());
                 $provider = $this->provider;
 
                 if ($data['provider']) {
@@ -57,13 +61,16 @@ final class BackendPlaygroundAction
             }
         }
 
-        return $this->twig->renderResponse(
-            '@CowegisContaoGeocoder/backend/playground.html.twig',
-            [
-                'form'   => $form->createView(),
-                'result' => $result,
-                'error'  => $error,
-            ]
+        return new Response(
+            $this->twig->render(
+                '@CowegisContaoGeocoder/backend/playground.html.twig',
+                [
+                    'form'      => $form->createView(),
+                    'result'    => $result,
+                    'error'     => $error,
+                    'submitted' => $submitted,
+                ]
+            )
         );
     }
 }

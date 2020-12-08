@@ -11,6 +11,7 @@ use Geocoder\Query\ReverseQuery;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/** @SuppressWarnings(PHPMD.TooManyPublicMethods) */
 final class GeocoderSpec extends ObjectBehavior
 {
     public function let(Provider $foo, Provider $bar) : void

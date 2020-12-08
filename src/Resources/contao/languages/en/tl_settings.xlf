@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+    <file datatype="php" original="src/Resources/contao/languages/en/tl_settings.php" source-language="en">
+        <body>
+            <trans-unit id="tl_settings.cowegis_geocoder">
+                <source>cowegis Geocoder</source>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_api_key.0">
+                <source>cowegis Geocoder API Key</source>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_api_key.1">
+                <source>Define an api key. If empty no api key is required.</source>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_referrer_check.0">
+                <source>cowegis Geocoder referrer check</source>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_referrer_check.1">
+                <source>Protect geocoder API with a referrer check.</source>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_referrer_domains.0">
+                <source>cowegis Geocoder referrer check domains</source>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_referrer_domains.1">
+                <source><![CDATA[List of domains which have access to the geocoder API endpoint <em>(e.g. www.example.org, example.org)</em>.]]></source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

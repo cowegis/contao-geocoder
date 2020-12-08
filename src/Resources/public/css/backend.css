@@ -1,4 +1,39 @@
+.header_cowegis_geocoder_playground {
+    padding: 3px 0 3px 21px;
+    background-image: url("../img/playground.png");
+    background-position: left center;
+    background-repeat: no-repeat;
+    margin-left: 15px;
+}
+
 #tl_navigation .group-cowegis {
     background: url(../img/logo.svg) 3px 2px no-repeat;
     background-size: 14px 14px;
+}
+
+#playground_form {
+    margin: 15px 0;
+}
+
+.cowegis-sub-headline {
+    margin: 18px 15px 3px;
+}
+
+.cowegis-geocoder-box {
+    padding: 6px 15px 14px;
+}
+
+.cowegis-geocoder-playground-result-list {
+    width: 100%;
+}
+
+.cowegis-geocoder-playground-result-list th {
+    background: #f6f6f8;
+    border-top: 1px solid #e9e9e9;
+}
+
+.cowegis-geocoder-playground-result-list td,
+.cowegis-geocoder-playground-result-list th {
+    border-bottom: 1px solid #e9e9e9;
+    padding: 6px;
 }

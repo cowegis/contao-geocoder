@@ -1,0 +1,141 @@
+phpcq:
+  repositories:
+    - ./.phpcq/local/repository.json
+    - https://phpcq.github.io/repository/repository.json
+  directories:
+    - src
+    - spec
+  artifact: .phpcq/build
+
+  plugins:
+    psalm:
+      version: ^1.0
+      signed: false
+      requirements:
+        psalm:
+          version: ^3.9
+    composer-require-checker:
+      version: ^1.0
+      signed: false
+    phpmd:
+      version: ^1.0
+      signed: false
+      requirements:
+        phpmd:
+          signed: false
+    phpcpd:
+      version: ^1.0
+      signed: false
+      requirements:
+        phpcpd:
+          version: ^5.0
+    phploc:
+      version: ^1.0
+      signed: false
+    phpcs:
+      version: ^1.0
+      signed: false
+    phpcbf:
+      version: ^1.0
+      signed: false
+    composer-normalize:
+      version: ^1.0
+      signed: false
+    phpspec:
+      version: ^1.0
+      signed: false
+  trusted-keys:
+    # sb@sebastian-bergmann.de
+    - 4AA394086372C20A
+    # psalm
+    - 8A03EA3B385DBAA1
+    # magl@magll.net
+    - D2CCAC42F6295E7D
+    # PHP_CodeSniffer
+    - 31C7E470E2138192
+    # Composer normalize
+    - C00543248C87FB13
+
+  chains:
+    fix:
+      - composer-normalize-fix
+      - phpcbf
+    verify:
+      - composer-require-checker
+      - composer-normalize
+    analyze:
+      - phploc
+      - phpcpd
+      - phpmd
+      - phpmd_spec
+      - phpcs
+      - psalm
+      - phpspec
+    default:
+      - composer-require-checker
+      - composer-normalize
+      - phploc
+      - phpcpd
+      - phpmd
+      - phpmd_spec
+      - phpcs
+      - psalm
+      - phpspec
+
+tasks:
+  phpcpd:
+    plugin: phpcpd
+    config:
+    #  exclude:
+    #  names:
+    #  names_exclude:
+    #  regexps_exclude:
+    #  log:
+    #  min_lines:
+    #  min_tokens:
+    #  fuzzy: true
+    #  custom_flags:
+
+  phpmd:
+    plugin: phpmd
+    directories:
+      - src
+    config:
+      ruleset:
+        - codesize
+        - controversial
+        - naming
+        - unusedcode
+
+  phpmd_spec:
+    plugin: phpmd
+    directories:
+      - spec
+    config:
+      ruleset:
+        - codesize
+        - naming
+        - unusedcode
+
+  composer-require-checker:
+    plugin: composer-require-checker
+    config:
+      config_file: '.composer-require-checker.json'
+
+  phpcs:
+    plugin: phpcs
+    config: &phpcs-config
+      standard: ~
+      standard_paths:
+        - ./vendor/slevomat/coding-standard
+        - ./vendor/doctrine/coding-standard/lib
+
+  phpcbf:
+    plugin: phpcbf
+    config:
+      <<: *phpcs-config
+
+  composer-normalize-fix:
+    plugin: composer-normalize
+    config:
+      dry_run: false

@@ -50,6 +50,9 @@ final class Configuration implements ConfigurationInterface
                 ->end()
                 ->beforeNormalization()
                     ->always(static function ($value) {
+                        if (!isset($value['providers'])) {
+                            return $value;
+                        }
                         foreach (array_keys($value['providers']) as $providerId) {
                             $value['providers'][$providerId]['id'] = $providerId;
                         }

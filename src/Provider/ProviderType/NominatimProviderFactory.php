@@ -4,9 +4,19 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
+use Cowegis\ContaoGeocoder\Provider\QueryCallbackProvider;
 use Cowegis\ContaoGeocoder\Provider\Provider;
 use Geocoder\Provider\Nominatim\Nominatim;
+use Geocoder\Query\GeocodeQuery;
 
+/**
+ * @psalm-type TNominatimConfig = array{
+ *   title: ?string,
+ *   id: string,
+ *   nominatim_root_url?: ?string,
+ *   nominatim_country_codes?: ?string
+ * }
+ */
 final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
 {
     protected const FEATURES = [Provider::FEATURE_REVERSE, Provider::FEATURE_ADDRESS];
@@ -16,12 +26,31 @@ final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
         return 'nominatim';
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * @psalm-param TNominatimConfig $config
+     * @psalm-suppress MoreSpecificImplementedParamType
+     */
     public function create(array $config) : Provider
     {
-        $rootUrl = $config['nominatim_root_url'] ?? null;
-        $rootUrl = $rootUrl ?: 'https://nominatim.openstreetmap.org';
+        $rootUrl      = $config['nominatim_root_url'] ?? null;
+        $rootUrl      = $rootUrl ?: 'https://nominatim.openstreetmap.org';
+        $countryCodes = $config['nominatim_country_codes'] ?? null;
+        $provider     = $this->createDecorator(new Nominatim($this->httpClient, $rootUrl, 'Cowegis Geocoder'), $config);
 
-        return $this->createDecorator(new Nominatim($this->httpClient, $rootUrl, 'Cowegis Geocoder'), $config);
+        if ($countryCodes === null) {
+            return $provider;
+        }
+
+        return new QueryCallbackProvider(
+            $provider,
+            function (GeocodeQuery $geocodeQuery) use ($countryCodes): GeocodeQuery {
+                if ($geocodeQuery->getData('countrycodes') === null) {
+                    return $geocodeQuery->withData('countrycodes', $countryCodes);
+                }
+
+                return $geocodeQuery;
+            }
+        );
     }
 }

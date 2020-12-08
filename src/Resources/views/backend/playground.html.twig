@@ -6,37 +6,44 @@
 {% block error %}{{ error }}{% endblock %}
 
 {% block main %}
-    {{ form_start(form, {attr: {class: 'my-form-class'} }) }}
+    <h3 class="sub_headline cowegis-sub-headline">Anfrage stellen</h3>
+    {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
 
-    <table class="cowegis-geocoder-playground-result-list">
-    <thead>
-        <tr>
-            <th>Address</th>
-            <th>Latitude</th>
-            <td>Longitude</td>
-        </tr>
-    </thead>
-    <tbody>
-    {% for address in result %}
-        <tr>
-            <td>
-            {{ address.country }} {{ address.locality }}
-            {% if address.streetName %}, {{ address.streetName }} {{ address.streetNumber }}{% endif %}
-            {% if address.adminLevels.count > 0 %}
-            <br><small>
-                {% for adminLevel in address.adminLevels %}
-                    <span class="cowegis-geocoder-playground-admin-level">{{ adminLevel.name }}</span>
-                {% endfor %}
-            </small>
-            {% endif %}
-            </td>
-            <td>{{ address.coordinates.latitude }}</td>
-            <td>{{ address.coordinates.longitude }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    {% if submitted %}
+    <h3 class="sub_headline cowegis-sub-headline">Results</h3>
+    <div class="cowegis-geocoder-box">
+
+        <table class="cowegis-geocoder-playground-result-list">
+            <thead>
+            <tr>
+                <th>Address</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for address in result %}
+                <tr class="hover-row">
+                    <td>
+                        {{ address.country }} {{ address.locality }}
+                        {% if address.streetName %}, {{ address.streetName }} {{ address.streetNumber }}{% endif %}
+                        {% if address.adminLevels.count > 0 %}
+                            <br><small>
+                            {% for adminLevel in address.adminLevels %}
+                                <span class="cowegis-geocoder-playground-admin-level">{{ adminLevel.name }}</span>
+                            {% endfor %}
+                        </small>
+                        {% endif %}
+                    </td>
+                    <td>{{ address.coordinates.latitude }}</td>
+                    <td>{{ address.coordinates.longitude }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
 {% endblock %}
 

@@ -23,12 +23,13 @@
     "contao-community-alliance/meta-palettes": "^2.0",
     "contao/core-bundle": "^4.4",
     "doctrine/cache": "^1.8",
+    "doctrine/dbal": "^2.10",
     "geocoder-php/cache-provider": "^4.1",
     "geocoder-php/chain-provider": "^4.0",
     "geocoder-php/google-maps-provider": "^4.4",
     "geocoder-php/nominatim-provider": "^5.1",
-    "netzmacht/contao-form-bundle": "^1.0",
-    "netzmacht/contao-toolkit": "^3.3",
+    "netzmacht/contao-form-bundle": "^1.2",
+    "netzmacht/contao-toolkit": "^3.5",
     "php-http/guzzle6-adapter": "^1.1 || ^2.0",
     "php-http/httplug": "^2.0",
     "psr/simple-cache": "^1.0",
@@ -40,6 +41,7 @@
     "symfony/http-kernel": "^3.3 || ^4.0",
     "symfony/routing": "^3.4 || ^4.0",
     "symfony/twig-bundle": "^3.4 || ^4.0",
+    "twig/twig": "^1.26 || ^2.0",
     "willdurand/geocoder": "^4.2"
   },
   "conflict": {
@@ -47,19 +49,14 @@
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
-    "doctrine/coding-standard": "^5.0",
-    "pdepend/pdepend": "^2.5",
-    "phpcq/autoload-validation": "^1.2",
-    "phpcq/branch-alias-validation": "^1.2",
-    "phpcq/phpcq": "^1.2",
-    "phploc/phploc": "^4.0 || ^5.0",
-    "phpmd/phpmd": "^2.6",
-    "phpspec/phpspec": "^5.1",
-    "sebastian/phpcpd": "^4.1"
+    "doctrine/coding-standard": "^8.0",
+    "phpcq/runner-bootstrap": "^1.0@dev",
+    "phpspec/phpspec": "^6.0 || ^7.0"
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.1.x-dev"
+      "dev-master": "0.2.x-dev",
+      "dev-develop": "0.3.x-dev"
     },
     "contao-manager-plugin": "Cowegis\\ContaoGeocoder\\ContaoManager\\Plugin"
   },
