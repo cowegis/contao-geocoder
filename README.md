@@ -17,6 +17,7 @@ Features
  - Extandable for other providers
  - Database driven configuration of providers in Contao backend 
  - Application driven configuration of providers
+ - API endpoint for geocode queries
  
 Requirements
 ------------
@@ -34,13 +35,15 @@ Search the `cowegis/contao-geocoder` package and install it.
 ### Composer
 
 ```
- composer require cowegis/contao-geocoder ^0.1
+ composer require cowegis/contao-geocoder ^0.2.0
 ```
 
 Usage
 -----
 
 ### Configuration
+
+Optional application configuration
 
 ```yaml
 # app/config/config.yml
