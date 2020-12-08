@@ -5,6 +5,8 @@
 ### Fixed
 
  - Prevent cache sharing between different providers
+ - Prevent error of no coordinates are given in the playground backend view
+ - Fix referrer check
 
 ## [0.2.0] - 2020-12-08
 
@@ -20,4 +22,5 @@
  - Remove scope definition
 
 
+[0.2.1]: https://github.com/cowegis/contao-geocoder/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/cowegis/contao-geocoder/compare/0.1.0...0.2.0
