@@ -37,8 +37,8 @@
                         </small>
                         {% endif %}
                     </td>
-                    <td>{{ address.coordinates.latitude }}</td>
-                    <td>{{ address.coordinates.longitude }}</td>
+                    <td>{{ address.coordinates.latitude|default() }}</td>
+                    <td>{{ address.coordinates.longitude|default() }}</td>
                 </tr>
             {% endfor %}
             </tbody>
