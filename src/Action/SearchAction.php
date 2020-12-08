@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Action;
 
+use Contao\Config;
+use Contao\CoreBundle\Framework\Adapter;
+use Contao\StringUtil;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Geocoder\Collection;
-use Geocoder\Exception\ProviderNotRegistered;
 use Geocoder\Location;
 use Geocoder\Model\AdminLevel;
 use Geocoder\Provider\Provider;
@@ -14,10 +16,13 @@ use Geocoder\Query\GeocodeQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use function array_filter;
 use function assert;
+use function in_array;
+use function is_array;
 use function is_string;
 
 final class SearchAction
@@ -25,13 +30,20 @@ final class SearchAction
     /** @var Geocoder */
     private $geocoder;
 
-    public function __construct(Geocoder $geocoder)
+    /** @var Adapter */
+    private $configAdapter;
+
+    /** @param Adapter<Config> $configAdapter */
+    public function __construct(Geocoder $geocoder, Adapter $configAdapter)
     {
-        $this->geocoder = $geocoder;
+        $this->geocoder      = $geocoder;
+        $this->configAdapter = $configAdapter;
     }
 
     public function __invoke(?string $providerId = null, Request $request): Response
     {
+        $this->checkFirewall($request);
+
         $qeocoder = $this->selectGeocoder($providerId);
         $query    = $this->buildQuery($request);
         $result   = $qeocoder->geocodeQuery($query);
@@ -122,5 +134,48 @@ final class SearchAction
         }
 
         return $this->geocoder;
+    }
+
+    private function checkFirewall(Request $request): void
+    {
+        $this->checkApiKey($request);
+        $this->checkReferrer($request);
+    }
+
+    private function checkApiKey(Request $request): void
+    {
+        /** @psalm-suppress InternalMethod */
+        $apiKey = (string) $this->configAdapter->get('cowegis_geocoder_api_key');
+        if ($apiKey === '') {
+            return;
+        }
+
+        if ($request->query->get('key') === $apiKey) {
+            return;
+        }
+
+        throw new AccessDeniedHttpException();
+    }
+
+    private function checkReferrer(Request $request): void
+    {
+        /** @psalm-suppress InternalMethod */
+        if (!$this->configAdapter->get('cowegis_geocoder_referrer_check')) {
+            return;
+        }
+
+        /** @psalm-suppress InternalMethod */
+        $allowedDomains = StringUtil::deserialize($this->configAdapter->get('cowegis_geocoder_referrer_domains'), true);
+        $referrer       = (string) $request->headers->get('referer');
+        assert(is_array($allowedDomains));
+
+        // No referer given, skip
+        if ($referrer === '') {
+            return;
+        }
+
+        if (!in_array($referrer, $allowedDomains, true)) {
+            throw new BadRequestHttpException();
+        }
     }
 }
