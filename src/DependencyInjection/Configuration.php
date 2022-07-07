@@ -25,8 +25,8 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder() : TreeBuilder
     {
-        $builder  = new TreeBuilder();
-        $rootNode = $builder->root('cowegis_contao_geocoder');
+        $builder  = new TreeBuilder('cowegis_contao_geocoder');
+        $rootNode = $builder->getRootNode();
 
         $rootNode
             ->children()
