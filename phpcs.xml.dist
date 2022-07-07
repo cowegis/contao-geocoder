@@ -12,6 +12,9 @@
     <!-- Required for the SlevomatCodingStandard which utilizes composer dependencies -->
     <autoload>vendor/autoload.php</autoload>
 
+    <!-- Include full Doctrine Coding Standard -->
+    <rule ref="Doctrine"/>
+
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
         <properties>
             <property name="enableObjectTypeHint" value="false" />

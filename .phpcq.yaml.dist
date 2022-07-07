@@ -116,6 +116,7 @@ tasks:
     plugin: phpcs
     config:
       <<: *phpcs-config
+      fix: true
 
   composer-normalize-fix:
     plugin: composer-normalize

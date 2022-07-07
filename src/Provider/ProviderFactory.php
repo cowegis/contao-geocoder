@@ -9,16 +9,16 @@ namespace Cowegis\ContaoGeocoder\Provider;
  */
 interface ProviderFactory
 {
-    public function register(ProviderTypeFactory $factory) : void;
+    public function register(ProviderTypeFactory $factory): void;
 
-    public function supports(string $type, string $feature) : bool;
+    public function supports(string $type, string $feature): bool;
 
     /**
      * @param mixed[] $config
      * @psalm-param TProviderConfig $config
      */
-    public function create(string $type, array $config) : Provider;
+    public function create(string $type, array $config): Provider;
 
     /** @return list<string> */
-    public function typeNames() : array;
+    public function typeNames(): array;
 }

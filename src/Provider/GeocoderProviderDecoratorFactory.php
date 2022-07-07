@@ -16,7 +16,7 @@ trait GeocoderProviderDecoratorFactory
      * @param mixed[] $config
      * @psalm-param TProviderConfig $config
      */
-    protected function createDecorator(GeocodeProvider $provider, array $config) : Provider
+    protected function createDecorator(GeocodeProvider $provider, array $config): Provider
     {
         Assert::that($config)
             ->keyExists('id')

@@ -22,24 +22,24 @@ final class CacheProviderFactory implements ProviderFactory
         $this->cache   = $cache;
     }
 
-    public function register(ProviderTypeFactory $factory) : void
+    public function register(ProviderTypeFactory $factory): void
     {
         $this->factory->register($factory);
     }
 
-    public function supports(string $type, string $feature) : bool
+    public function supports(string $type, string $feature): bool
     {
         return $this->factory->supports($type, $feature);
     }
 
     /** {@inheritDoc} */
-    public function typeNames() : array
+    public function typeNames(): array
     {
         return $this->factory->typeNames();
     }
 
     /** {@inheritDoc} */
-    public function create(string $type, array $config) : Provider
+    public function create(string $type, array $config): Provider
     {
         $provider = $this->factory->create($type, $config);
         $isActive = (bool) ($config['cache'] ?? false);

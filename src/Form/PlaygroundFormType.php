@@ -26,16 +26,15 @@ final class PlaygroundFormType extends AbstractType
     }
 
     /** {@inheritDoc} */
-    public function buildForm(FormBuilderInterface $builder, array $options) : void
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add(
                 'address',
-                TextType::class, [
+                TextType::class,
+                [
                     'label'  => 'Address query',
-                    'widget' => [
-                        'be_class' => 'w50',
-                    ]
+                    'widget' => ['be_class' => 'w50'],
                 ]
             );
 
@@ -44,21 +43,18 @@ final class PlaygroundFormType extends AbstractType
         $builder->add('submit', SubmitType::class);
     }
 
-    private function addGeocoderChoiceType(FormBuilderInterface $builder) : void
+    private function addGeocoderChoiceType(FormBuilderInterface $builder): void
     {
         $builder->add(
             'provider',
             ChoiceType::class,
             [
                 'label'                     => 'Geocoder',
-                'widget'                    => [
-                    'be_class' => 'w50',
-                ],
+                'widget'                    => ['be_class' => 'w50'],
                 'choice_translation_domain' => false,
                 'choice_loader'             => new CallbackChoiceLoader(function () {
                     $choices = [];
 
-                    /** @var Provider $provider */
                     foreach ($this->geocoder as $provider) {
                         $choices[$provider->providerId()] = $provider;
                     }

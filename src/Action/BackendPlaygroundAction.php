@@ -6,6 +6,7 @@ namespace Cowegis\ContaoGeocoder\Action;
 
 use Cowegis\ContaoGeocoder\Form\PlaygroundFormType;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
+use Cowegis\ContaoGeocoder\Provider\Provider;
 use Geocoder\Exception\Exception as GeocoderException;
 use Geocoder\Query\GeocodeQuery;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment as Twig;
 
 /**
- * @psalm-type TFormData = array{address: string, provider: ?\Cowegis\ContaoGeocoder\Provider\Provider}
+ * @psalm-type TFormData = array{address: string, provider: ?Provider}
  */
 final class BackendPlaygroundAction
 {
@@ -34,7 +35,7 @@ final class BackendPlaygroundAction
         $this->formFactory = $formFactory;
     }
 
-    public function __invoke(Request $request) : Response
+    public function __invoke(Request $request): Response
     {
         $result    = [];
         $error     = '';

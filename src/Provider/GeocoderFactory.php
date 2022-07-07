@@ -18,7 +18,7 @@ final class GeocoderFactory
         $this->providerFactory = $providerFactory;
     }
 
-    public function __invoke() : Geocoder
+    public function __invoke(): Geocoder
     {
         $geocoder = new Geocoder();
 

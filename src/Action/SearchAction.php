@@ -25,8 +25,34 @@ use function in_array;
 use function is_array;
 use function is_string;
 use function parse_url;
+use function sprintf;
+
 use const PHP_URL_HOST;
 
+/**
+ * @psalm-type TAdminLevel = array{
+ *   level?: int,
+ *   name?: string,
+ *   code?: string,
+ * }
+ * @psalm-type TAddress = array{
+ *   street?: string,
+ *   street_number?: int|string,
+ *   city?: string,
+ *   postcode?: string,
+ *   country?: string,
+ *   country_code?: string,
+ *   state?: string,
+ *   state_county?: string,
+ *   adminLevels?: list<TAdminLevel>,
+ * }
+ * @psalm-type TRecord = array{
+ *     boundingbox?: array{float, float, float, float},
+ *     lat?: float,
+ *     lng?: float,
+ *     address: TAddress,
+ * }
+ */
 final class SearchAction
 {
     /** @var Geocoder */
@@ -61,7 +87,7 @@ final class SearchAction
         }
     }
 
-    protected function buildQuery(Request $request) : GeocodeQuery
+    protected function buildQuery(Request $request): GeocodeQuery
     {
         $query = GeocodeQuery::create((string) $request->query->get('q'));
         $query = $query->withLocale($request->getLocale());
@@ -73,6 +99,7 @@ final class SearchAction
         return $query;
     }
 
+    /** @return list<TRecord> */
     private function transformJson(Collection $collection): array
     {
         $data = [];
@@ -80,7 +107,7 @@ final class SearchAction
         foreach ($collection as $item) {
             assert($item instanceof Location);
 
-            $record = [];
+            $record      = [];
             $coordinates = $item->getCoordinates();
             $boundingBox = $item->getBounds();
 
@@ -89,7 +116,7 @@ final class SearchAction
                     $boundingBox->getSouth(),
                     $boundingBox->getNorth(),
                     $boundingBox->getWest(),
-                    $boundingBox->getEast()
+                    $boundingBox->getEast(),
                 ];
             }
 
@@ -108,7 +135,7 @@ final class SearchAction
                 'country_code'  => $country ? $country->getCode() : null,
                 'state'         => $item->getAdminLevels()->has(1) ? $item->getAdminLevels()->get(1)->getName() : null,
                 'state_county'  => $item->getAdminLevels()->has(2) ? $item->getAdminLevels()->get(2)->getName() : null,
-                'adminLevels'   => []
+                'adminLevels'   => [],
             ];
 
             /** @psalm-var AdminLevel $adminLevel */
@@ -117,7 +144,7 @@ final class SearchAction
                     [
                         'level' => $adminLevel->getLevel(),
                         'name'  => $adminLevel->getName(),
-                        'code'  => $adminLevel->getCode()
+                        'code'  => $adminLevel->getCode(),
                     ]
                 );
             }
@@ -162,7 +189,7 @@ final class SearchAction
     private function checkReferrer(Request $request): void
     {
         /** @psalm-suppress InternalMethod */
-        if (!$this->configAdapter->get('cowegis_geocoder_referrer_check')) {
+        if (! $this->configAdapter->get('cowegis_geocoder_referrer_check')) {
             return;
         }
 
@@ -177,7 +204,7 @@ final class SearchAction
             return;
         }
 
-        if (!in_array($referrer, $allowedDomains, true)) {
+        if (! in_array($referrer, $allowedDomains, true)) {
             throw new BadRequestHttpException();
         }
     }

@@ -58,12 +58,13 @@ final class SearchUrlGenerator
     }
 
     /** @return array<string,string> */
-    private function buildParams(string $keyword, int $limit, string $format) : array
+    private function buildParams(string $keyword, int $limit, string $format): array
     {
         $params = ['q' => $keyword];
         if ($limit > 0) {
             $params['limit'] = (string) $limit;
         }
+
         if ($format !== 'json') {
             $params['format'] = $format;
         }

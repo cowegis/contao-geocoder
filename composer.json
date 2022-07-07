@@ -46,7 +46,7 @@
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
-    "doctrine/coding-standard": "^8.0",
+    "doctrine/coding-standard": "^9.0",
     "phpcq/runner-bootstrap": "^1.0@dev",
     "phpspec/phpspec": "^6.0 || ^7.0"
   },

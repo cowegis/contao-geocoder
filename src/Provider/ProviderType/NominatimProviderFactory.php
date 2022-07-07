@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
-use Cowegis\ContaoGeocoder\Provider\QueryCallbackProvider;
 use Cowegis\ContaoGeocoder\Provider\Provider;
+use Cowegis\ContaoGeocoder\Provider\QueryCallbackProvider;
 use Geocoder\Provider\Nominatim\Nominatim;
 use Geocoder\Query\GeocodeQuery;
 
@@ -21,17 +21,19 @@ final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
 {
     protected const FEATURES = [Provider::FEATURE_REVERSE, Provider::FEATURE_ADDRESS];
 
-    public function name() : string
+    public function name(): string
     {
         return 'nominatim';
     }
 
     /**
      * {@inheritDoc}
+     *
      * @psalm-param TNominatimConfig $config
+     *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function create(array $config) : Provider
+    public function create(array $config): Provider
     {
         $rootUrl      = $config['nominatim_root_url'] ?? null;
         $rootUrl      = $rootUrl ?: 'https://nominatim.openstreetmap.org';
@@ -44,7 +46,7 @@ final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
 
         return new QueryCallbackProvider(
             $provider,
-            function (GeocodeQuery $geocodeQuery) use ($countryCodes): GeocodeQuery {
+            static function (GeocodeQuery $geocodeQuery) use ($countryCodes): GeocodeQuery {
                 if ($geocodeQuery->getData('countrycodes') === null) {
                     return $geocodeQuery->withData('countrycodes', $countryCodes);
                 }

@@ -11,6 +11,7 @@ use Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use IteratorAggregate;
 use Traversable;
+
 use function count;
 use function sprintf;
 use function str_repeat;
@@ -31,14 +32,14 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
         ProviderRepository $repository,
         ProviderFactory $providerFactory,
         ContaoFramework $framework
-    ){
+    ) {
         $this->repository      = $repository;
         $this->providerFactory = $providerFactory;
         $this->framework       = $framework;
     }
 
     /** @return Traversable<array{type: string, title: ?string, id: string}> */
-    public function getIterator() : Traversable
+    public function getIterator(): Traversable
     {
         $types = $this->providerFactory->typeNames();
         if (count($types) === 0) {

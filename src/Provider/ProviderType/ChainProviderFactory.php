@@ -10,6 +10,7 @@ use Cowegis\ContaoGeocoder\Model\ProviderRepository;
 use Cowegis\ContaoGeocoder\Provider\Provider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Geocoder\Provider\Chain\Chain;
+
 use function array_map;
 use function assert;
 
@@ -32,16 +33,19 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
         $this->repository = $repository;
     }
 
-    public function name() : string
+    public function name(): string
     {
         return 'chain';
     }
 
     /**
      * {@inheritDoc}
+     *
      * @psalm-param TChainConfig $config
+     *
      * @psalm-suppress MoreSpecificImplementedParamType
-     */    public function create(array $config) : Provider
+     */
+    public function create(array $config): Provider
     {
         $chain       = new Chain();
         $providerIds = array_map(

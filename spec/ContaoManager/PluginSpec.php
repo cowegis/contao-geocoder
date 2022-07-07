@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Cowegis\ContaoGeocoder\ContaoManager;
 
 use Contao\CoreBundle\ContaoCoreBundle;
@@ -17,12 +19,12 @@ use Symfony\Component\Routing\RouteCollection;
 
 final class PluginSpec extends ObjectBehavior
 {
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(Plugin::class);
     }
 
-    public function it_provides_bundle_configs(ParserInterface $parser) : void
+    public function it_provides_bundle_configs(ParserInterface $parser): void
     {
         $this->shouldImplement(BundlePluginInterface::class);
 
@@ -37,7 +39,7 @@ final class PluginSpec extends ObjectBehavior
         KernelInterface $kernel,
         LoaderInterface $loader,
         RouteCollection $routeCollection
-    ) : void {
+    ): void {
         $this->shouldImplement(RoutingPluginInterface::class);
 
         $resolver->resolve(Argument::containingString('Resources/config/routing.xml'))

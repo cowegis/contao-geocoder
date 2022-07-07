@@ -14,7 +14,7 @@ final class RegisterProviderTypeFactoriesPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
-    public function process(ContainerBuilder $container) : void
+    public function process(ContainerBuilder $container): void
     {
         if (! $container->hasDefinition(ProviderFactory::class)) {
             return;

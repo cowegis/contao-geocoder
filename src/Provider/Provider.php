@@ -11,9 +11,9 @@ interface Provider extends GeocoderProvider
     public const FEATURE_ADDRESS = 'address';
     public const FEATURE_REVERSE = 'reverse';
 
-    public function title() : string;
+    public function title(): string;
 
-    public function providerId() : string;
+    public function providerId(): string;
 
-    public function type() : string;
+    public function type(): string;
 }

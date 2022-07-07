@@ -9,13 +9,13 @@ namespace Cowegis\ContaoGeocoder\Provider;
  */
 interface ProviderTypeFactory
 {
-    public function name() : string;
+    public function name(): string;
 
-    public function supports(string $feature) : bool;
+    public function supports(string $feature): bool;
 
     /**
      * @param mixed[] $config
      * @psalm-param TProviderConfig $config
      */
-    public function create(array $config) : Provider;
+    public function create(array $config): Provider;
 }

@@ -22,7 +22,7 @@ final class ApplicationConfigProvider implements IteratorAggregate, ConfigProvid
     }
 
     /** @return Traversable<array{type: string, title: ?string, id: string}> */
-    public function getIterator() : iterable
+    public function getIterator(): iterable
     {
         return new ArrayIterator($this->providers);
     }

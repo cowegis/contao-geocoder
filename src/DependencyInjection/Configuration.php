@@ -7,6 +7,7 @@ namespace Cowegis\ContaoGeocoder\DependencyInjection;
 use Assert\Assert;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+
 use function array_keys;
 
 /**
@@ -15,7 +16,6 @@ use function array_keys;
  *   title?: string,
  *   id: string
  * }
- *
  * @psalm-type TConfiguration = array{
  *   default_provider: string|null,
  *   providers: array<string,TProvider>
@@ -23,7 +23,7 @@ use function array_keys;
  */
 final class Configuration implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder() : TreeBuilder
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $builder  = new TreeBuilder('cowegis_contao_geocoder');
         $rootNode = $builder->getRootNode();
@@ -62,9 +62,10 @@ final class Configuration implements ConfigurationInterface
                 ->end()
                 ->beforeNormalization()
                     ->always(static function ($value) {
-                        if (!isset($value['providers'])) {
+                        if (! isset($value['providers'])) {
                             return $value;
                         }
+
                         foreach (array_keys($value['providers']) as $providerId) {
                             $value['providers'][$providerId]['id'] = $providerId;
                         }

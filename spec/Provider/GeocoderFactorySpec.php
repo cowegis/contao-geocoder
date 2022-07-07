@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Cowegis\ContaoGeocoder\Provider;
 
 use ArrayIterator;
@@ -13,14 +15,14 @@ use Prophecy\Argument;
 
 final class GeocoderFactorySpec extends ObjectBehavior
 {
-    public function let(ConfigProvider $configProvider, ProviderFactory $providerFactory) : void
+    public function let(ConfigProvider $configProvider, ProviderFactory $providerFactory): void
     {
         $configProvider->implement(IteratorAggregate::class);
 
         $this->beConstructedWith($configProvider, $providerFactory);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(GeocoderFactory::class);
     }
@@ -30,7 +32,7 @@ final class GeocoderFactorySpec extends ObjectBehavior
         ProviderFactory $providerFactory,
         Provider $foo,
         Provider $bar
-    ) : void{
+    ): void {
         $configProvider->getIterator()->willReturn(
             new ArrayIterator([['id' => 'foo', 'type' => 'google_maps'], ['id' => 'bar', 'type' => 'nominatim']])
         );

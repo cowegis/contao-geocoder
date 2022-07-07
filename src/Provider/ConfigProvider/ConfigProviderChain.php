@@ -25,7 +25,7 @@ final class ConfigProviderChain implements IteratorAggregate, ConfigProvider
     }
 
     /** @return Traversable<array{type: string, title: ?string, id: string}> */
-    public function getIterator() : iterable
+    public function getIterator(): iterable
     {
         $iterator = new AppendIterator();
 

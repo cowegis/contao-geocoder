@@ -13,15 +13,15 @@ final class QueryCallbackProvider implements Provider
     /** @var Provider */
     private $provider;
 
-    /** @var null|callable(GeocodeQuery): GeocodeQuery */
+    /** @var callable(GeocodeQuery ): GeocodeQuery|null */
     private $geocodeQueryCallback;
 
-    /** @var null|callable(ReverseQuery): ReverseQuery */
+    /** @var callable(ReverseQuery ): ReverseQuery|null */
     private $reverseQueryCallback;
 
     /**
-     * @param null|callable(GeocodeQuery): GeocodeQuery $geocodeQueryCallback
-     * @param null|callable(ReverseQuery): ReverseQuery $reverseQueryCallback
+     * @param callable(GeocodeQuery ): GeocodeQuery|null $geocodeQueryCallback
+     * @param callable(ReverseQuery ): ReverseQuery|null $reverseQueryCallback
      */
     public function __construct(
         Provider $provider,
@@ -33,27 +33,27 @@ final class QueryCallbackProvider implements Provider
         $this->reverseQueryCallback = $reverseQueryCallback;
     }
 
-    public function title() : string
+    public function title(): string
     {
         return $this->provider->title();
     }
 
-    public function providerId() : string
+    public function providerId(): string
     {
         return $this->provider->providerId();
     }
 
-    public function type() : string
+    public function type(): string
     {
         return $this->provider->type();
     }
 
-    public function getName() : string
+    public function getName(): string
     {
         return $this->provider->getName();
     }
 
-    public function geocodeQuery(GeocodeQuery $query) : Collection
+    public function geocodeQuery(GeocodeQuery $query): Collection
     {
         if ($this->geocodeQueryCallback) {
             $callback = $this->geocodeQueryCallback;
@@ -63,7 +63,7 @@ final class QueryCallbackProvider implements Provider
         return $this->provider->geocodeQuery($query);
     }
 
-    public function reverseQuery(ReverseQuery $query) : Collection
+    public function reverseQuery(ReverseQuery $query): Collection
     {
         if ($this->reverseQueryCallback) {
             $callback = $this->reverseQueryCallback;

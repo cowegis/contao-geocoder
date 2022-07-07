@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Cowegis\ContaoGeocoder\Provider;
 
 use Cowegis\ContaoGeocoder\Provider\CacheProviderFactory;
@@ -14,24 +16,24 @@ use Psr\SimpleCache\CacheInterface;
 
 final class CacheProviderFactorySpec extends ObjectBehavior
 {
-    public function let(ProviderFactory $factory, CacheInterface $cache) : void
+    public function let(ProviderFactory $factory, CacheInterface $cache): void
     {
         $this->beConstructedWith($factory, $cache);
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(CacheProviderFactory::class);
     }
 
-    public function it_delegates_register(ProviderFactory $factory, ProviderTypeFactory $typeFactory) : void
+    public function it_delegates_register(ProviderFactory $factory, ProviderTypeFactory $typeFactory): void
     {
         $factory->register($typeFactory)->shouldBeCalledOnce();
 
         $this->register($typeFactory);
     }
 
-    public function it_delegates_supports(ProviderFactory $factory) : void
+    public function it_delegates_supports(ProviderFactory $factory): void
     {
         $factory->supports('type', Provider::FEATURE_ADDRESS)
             ->shouldBeCalledOnce()
@@ -45,7 +47,7 @@ final class CacheProviderFactorySpec extends ObjectBehavior
         $this->supports('type', Provider::FEATURE_REVERSE)->shouldReturn(false);
     }
 
-    public function it_delegates_type_names(ProviderFactory $factory) : void
+    public function it_delegates_type_names(ProviderFactory $factory): void
     {
         $factory->typeNames()
             ->shouldBeCalledOnce()
@@ -54,7 +56,7 @@ final class CacheProviderFactorySpec extends ObjectBehavior
         $this->typeNames()->shouldReturn(['foo', 'bar']);
     }
 
-    public function it_creates_cache_decorator_if_configured(ProviderFactory $factory, Provider $provider) : void
+    public function it_creates_cache_decorator_if_configured(ProviderFactory $factory, Provider $provider): void
     {
         $factory->create('foo', Argument::any())->willReturn($provider);
         $this->create('foo', ['id' => 'foo'])->shouldReturn($provider);

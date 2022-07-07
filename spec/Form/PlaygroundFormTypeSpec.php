@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace spec\Cowegis\ContaoGeocoder\Form;
 
 use Cowegis\ContaoGeocoder\Form\PlaygroundFormType;
@@ -13,17 +15,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 final class PlaygroundFormTypeSpec extends ObjectBehavior
 {
-    public function let() : void
+    public function let(): void
     {
         $this->beConstructedWith(new Geocoder());
     }
 
-    public function it_is_initializable() : void
+    public function it_is_initializable(): void
     {
         $this->shouldHaveType(PlaygroundFormType::class);
     }
 
-    public function it_builds_form(FormBuilderInterface $builder) : void
+    public function it_builds_form(FormBuilderInterface $builder): void
     {
         $builder->add('address', TextType::class, Argument::any())
             ->willReturn($builder)

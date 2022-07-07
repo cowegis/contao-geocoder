@@ -11,6 +11,7 @@ use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
 use Symfony\Component\Routing\RouterInterface;
+
 use function implode;
 use function is_array;
 use function sprintf;
@@ -53,7 +54,7 @@ final class ProviderDcaListener extends AbstractListener
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @psalm-suppress MixedArgument
      */
-    public function formatLabel(array $row, string $label, DataContainer $dataContainer) : string
+    public function formatLabel(array $row, string $label, DataContainer $dataContainer): string
     {
         $value = $this->getFormatter()->formatValue('type', $row['type'], $dataContainer);
         if (is_array($value)) {
@@ -69,13 +70,13 @@ final class ProviderDcaListener extends AbstractListener
     }
 
     /** @return string[] */
-    public function typeOptions() : array
+    public function typeOptions(): array
     {
         return $this->providerFactory->typeNames();
     }
 
     /** @return string[] */
-    public function providerOptions(?DataContainer $dataContainer = null) : array
+    public function providerOptions(?DataContainer $dataContainer = null): array
     {
         $options = [];
 
@@ -91,7 +92,7 @@ final class ProviderDcaListener extends AbstractListener
     }
 
     /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
-    public function playgroundButton(?string $href, string $label, string $title, string $class) : string
+    public function playgroundButton(?string $href, string $label, string $title, string $class): string
     {
         return sprintf(
             '<a href="%s" title="%s" class="%s">%s</a> ',
@@ -104,7 +105,7 @@ final class ProviderDcaListener extends AbstractListener
 
     public function setDefault(DataContainer $dataContainer): void
     {
-        if (!$dataContainer->activeRecord || !$dataContainer->activeRecord->isDefault) {
+        if (! $dataContainer->activeRecord || ! $dataContainer->activeRecord->isDefault) {
             return;
         }
 
@@ -112,7 +113,7 @@ final class ProviderDcaListener extends AbstractListener
             'UPDATE tl_cowegis_geocoder_provider SET isDefault=:default WHERE id != :id ',
             [
                 'default' => '',
-                'id' => $dataContainer->id
+                'id'      => $dataContainer->id,
             ]
         );
     }

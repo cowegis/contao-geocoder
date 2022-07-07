@@ -17,13 +17,13 @@ final class BackendListener
 
     public function __construct(RequestScopeMatcher $scopeMatcher, AssetsManager $assetsManager)
     {
-        $this->scopeMatcher = $scopeMatcher;
+        $this->scopeMatcher  = $scopeMatcher;
         $this->assetsManager = $assetsManager;
     }
 
     public function onInitializeSystem(): void
     {
-        if (!$this->scopeMatcher->isBackendRequest()) {
+        if (! $this->scopeMatcher->isBackendRequest()) {
             return;
         }
 

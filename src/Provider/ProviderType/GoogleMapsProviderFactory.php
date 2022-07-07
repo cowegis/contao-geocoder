@@ -14,17 +14,19 @@ final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
 {
     protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
-    public function name() : string
+    public function name(): string
     {
         return 'google_maps';
     }
 
     /**
      * {@inheritDoc}
+     *
      * @psalm-param TGoogleMapsConfig $config
+     *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function create(array $config) : Provider
+    public function create(array $config): Provider
     {
         $region = $config['google_region'] ?? null;
         $region = $region ?: null;
