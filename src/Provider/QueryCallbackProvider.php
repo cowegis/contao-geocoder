@@ -13,15 +13,15 @@ final class QueryCallbackProvider implements Provider
     /** @var Provider */
     private $provider;
 
-    /** @var callable(GeocodeQuery ): GeocodeQuery|null */
+    /** @var callable(GeocodeQuery): GeocodeQuery|null */
     private $geocodeQueryCallback;
 
-    /** @var callable(ReverseQuery ): ReverseQuery|null */
+    /** @var callable(ReverseQuery): ReverseQuery|null */
     private $reverseQueryCallback;
 
     /**
-     * @param callable(GeocodeQuery ): GeocodeQuery|null $geocodeQueryCallback
-     * @param callable(ReverseQuery ): ReverseQuery|null $reverseQueryCallback
+     * @param callable(GeocodeQuery): GeocodeQuery|null $geocodeQueryCallback
+     * @param callable(ReverseQuery): ReverseQuery|null $reverseQueryCallback
      */
     public function __construct(
         Provider $provider,
