@@ -9,6 +9,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
+/**
+ * @psalm-import-type TConfiguration from Configuration
+ */
 final class CowegisContaoGeocoderExtension extends Extension
 {
     /** @param array|mixed[] $configs */
@@ -20,6 +23,7 @@ final class CowegisContaoGeocoderExtension extends Extension
         );
 
         $config = $this->processConfiguration(new Configuration(), $configs);
+        /** @psalm-var TConfiguration $config*/
 
         $container->setParameter('cowegis.contao_geocoder.config.default_provider', $config['default_provider']);
         $container->setParameter('cowegis.contao_geocoder.config.providers', $config['providers']);

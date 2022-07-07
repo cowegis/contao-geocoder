@@ -9,6 +9,18 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 use function array_keys;
 
+/**
+ * @psalm-type TProvider = array<string,mixed>&array{
+ *   type: string,
+ *   title?: string,
+ *   id: string
+ * }
+ *
+ * @psalm-type TConfiguration = array{
+ *   default_provider: string|null,
+ *   providers: array<string,TProvider>
+ * }
+ */
 final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder() : TreeBuilder

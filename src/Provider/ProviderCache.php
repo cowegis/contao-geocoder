@@ -8,6 +8,7 @@ use Geocoder\Provider\Cache\ProviderCache as GeocoderProviderCache;
 
 final class ProviderCache extends GeocoderProviderCache
 {
+    /** {@inheritDocs} */
     protected function getCacheKey($query) : string
     {
         $cacheKey = parent::getCacheKey($query);

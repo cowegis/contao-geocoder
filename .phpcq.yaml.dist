@@ -35,9 +35,6 @@ phpcq:
     phpcs:
       version: ^1.0
       signed: false
-    phpcbf:
-      version: ^1.0
-      signed: false
     composer-normalize:
       version: ^1.0
       signed: false
@@ -55,49 +52,36 @@ phpcq:
     - 31C7E470E2138192
     # Composer normalize
     - C00543248C87FB13
-
-  chains:
-    fix:
-      - composer-normalize-fix
-      - phpcbf
-    verify:
-      - composer-require-checker
-      - composer-normalize
-    analyze:
-      - phploc
-      - phpcpd
-      - phpmd
-      - phpmd_spec
-      - phpcs
-      - psalm
-      - phpspec
-    default:
-      - composer-require-checker
-      - composer-normalize
-      - phploc
-      - phpcpd
-      - phpmd
-      - phpmd_spec
-      - phpcs
-      - psalm
-      - phpspec
+    # Composer require checker
+    - 033E5F8D801A2F8D
 
 tasks:
+  fix:
+    - composer-normalize-fix
+    - phpcbf
+
+  verify:
+    - composer-require-checker
+    - composer-normalize
+
+  analyze:
+    - phploc
+    - phpcpd
+    - phpmd
+    - phpmd_spec
+    - phpcs
+    - psalm
+    - phpspec
+
+  default:
+    - verify
+    - analyze
+
   phpcpd:
-    plugin: phpcpd
     config:
-    #  exclude:
-    #  names:
-    #  names_exclude:
-    #  regexps_exclude:
-    #  log:
-    #  min_lines:
-    #  min_tokens:
-    #  fuzzy: true
-    #  custom_flags:
+
 
   phpmd:
-    plugin: phpmd
     directories:
       - src
     config:
@@ -118,12 +102,10 @@ tasks:
         - unusedcode
 
   composer-require-checker:
-    plugin: composer-require-checker
     config:
       config_file: '.composer-require-checker.json'
 
   phpcs:
-    plugin: phpcs
     config: &phpcs-config
       standard: ~
       standard_paths:
@@ -131,7 +113,7 @@ tasks:
         - ./vendor/doctrine/coding-standard/lib
 
   phpcbf:
-    plugin: phpcbf
+    plugin: phpcs
     config:
       <<: *phpcs-config
 
