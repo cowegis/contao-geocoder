@@ -17,11 +17,13 @@
         </service>
         
         <!-- Cache -->
-        <service id="cowegis.contao_geocoder.cache.file_system" class="Doctrine\Common\Cache\FilesystemCache">
+        <service id="cowegis.contao_geocoder.cache.file_system" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
+            <argument type="string"/>
+            <argument>0</argument>
             <argument type="string">%cowegis.contao_geocoder.cache_dir%</argument>
         </service>
 
-        <service id="cowegis.contao_geocoder.cache" class="Roave\DoctrineSimpleCache\SimpleCacheAdapter">
+        <service id="cowegis.contao_geocoder.cache" class="Symfony\Component\Cache\Psr16Cache">
             <argument type="service" id="cowegis.contao_geocoder.cache.file_system"/>
         </service>
 
