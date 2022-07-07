@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
+    <file datatype="php" original="src/Resources/contao/languages/de/tl_settings.php" source-language="en" target-language="de">
+        <body>
+            <trans-unit id="tl_settings.cowegis_geocoder">
+                <source>cowegis Geocoder</source>
+                <target>cowegis Geokodierung</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_api_key.0">
+                <source>cowegis Geocoder API Key</source>
+                <target>cowegis Geokodierung API-Schlüssel</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_api_key.1">
+                <source>Define an api key. If empty no api key is required.</source>
+                <target>Definieren Sie einen API-Schlüssel, um die API zu schützen. Ein leeres Feld bedeutet, dass kein Schutz vorhanden ist.</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_referrer_check.0">
+                <source>cowegis Geocoder referrer check</source>
+                <target>cowegis Geokodierung Referrer-Überprüfung</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_referrer_check.1">
+                <source>Protect geocoder API with a referrer check.</source>
+                <target>Schützt die cowegis Geokierungs-API mit einer Referrer-Überprüfung</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_referrer_domains.0">
+                <source>cowegis Geocoder referrer check domains</source>
+                <target>cowegis Geokodierung Referrer-Überprüfung Domains</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.cowegis_geocoder_referrer_domains.1">
+                <source><![CDATA[List of domains which have access to the geocoder API endpoint <em>(e.g. www.example.org, example.org)</em>.]]></source>
+                <target><![CDATA[Eine List von Domains, die den Zugriff auf die Geokodierungs-API erhalten <em>(z.B. www.example.org, example.org)</em>.]]></target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
