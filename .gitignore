@@ -10,6 +10,7 @@
 !/README.md
 !/LICENSE
 !/composer.json
+!/composer.lock
 !phpcs.xml.dist
 !phpmd.xml
 !phpspec.yml
@@ -20,4 +21,5 @@
 !.phpcq
 .phpcq/*
 !.phpcq/local
+!.phpcq.lock
 !psalm.xml

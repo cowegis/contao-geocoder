@@ -13,7 +13,7 @@ Features
 --------
 
  - Geocoder service for other extensions
- - Out of the box support for `nominatim` and `google maps`
+ - Built in support for `nominatim` and `google maps`
  - Extandable for other providers
  - Database driven configuration of providers in Contao backend 
  - Application driven configuration of providers
@@ -22,20 +22,18 @@ Features
 Requirements
 ------------
 
- - Contao `^4.4`
- - PHP `>= 7.1`
+ - Contao `^4.13`
+ - PHP `^ 7.4 || ^8.0`
 
 Installation
 ------------
 
-### Contao Manager
-
-Search the `cowegis/contao-geocoder` package and install it.
-
-### Composer
-
 ```
- composer require cowegis/contao-geocoder ^0.2.0
+ composer require cowegis/contao-geocoder ^1.0.0
+ # Optional for Nominatim support
+ composer require geocoder-php/nominatim-provider ^5.5
+ # Optional for Google Maps support
+ composer require geocoder-php/google-maps-provider ^4.6
 ```
 
 Usage
