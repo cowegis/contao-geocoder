@@ -50,6 +50,7 @@ use const PHP_URL_HOST;
  *     boundingbox?: array{float, float, float, float},
  *     lat?: float,
  *     lng?: float,
+ *     lon?: float,
  *     address: TAddress,
  * }
  */
@@ -122,6 +123,7 @@ final class SearchAction
 
             if ($coordinates) {
                 $record['lat'] = $coordinates->getLatitude();
+                $record['lon'] = $coordinates->getLongitude();
                 $record['lng'] = $coordinates->getLongitude();
             }
 
