@@ -24,7 +24,7 @@ final class SearchUrlGenerator
     }
 
     /** @param array<string,string> $params */
-    public function generate(array $params = []): string
+    public function generate(array $params = [], int $referenceType = RouterInterface::ABSOLUTE_PATH): string
     {
         /** @psalm-suppress InternalMethod */
         if ($this->configAdapter->get('cowegis_geocoder_api_key')) {
@@ -32,29 +32,34 @@ final class SearchUrlGenerator
         }
 
         if (isset($params['providerId'])) {
-            return $this->router->generate('cowegis_geocoder_provider_search', $params);
+            return $this->router->generate('cowegis_geocoder_provider_search', $params, $referenceType);
         }
 
         return $this->router->generate('cowegis_geocoder_search', $params);
     }
 
-    public function searchWithDefaultProvider(string $keyword, int $limit = 0, string $format = 'json'): string
-    {
+    public function searchWithDefaultProvider(
+        string $keyword,
+        int $limit = 0,
+        string $format = 'json',
+        int $referenceType = RouterInterface::ABSOLUTE_PATH
+    ) : string{
         $params = $this->buildParams($keyword, $limit, $format);
 
-        return $this->generate($params);
+        return $this->generate($params, $referenceType);
     }
 
     public function searchWithProvider(
         string $providerId,
         string $keyword,
         int $limit = 0,
-        string $format = 'json'
+        string $format = 'json',
+        int $referenceType = RouterInterface::ABSOLUTE_PATH
     ): string {
         $params               = $this->buildParams($keyword, $limit, $format);
         $params['providerId'] = $providerId;
 
-        return $this->generate($params);
+        return $this->generate($params, $referenceType);
     }
 
     /** @return array<string,string> */
