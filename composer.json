@@ -25,7 +25,7 @@
     "doctrine/dbal": "^2.11 || ^3.0",
     "geocoder-php/cache-provider": "^4.1",
     "geocoder-php/chain-provider": "^4.0",
-    "netzmacht/contao-form-bundle": "^1.2",
+    "netzmacht/contao-form-bundle": "^2.0",
     "netzmacht/contao-toolkit": "^3.8",
     "php-http/guzzle6-adapter": "^1.1 || ^2.0",
     "php-http/httplug": "^2.0",

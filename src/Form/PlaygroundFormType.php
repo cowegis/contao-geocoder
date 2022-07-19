@@ -33,8 +33,8 @@ final class PlaygroundFormType extends AbstractType
                 'address',
                 TextType::class,
                 [
-                    'label'  => 'Address query',
-                    'widget' => ['be_class' => 'w50'],
+                    'label'        => 'Address query',
+                    'contaoWidget' => ['be_class' => 'w50'],
                 ]
             );
 
@@ -50,7 +50,7 @@ final class PlaygroundFormType extends AbstractType
             ChoiceType::class,
             [
                 'label'                     => 'Geocoder',
-                'widget'                    => ['be_class' => 'w50'],
+                'contaoWidget'              => ['be_class' => 'w50'],
                 'choice_translation_domain' => false,
                 'choice_loader'             => new CallbackChoiceLoader(function () {
                     $choices = [];
