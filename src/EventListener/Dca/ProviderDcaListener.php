@@ -21,31 +21,14 @@ final class ProviderDcaListener extends AbstractListener
     /** @var string */
     protected static $name = 'tl_cowegis_geocoder_provider';
 
-    /** @var ProviderFactory */
-    private $providerFactory;
-
-    /** @var Geocoder */
-    private $geocoder;
-
-    /** @var RouterInterface */
-    private $router;
-
-    /** @var Connection */
-    private $connection;
-
     public function __construct(
         DcaManager $dcaManager,
-        ProviderFactory $providerFactory,
-        Geocoder $geocoder,
-        RouterInterface $router,
-        Connection $connection
+        private readonly ProviderFactory $providerFactory,
+        private readonly Geocoder $geocoder,
+        private readonly RouterInterface $router,
+        private readonly Connection $connection,
     ) {
         parent::__construct($dcaManager);
-
-        $this->providerFactory = $providerFactory;
-        $this->router          = $router;
-        $this->geocoder        = $geocoder;
-        $this->connection      = $connection;
     }
 
     /**
@@ -65,7 +48,7 @@ final class ProviderDcaListener extends AbstractListener
             '%s %s<small class="tl_gray">[%s]</small>',
             $row['title'],
             $row['isDefault'] ? sprintf('(%s) ', $this->getFormatter()->formatFieldLabel('isDefault')) : '',
-            (string) $value
+            (string) $value,
         );
     }
 
@@ -76,7 +59,7 @@ final class ProviderDcaListener extends AbstractListener
     }
 
     /** @return string[] */
-    public function providerOptions(?DataContainer $dataContainer = null): array
+    public function providerOptions(DataContainer|null $dataContainer = null): array
     {
         $options = [];
 
@@ -92,14 +75,14 @@ final class ProviderDcaListener extends AbstractListener
     }
 
     /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
-    public function playgroundButton(?string $href, string $label, string $title, string $class): string
+    public function playgroundButton(string|null $href, string $label, string $title, string $class): string
     {
         return sprintf(
             '<a href="%s" title="%s" class="%s">%s</a> ',
             $this->router->generate('cowegis_geocoder_playground'),
             $title,
             $class,
-            $label
+            $label,
         );
     }
 
@@ -114,7 +97,7 @@ final class ProviderDcaListener extends AbstractListener
             [
                 'default' => '',
                 'id'      => $dataContainer->id,
-            ]
+            ],
         );
     }
 }

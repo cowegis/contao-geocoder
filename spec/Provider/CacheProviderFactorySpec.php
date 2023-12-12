@@ -65,6 +65,7 @@ final class CacheProviderFactorySpec extends ObjectBehavior
             ->shouldImplement(GeocoderProviderDecorator::class);
 
         $this->create('foo', ['id' => 'foo', 'title' => 'Foo', 'cache' => '1', 'cache_ttl' => 3600])
-            ->provider()->shouldImplement(ProviderCache::class);
+            ->provider()
+            ->shouldImplement(ProviderCache::class);
     }
 }

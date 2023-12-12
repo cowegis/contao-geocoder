@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider;
 
-/**
- * @psalm-type TProviderConfig = array{type: string, title: ?string, id: string}
- */
+/** @psalm-import-type TProviderConfig from ProviderFactory */
 interface ProviderTypeFactory
 {
     public function name(): string;

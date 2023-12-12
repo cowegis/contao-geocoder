@@ -6,25 +6,18 @@ namespace Cowegis\ContaoGeocoder\Routing;
 
 use Contao\Config;
 use Contao\CoreBundle\Framework\Adapter;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-final class SearchUrlGenerator
+final readonly class SearchUrlGenerator
 {
-    /** @var RouterInterface */
-    private $router;
-
-    /** @var Adapter<Config> $configAdapter */
-    private $configAdapter;
-
     /** @param Adapter<Config> $configAdapter */
-    public function __construct(RouterInterface $router, Adapter $configAdapter)
+    public function __construct(private RouterInterface $router, private Adapter $configAdapter)
     {
-        $this->router        = $router;
-        $this->configAdapter = $configAdapter;
     }
 
     /** @param array<string,string> $params */
-    public function generate(array $params = [], int $referenceType = RouterInterface::ABSOLUTE_PATH): string
+    public function generate(array $params = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH): string
     {
         /** @psalm-suppress InternalMethod */
         if ($this->configAdapter->get('cowegis_geocoder_api_key')) {
@@ -42,8 +35,8 @@ final class SearchUrlGenerator
         string $keyword,
         int $limit = 0,
         string $format = 'json',
-        int $referenceType = RouterInterface::ABSOLUTE_PATH
-    ) : string{
+        int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH,
+    ): string {
         $params = $this->buildParams($keyword, $limit, $format);
 
         return $this->generate($params, $referenceType);
@@ -54,7 +47,7 @@ final class SearchUrlGenerator
         string $keyword,
         int $limit = 0,
         string $format = 'json',
-        int $referenceType = RouterInterface::ABSOLUTE_PATH
+        int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH,
     ): string {
         $params               = $this->buildParams($keyword, $limit, $format);
         $params['providerId'] = $providerId;

@@ -6,9 +6,7 @@ namespace Cowegis\ContaoGeocoder\Model;
 
 use Contao\Model;
 
-/**
- * @property string $type
- */
+/** @property string $type */
 final class ProviderModel extends Model
 {
     /** @var string */

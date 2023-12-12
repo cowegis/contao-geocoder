@@ -28,7 +28,7 @@
         </service>
 
         <!-- HTTP client -->
-        <service id="cowegis.contao_geocoder.http_client" class="Http\Adapter\Guzzle6\Client" />
+        <service id="cowegis.contao_geocoder.http_client" class="Symfony\Component\HttpClient\Psr18Client" />
 
         <!-- Provider factories -->
         <service id="Cowegis\ContaoGeocoder\Provider\ProviderType\GoogleMapsProviderFactory">

@@ -38,7 +38,7 @@ final class PluginSpec extends ObjectBehavior
         LoaderResolverInterface $resolver,
         KernelInterface $kernel,
         LoaderInterface $loader,
-        RouteCollection $routeCollection
+        RouteCollection $routeCollection,
     ): void {
         $this->shouldImplement(RoutingPluginInterface::class);
 

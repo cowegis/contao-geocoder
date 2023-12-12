@@ -8,7 +8,12 @@ use Cowegis\ContaoGeocoder\Provider\Provider;
 use Geocoder\Provider\GoogleMaps\GoogleMaps;
 
 /**
- * @psalm-type TGoogleMapsConfig = array{title: ?string, id: string, google_region?: ?string, google_api_key?: ?string }
+ * @psalm-type TGoogleMapsConfig = array{
+ *     title: ?string,
+ *     id: string,
+ *     google_region?: ?string,
+ *     google_api_key?: ?string
+ * }
  */
 final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
 {

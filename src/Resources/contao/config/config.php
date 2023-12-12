@@ -11,5 +11,5 @@ array_insert(
                 'tables' => ['tl_cowegis_geocoder_provider'],
             ],
         ],
-    ]
+    ],
 );

@@ -31,10 +31,10 @@ final class GeocoderFactorySpec extends ObjectBehavior
         ConfigProvider $configProvider,
         ProviderFactory $providerFactory,
         Provider $foo,
-        Provider $bar
+        Provider $bar,
     ): void {
         $configProvider->getIterator()->willReturn(
-            new ArrayIterator([['id' => 'foo', 'type' => 'google_maps'], ['id' => 'bar', 'type' => 'nominatim']])
+            new ArrayIterator([['id' => 'foo', 'type' => 'google_maps'], ['id' => 'bar', 'type' => 'nominatim']]),
         );
 
         $foo->providerId()->willReturn('foo');

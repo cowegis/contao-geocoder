@@ -17,12 +17,8 @@ use function sprintf;
 
 final class PlaygroundFormType extends AbstractType
 {
-    /** @var Geocoder */
-    private $geocoder;
-
-    public function __construct(Geocoder $geocoder)
+    public function __construct(private readonly Geocoder $geocoder)
     {
-        $this->geocoder = $geocoder;
     }
 
     /** {@inheritDoc} */
@@ -35,7 +31,7 @@ final class PlaygroundFormType extends AbstractType
                 [
                     'label'        => 'Address query',
                     'contaoWidget' => ['be_class' => 'w50'],
-                ]
+                ],
             );
 
         $this->addGeocoderChoiceType($builder);
@@ -64,7 +60,7 @@ final class PlaygroundFormType extends AbstractType
                 'choice_label'              => static function (Provider $provider) {
                     return sprintf('%s [%s]', $provider->title(), $provider->type());
                 },
-            ]
+            ],
         );
     }
 }

@@ -10,9 +10,6 @@ use Geocoder\Query\ReverseQuery;
 
 final class QueryCallbackProvider implements Provider
 {
-    /** @var Provider */
-    private $provider;
-
     /** @var callable(GeocodeQuery): GeocodeQuery|null */
     private $geocodeQueryCallback;
 
@@ -24,11 +21,10 @@ final class QueryCallbackProvider implements Provider
      * @param callable(ReverseQuery): ReverseQuery|null $reverseQueryCallback
      */
     public function __construct(
-        Provider $provider,
-        ?callable $geocodeQueryCallback = null,
-        ?callable $reverseQueryCallback = null
+        private readonly Provider $provider,
+        callable|null $geocodeQueryCallback = null,
+        callable|null $reverseQueryCallback = null,
     ) {
-        $this->provider             = $provider;
         $this->geocodeQueryCallback = $geocodeQueryCallback;
         $this->reverseQueryCallback = $reverseQueryCallback;
     }

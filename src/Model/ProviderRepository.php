@@ -24,7 +24,7 @@ final class ProviderRepository extends ContaoRepository
      * @psalm-suppress MixedReturnStatement
      * @psalm-suppress MixedInferredReturnType
      */
-    public function findByIds(array $providerIds): ?Collection
+    public function findByIds(array $providerIds): Collection|null
     {
         return $this->__call('findMultipleByIds', [$providerIds]);
     }

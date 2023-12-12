@@ -15,9 +15,7 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 use function class_exists;
 
-/**
- * @psalm-import-type TConfiguration from Configuration
- */
+/** @psalm-import-type TConfiguration from Configuration */
 final class CowegisContaoGeocoderExtension extends Extension
 {
     /** @param array|mixed[] $configs */
@@ -25,7 +23,7 @@ final class CowegisContaoGeocoderExtension extends Extension
     {
         $loader = new XmlFileLoader(
             $container,
-            new FileLocator(__DIR__ . '/../Resources/config')
+            new FileLocator(__DIR__ . '/../Resources/config'),
         );
 
         $config = $this->processConfiguration(new Configuration(), $configs);

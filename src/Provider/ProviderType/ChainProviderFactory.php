@@ -15,22 +15,24 @@ use function array_map;
 use function assert;
 
 /**
- * @psalm-type TChainConfig = array{type: string, title: ?string, id: string, chain_providers?: string }
+ * @psalm-import-type TProviderConfig from ProviderFactory
+ * @psalm-type TChainConfig = array{
+ *     type: string,
+ *     title: ?string,
+ *     id: string,
+ *     chain_providers?: string,
+ *     cache:int|numeric-string|bool,
+ *     cache_ttl: int|numeric-string
+ * }
  */
 final class ChainProviderFactory extends BaseProviderTypeFactory
 {
     protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
-    /** @var ProviderFactory */
-    private $factory;
-
-    /** @var ProviderRepository */
-    private $repository;
-
-    public function __construct(ProviderFactory $providerFactory, ProviderRepository $repository)
-    {
-        $this->factory    = $providerFactory;
-        $this->repository = $repository;
+    public function __construct(
+        private readonly ProviderFactory $factory,
+        private readonly ProviderRepository $repository,
+    ) {
     }
 
     public function name(): string
@@ -50,15 +52,16 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
         $chain       = new Chain();
         $providerIds = array_map(
             'intval',
-            (array) StringUtil::deserialize($config['chain_providers'] ?? '', true)
+            (array) StringUtil::deserialize($config['chain_providers'] ?? '', true),
         );
 
         $providers = $this->repository->findByIds($providerIds);
 
         foreach ($providers ?: [] as $provider) {
             assert($provider instanceof ProviderModel);
-            /** @psalm-suppress MixedArgumentTypeCoercion */
-            $chain->add($this->factory->create($provider->type, $provider->row()));
+            /** @psalm-var TProviderConfig $providerConfig */
+            $providerConfig = $provider->row();
+            $chain->add($this->factory->create($provider->type, $providerConfig));
         }
 
         return $this->createDecorator($chain, $config);

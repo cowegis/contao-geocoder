@@ -4,15 +4,11 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface;
 
 abstract class BaseHttpProviderTypeFactory extends BaseProviderTypeFactory
 {
-    /** @var HttpClient */
-    protected $httpClient;
-
-    public function __construct(HttpClient $httpClient)
+    public function __construct(protected readonly ClientInterface $httpClient)
     {
-        $this->httpClient = $httpClient;
     }
 }

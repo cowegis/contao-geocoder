@@ -52,7 +52,7 @@ final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
                 }
 
                 return $geocodeQuery;
-            }
+            },
         );
     }
 }

@@ -14,25 +14,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment as Twig;
 
-/**
- * @psalm-type TFormData = array{address: string, provider: ?Provider}
- */
+/** @psalm-type TFormData = array{address: string, provider: ?Provider} */
 final class BackendPlaygroundAction
 {
-    /** @var Geocoder */
-    private $provider;
-
-    /** @var Twig */
-    private $twig;
-
-    /** @var FormFactoryInterface */
-    private $formFactory;
-
-    public function __construct(Geocoder $provider, Twig $twig, FormFactoryInterface $formFactory)
-    {
-        $this->provider    = $provider;
-        $this->twig        = $twig;
-        $this->formFactory = $formFactory;
+    public function __construct(
+        private readonly Geocoder $provider,
+        private readonly Twig $twig,
+        private readonly FormFactoryInterface $formFactory,
+    ) {
     }
 
     public function __invoke(Request $request): Response
@@ -70,8 +59,8 @@ final class BackendPlaygroundAction
                     'result'    => $result,
                     'error'     => $error,
                     'submitted' => $submitted,
-                ]
-            )
+                ],
+            ),
         );
     }
 }

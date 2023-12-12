@@ -5,7 +5,14 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider;
 
 /**
- * @psalm-type TProviderConfig = array{type: string, title: ?string, id: string}
+ * @psalm-type TProviderConfig = array{
+ *     type: string,
+ *     title: ?string,
+ *     id: string,
+ *     cache:int|numeric-string|bool,
+ *     cache_ttl: int|numeric-string,
+ *     ...
+ * }
  */
 interface ProviderFactory
 {

@@ -54,22 +54,14 @@ use const PHP_URL_HOST;
  *     address: TAddress,
  * }
  */
-final class SearchAction
+final readonly class SearchAction
 {
-    /** @var Geocoder */
-    private $geocoder;
-
-    /** @var Adapter */
-    private $configAdapter;
-
     /** @param Adapter<Config> $configAdapter */
-    public function __construct(Geocoder $geocoder, Adapter $configAdapter)
+    public function __construct(private Geocoder $geocoder, private Adapter $configAdapter)
     {
-        $this->geocoder      = $geocoder;
-        $this->configAdapter = $configAdapter;
     }
 
-    public function __invoke(?string $providerId = null, Request $request): Response
+    public function __invoke(string|null $providerId = null, Request $request): Response
     {
         $this->checkFirewall($request);
 
@@ -147,7 +139,7 @@ final class SearchAction
                         'level' => $adminLevel->getLevel(),
                         'name'  => $adminLevel->getName(),
                         'code'  => $adminLevel->getCode(),
-                    ]
+                    ],
                 );
             }
 
@@ -158,7 +150,7 @@ final class SearchAction
         return $data;
     }
 
-    private function selectGeocoder(?string $providerId): Provider
+    private function selectGeocoder(string|null $providerId): Provider
     {
         if ($providerId) {
             return $this->geocoder->using($providerId);

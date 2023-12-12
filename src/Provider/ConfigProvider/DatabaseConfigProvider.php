@@ -19,23 +19,11 @@ use function str_repeat;
 /** @implements IteratorAggregate<array{type: string, title: ?string, id: string}> */
 final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
 {
-    /** @var ProviderRepository */
-    private $repository;
-
-    /** @var ProviderFactory */
-    private $providerFactory;
-
-    /** @var ContaoFramework */
-    private $framework;
-
     public function __construct(
-        ProviderRepository $repository,
-        ProviderFactory $providerFactory,
-        ContaoFramework $framework
+        private readonly ProviderRepository $repository,
+        private readonly ProviderFactory $providerFactory,
+        private readonly ContaoFramework $framework,
     ) {
-        $this->repository      = $repository;
-        $this->providerFactory = $providerFactory;
-        $this->framework       = $framework;
     }
 
     /** @return Traversable<array{type: string, title: ?string, id: string}> */
@@ -51,7 +39,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
         $collection = $this->repository->findBy(
             [sprintf('.type IN (?%s)', str_repeat(',?', count($types) - 1))],
             $types,
-            ['order' => 'FIELD( .isDefault, \'1\',\'\')']
+            ['order' => 'FIELD( .isDefault, \'1\',\'\')'],
         );
 
         if ($collection !== null) {

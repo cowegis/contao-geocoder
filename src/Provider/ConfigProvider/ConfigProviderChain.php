@@ -10,22 +10,30 @@ use IteratorAggregate;
 use IteratorIterator;
 use Traversable;
 
-/** @implements IteratorAggregate<array{type: string, title: ?string, id: string}> */
-final class ConfigProviderChain implements IteratorAggregate, ConfigProvider
+/**
+ * @psalm-type TProviderConfig = array{
+ *      type: string,
+ *      title: ?string,
+ *      id: string,
+ *      cache:int|numeric-string|bool,
+ *      cache_ttl: int|numeric-string,
+ *      ...
+ * }
+ * @implements IteratorAggregate<TProviderConfig>
+ */
+final readonly class ConfigProviderChain implements IteratorAggregate, ConfigProvider
 {
-    /** @var list<ConfigProvider> */
-    private $configProviders;
-
-    /**
-     * @param list<ConfigProvider> $configProviders
-     */
-    public function __construct(iterable $configProviders)
+    /** @param list<ConfigProvider> $configProviders */
+    public function __construct(private iterable $configProviders)
     {
-        $this->configProviders = $configProviders;
     }
 
-    /** @return Traversable<array{type: string, title: ?string, id: string}> */
-    public function getIterator(): iterable
+    /**
+     * @return Traversable<TProviderConfig>
+     *
+     * @psalm-suppress MixedReturnTypeCoercion
+     */
+    public function getIterator(): Traversable
     {
         $iterator = new AppendIterator();
 

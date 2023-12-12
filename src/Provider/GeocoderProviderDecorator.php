@@ -11,20 +11,11 @@ use Geocoder\Query\ReverseQuery;
 
 final class GeocoderProviderDecorator implements Provider
 {
-    /** @var GeocoderProvider */
-    private $provider;
-
-    /** @var string */
-    private $providerId;
-
-    /** @var string|null */
-    private $title;
-
-    public function __construct(GeocoderProvider $provider, string $providerId, ?string $title = null)
-    {
-        $this->provider   = $provider;
-        $this->providerId = $providerId;
-        $this->title      = $title;
+    public function __construct(
+        private readonly GeocoderProvider $provider,
+        private readonly string $providerId,
+        private readonly string|null $title = null,
+    ) {
     }
 
     public function title(): string

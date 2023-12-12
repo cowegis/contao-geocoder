@@ -9,6 +9,7 @@ use Geocoder\Provider\Cache\ProviderCache as GeocoderProviderCache;
 final class ProviderCache extends GeocoderProviderCache
 {
     /** {@inheritDocs} */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
     protected function getCacheKey($query): string
     {
         $cacheKey = parent::getCacheKey($query);

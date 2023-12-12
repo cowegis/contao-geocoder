@@ -47,14 +47,14 @@ final class Configuration implements ConfigurationInterface
                             ->ifTrue(
                                 static function ($value) {
                                     return $value['type'] === 'google_maps';
-                                }
+                                },
                             )->then(
                                 static function ($value) {
                                         Assert::that($value)->keyExists('google_api_key');
                                         Assert::that($value['google_api_key'])->string();
 
                                         return $value;
-                                }
+                                },
                             )
                             ->end()
                         ->end()
