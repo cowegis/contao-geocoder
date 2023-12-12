@@ -61,7 +61,7 @@ final readonly class SearchAction
     {
     }
 
-    public function __invoke(string|null $providerId = null, Request $request): Response
+    public function __invoke(Request $request, string|null $providerId = null): Response
     {
         $this->checkFirewall($request);
 
