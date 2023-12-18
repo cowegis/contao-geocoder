@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
 use Cowegis\ContaoGeocoder\Provider\Provider;
+use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Geocoder\Provider\GoogleMaps\GoogleMaps;
 
 /**
@@ -31,7 +32,7 @@ final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function create(array $config): Provider
+    public function create(array $config, ProviderFactory $factory): Provider
     {
         $region = $config['google_region'] ?? null;
         $region = $region ?: null;

@@ -15,5 +15,5 @@ interface ProviderTypeFactory
      * @param mixed[] $config
      * @psalm-param TProviderConfig $config
      */
-    public function create(array $config): Provider;
+    public function create(array $config, ProviderFactory $factory): Provider;
 }

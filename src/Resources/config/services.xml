@@ -42,7 +42,6 @@
         </service>
 
         <service id="Cowegis\ContaoGeocoder\Provider\ProviderType\ChainProviderFactory">
-            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\ProviderFactory" />
             <argument type="service" id="Cowegis\ContaoGeocoder\Model\ProviderRepository" />
             <tag name="Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory" />
         </service>

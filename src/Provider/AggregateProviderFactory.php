@@ -35,7 +35,7 @@ final class AggregateProviderFactory implements ProviderFactory
             throw ProviderNotRegistered::create($type);
         }
 
-        return $this->factories[$type]->create($config);
+        return $this->factories[$type]->create($config, $this);
     }
 
     /** {@inheritDoc} */

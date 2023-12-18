@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
 use Cowegis\ContaoGeocoder\Provider\Provider;
+use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Cowegis\ContaoGeocoder\Provider\QueryCallbackProvider;
 use Geocoder\Provider\Nominatim\Nominatim;
 use Geocoder\Query\GeocodeQuery;
@@ -33,7 +34,7 @@ final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function create(array $config): Provider
+    public function create(array $config, ProviderFactory $factory): Provider
     {
         $rootUrl      = $config['nominatim_root_url'] ?? null;
         $rootUrl      = $rootUrl ?: 'https://nominatim.openstreetmap.org';

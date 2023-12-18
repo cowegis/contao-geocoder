@@ -15,4 +15,12 @@
             <file name="src/DependencyInjection/Configuration.php"/>
         </ignoreFiles>
     </projectFiles>
+    
+    <issueHandlers>
+        <UndefinedMagicPropertyFetch>
+            <errorLevel type="suppress">
+                <referencedProperty name="Contao\DataContainer::$activeRecord"/>
+            </errorLevel>
+        </UndefinedMagicPropertyFetch>
+    </issueHandlers>
 </psalm>

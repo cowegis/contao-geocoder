@@ -25,7 +25,9 @@ final class CowegisContaoGeocoderBundleSpec extends ObjectBehavior
 
     public function it_registers_compiler_passes(ContainerBuilder $container): void
     {
-        $container->addCompilerPass(Argument::type(RegisterProviderTypeFactoriesPass::class))->shouldBeCalledOnce();
+        $container->addCompilerPass(Argument::type(RegisterProviderTypeFactoriesPass::class))
+            ->willReturn($container->getWrappedObject())
+            ->shouldBeCalledOnce();
 
         $this->build($container);
     }

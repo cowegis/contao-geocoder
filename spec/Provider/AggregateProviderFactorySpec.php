@@ -63,7 +63,7 @@ final class AggregateProviderFactorySpec extends ObjectBehavior
     {
         $this->register($typeFactory);
 
-        $typeFactory->create([])->shouldBeCalled();
+        $typeFactory->create([], $this->getWrappedObject())->shouldBeCalled();
         $this->create('foo', []);
     }
 

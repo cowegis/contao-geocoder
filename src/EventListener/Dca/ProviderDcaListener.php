@@ -18,8 +18,7 @@ use function sprintf;
 
 final class ProviderDcaListener extends AbstractListener
 {
-    /** @var string */
-    protected static $name = 'tl_cowegis_geocoder_provider';
+    protected static string $name = 'tl_cowegis_geocoder_provider';
 
     public function __construct(
         DcaManager $dcaManager,
@@ -88,6 +87,7 @@ final class ProviderDcaListener extends AbstractListener
 
     public function setDefault(DataContainer $dataContainer): void
     {
+        /** @psalm-suppress MixedPropertyFetch */
         if (! $dataContainer->activeRecord || ! $dataContainer->activeRecord->isDefault) {
             return;
         }

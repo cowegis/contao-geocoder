@@ -29,10 +29,8 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
 {
     protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
-    public function __construct(
-        private readonly ProviderFactory $factory,
-        private readonly ProviderRepository $repository,
-    ) {
+    public function __construct(private readonly ProviderRepository $repository)
+    {
     }
 
     public function name(): string
@@ -47,7 +45,7 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function create(array $config): Provider
+    public function create(array $config, ProviderFactory $factory): Provider
     {
         $chain       = new Chain();
         $providerIds = array_map(
@@ -61,7 +59,7 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
             assert($provider instanceof ProviderModel);
             /** @psalm-var TProviderConfig $providerConfig */
             $providerConfig = $provider->row();
-            $chain->add($this->factory->create($provider->type, $providerConfig));
+            $chain->add($factory->create($provider->type, $providerConfig));
         }
 
         return $this->createDecorator($chain, $config);
