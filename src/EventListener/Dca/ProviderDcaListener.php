@@ -18,8 +18,6 @@ use function sprintf;
 
 final class ProviderDcaListener extends AbstractListener
 {
-    protected static string $name = 'tl_cowegis_geocoder_provider';
-
     public function __construct(
         DcaManager $dcaManager,
         private readonly ProviderFactory $providerFactory,
@@ -28,6 +26,11 @@ final class ProviderDcaListener extends AbstractListener
         private readonly Connection $connection,
     ) {
         parent::__construct($dcaManager);
+    }
+
+    public static function getName(): string
+    {
+        return 'tl_cowegis_geocoder_provider';
     }
 
     /**

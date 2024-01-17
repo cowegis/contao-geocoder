@@ -26,7 +26,7 @@
     "geocoder-php/cache-provider": "^4.1",
     "geocoder-php/chain-provider": "^4.0",
     "netzmacht/contao-form-bundle": "^2.0",
-    "netzmacht/contao-toolkit": "^4.0",
+    "netzmacht/contao-toolkit": "^3.9 || ^4.0",
     "nyholm/psr7": "^1.8",
     "psr/http-client": "^1.0",
     "psr/simple-cache": "^1.0",
