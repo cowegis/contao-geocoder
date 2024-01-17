@@ -9,10 +9,10 @@ use Contao\CoreBundle\Framework\Adapter;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
-final readonly class SearchUrlGenerator
+final class SearchUrlGenerator
 {
     /** @param Adapter<Config> $configAdapter */
-    public function __construct(private RouterInterface $router, private Adapter $configAdapter)
+    public function __construct(private readonly RouterInterface $router, private readonly Adapter $configAdapter)
     {
     }
 

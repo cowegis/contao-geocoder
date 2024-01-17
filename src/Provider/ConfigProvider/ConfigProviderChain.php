@@ -21,10 +21,10 @@ use Traversable;
  * }
  * @implements IteratorAggregate<TProviderConfig>
  */
-final readonly class ConfigProviderChain implements IteratorAggregate, ConfigProvider
+final class ConfigProviderChain implements IteratorAggregate, ConfigProvider
 {
     /** @param list<ConfigProvider> $configProviders */
-    public function __construct(private iterable $configProviders)
+    public function __construct(private readonly iterable $configProviders)
     {
     }
 

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider;
 
-final readonly class GeocoderFactory
+final class GeocoderFactory
 {
-    public function __construct(private ConfigProvider $configProvider, private ProviderFactory $providerFactory)
-    {
+    public function __construct(
+        private readonly ConfigProvider $configProvider,
+        private readonly ProviderFactory $providerFactory,
+    ) {
     }
 
     public function __invoke(): Geocoder

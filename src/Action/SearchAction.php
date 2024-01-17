@@ -54,10 +54,10 @@ use const PHP_URL_HOST;
  *     address: TAddress,
  * }
  */
-final readonly class SearchAction
+final class SearchAction
 {
     /** @param Adapter<Config> $configAdapter */
-    public function __construct(private Geocoder $geocoder, private Adapter $configAdapter)
+    public function __construct(private readonly Geocoder $geocoder, private readonly Adapter $configAdapter)
     {
     }
 
