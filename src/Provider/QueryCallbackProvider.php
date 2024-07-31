@@ -51,7 +51,7 @@ final class QueryCallbackProvider implements Provider
 
     public function geocodeQuery(GeocodeQuery $query): Collection
     {
-        if ($this->geocodeQueryCallback) {
+        if ($this->geocodeQueryCallback !== null) {
             $callback = $this->geocodeQueryCallback;
             $query    = $callback($query);
         }
@@ -61,7 +61,7 @@ final class QueryCallbackProvider implements Provider
 
     public function reverseQuery(ReverseQuery $query): Collection
     {
-        if ($this->reverseQueryCallback) {
+        if ($this->reverseQueryCallback !== null) {
             $callback = $this->reverseQueryCallback;
             $query    = $callback($query);
         }

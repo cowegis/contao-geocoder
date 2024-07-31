@@ -35,7 +35,10 @@ final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
     public function create(array $config, ProviderFactory $factory): Provider
     {
         $region = $config['google_region'] ?? null;
-        $region = $region ?: null;
+        if ($region === '') {
+            $region = null;
+        }
+
         $apiKey = $config['google_api_key'] ?? '';
 
         return $this->createDecorator(new GoogleMaps($this->httpClient, $region, $apiKey), $config);
