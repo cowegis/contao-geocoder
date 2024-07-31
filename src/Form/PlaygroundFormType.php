@@ -48,7 +48,7 @@ final class PlaygroundFormType extends AbstractType
                 'label'                     => 'Geocoder',
                 'contaoWidget'              => ['be_class' => 'w50'],
                 'choice_translation_domain' => false,
-                'choice_loader'             => new CallbackChoiceLoader(function () {
+                'choice_loader'             => new CallbackChoiceLoader(function (): array {
                     $choices = [];
 
                     foreach ($this->geocoder as $provider) {
@@ -57,7 +57,7 @@ final class PlaygroundFormType extends AbstractType
 
                     return $choices;
                 }),
-                'choice_label'              => static function (Provider $provider) {
+                'choice_label'              => static function (Provider $provider): string {
                     return sprintf('%s [%s]', $provider->title(), $provider->type());
                 },
             ],

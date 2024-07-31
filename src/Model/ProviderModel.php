@@ -10,5 +10,6 @@ use Contao\Model;
 final class ProviderModel extends Model
 {
     /** @var string */
+    // phpcs:ignore SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
     protected static $strTable = 'tl_cowegis_geocoder_provider';
 }

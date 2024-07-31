@@ -19,14 +19,13 @@ use function array_keys;
 final class Geocoder implements GeocodeProvider, IteratorAggregate
 {
     /** @var Provider[] */
-    private $providers = [];
+    private array $providers = [];
 
-    /** @var Provider|null */
-    private $defaultProvider;
+    private Provider|null $defaultProvider = null;
 
     public function register(Provider $provider): void
     {
-        if ($this->defaultProvider === null) {
+        if (! $this->defaultProvider instanceof Provider) {
             $this->defaultProvider = $provider;
         }
 
@@ -65,7 +64,7 @@ final class Geocoder implements GeocodeProvider, IteratorAggregate
 
     private function defaultProvider(): Provider
     {
-        if ($this->defaultProvider === null) {
+        if (! $this->defaultProvider instanceof Provider) {
             throw new ProviderNotRegistered('No default provider registered');
         }
 

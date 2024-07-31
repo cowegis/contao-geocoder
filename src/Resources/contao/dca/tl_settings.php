@@ -6,7 +6,8 @@ $GLOBALS['TL_DCA']['tl_settings']['palettes']['__selector__'][] = 'cowegis_geoco
 $GLOBALS['TL_DCA']['tl_settings']['palettes']['default']       .= ';{cowegis_geocoder}'
     . ',cowegis_geocoder_api_key,cowegis_geocoder_referrer_check';
 
-$GLOBALS['TL_DCA']['tl_settings']['subpalettes']['cowegis_geocoder_referrer_check'] = 'cowegis_geocoder_referrer_domains';
+$GLOBALS['TL_DCA']['tl_settings']['subpalettes']['cowegis_geocoder_referrer_check']
+    = 'cowegis_geocoder_referrer_domains';
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['cowegis_geocoder_referrer_check'] = [
     'exclude'   => true,

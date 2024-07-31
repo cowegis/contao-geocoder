@@ -13,8 +13,8 @@ return RectorConfig::configure()
     ->withPreparedSets(
         //deadCode: true,
         //codeQuality: true,
-        //typeDeclarations: true,
-        //privatization: true,
-        //instanceOf: true,
-        //strictBooleans: true,
+        typeDeclarations: true,
+        privatization: true,
+        instanceOf: true,
+        strictBooleans: true,
     );

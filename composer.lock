@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "fe52c3539efb29c6ebd6a0c2557b9394",
+=======
+    "content-hash": "bec78002d368b4e0787726359d8bfe9c",
+>>>>>>> dbf877b (Fix code style issues)
     "packages": [
         {
             "name": "ausi/slug-generator",

@@ -7,18 +7,10 @@ namespace Cowegis\ContaoGeocoder\EventListener\Hook;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 
-final class BackendListener
+final readonly class BackendListener
 {
-    /** @var RequestScopeMatcher */
-    private $scopeMatcher;
-
-    /** @var AssetsManager */
-    private $assetsManager;
-
-    public function __construct(RequestScopeMatcher $scopeMatcher, AssetsManager $assetsManager)
+    public function __construct(private RequestScopeMatcher $scopeMatcher, private AssetsManager $assetsManager)
     {
-        $this->scopeMatcher  = $scopeMatcher;
-        $this->assetsManager = $assetsManager;
     }
 
     public function onInitializeSystem(): void

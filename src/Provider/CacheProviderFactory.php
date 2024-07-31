@@ -10,16 +10,8 @@ final class CacheProviderFactory implements ProviderFactory
 {
     use GeocoderProviderDecoratorFactory;
 
-    /** @var ProviderFactory */
-    private $factory;
-
-    /** @var CacheInterface */
-    private $cache;
-
-    public function __construct(ProviderFactory $factory, CacheInterface $cache)
+    public function __construct(private readonly ProviderFactory $factory, private readonly CacheInterface $cache)
     {
-        $this->factory = $factory;
-        $this->cache   = $cache;
     }
 
     public function register(ProviderTypeFactory $factory): void
