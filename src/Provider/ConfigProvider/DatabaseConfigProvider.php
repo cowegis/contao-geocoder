@@ -31,7 +31,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
     public function getIterator(): Traversable
     {
         $types = $this->providerFactory->typeNames();
-        if (count($types) === 0) {
+        if ($types === []) {
             return new ArrayIterator();
         }
 
