@@ -1,25 +1,11 @@
-/*
-!/.github
-!/.gitignore
-!/.gitattributes
-!/.travis.yml
-!/src/
-!/spec/
-!/build.xml
-!/CHANGELOG.md
-!/README.md
-!/LICENSE
-!/composer.json
-!/composer.lock
-!phpcs.xml.dist
-!phpmd.xml
-!phpspec.yml
-!phpstan.neon
-!.composer-require-checker.json
-!build.default.properties
-!.phpcq.yaml.dist
-!.phpcq
-.phpcq/*
-!.phpcq/local
-!.phpcq.lock
-!psalm.xml
+# Companion
+/.env.companion
+
+# Composer
+/composer.lock
+/vendor
+
+# PHPCQ
+/.phpcq
+/.phpcq.yaml
+/.phpcs-cache
