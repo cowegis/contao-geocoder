@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-array_insert(
+use Contao\ArrayUtil;
+
+ArrayUtil::arrayInsert(
     $GLOBALS['BE_MOD'],
     1,
     [
