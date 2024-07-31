@@ -20,7 +20,7 @@ final class GeocoderProviderDecorator implements Provider
 
     public function title(): string
     {
-        return $this->title ?: $this->providerId();
+        return $this->title ?? $this->providerId();
     }
 
     public function providerId(): string

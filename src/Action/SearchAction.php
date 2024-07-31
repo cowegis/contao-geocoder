@@ -152,7 +152,7 @@ final class SearchAction
 
     private function selectGeocoder(string|null $providerId): Provider
     {
-        if ($providerId) {
+        if ($providerId !== null) {
             return $this->geocoder->using($providerId);
         }
 

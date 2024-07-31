@@ -37,7 +37,10 @@ final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
     public function create(array $config, ProviderFactory $factory): Provider
     {
         $rootUrl      = $config['nominatim_root_url'] ?? null;
-        $rootUrl      = $rootUrl ?: 'https://nominatim.openstreetmap.org';
+        if ($rootUrl === null || $rootUrl === '') {
+            $rootUrl = 'https://nominatim.openstreetmap.org';
+        }
+
         $countryCodes = $config['nominatim_country_codes'] ?? null;
         $provider     = $this->createDecorator(new Nominatim($this->httpClient, $rootUrl, 'Cowegis Geocoder'), $config);
 
