@@ -45,11 +45,11 @@ final class Configuration implements ConfigurationInterface
                         ->end()
                         ->beforeNormalization()
                             ->ifTrue(
-                                static function ($value) {
+                                static function (array $value): bool {
                                     return $value['type'] === 'google_maps';
                                 },
                             )->then(
-                                static function ($value) {
+                                static function (array $value): array {
                                         Assert::that($value)->keyExists('google_api_key');
                                         Assert::that($value['google_api_key'])->string();
 
@@ -61,7 +61,7 @@ final class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->beforeNormalization()
-                    ->always(static function ($value) {
+                    ->always(static function (array $value): array {
                         if (! isset($value['providers'])) {
                             return $value;
                         }

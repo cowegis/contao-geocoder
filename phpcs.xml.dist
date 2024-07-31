@@ -15,15 +15,10 @@
     <!-- Include full Doctrine Coding Standard -->
     <rule ref="Doctrine"/>
 
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+    <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="enableObjectTypeHint" value="false" />
-        </properties>
-    </rule>
-
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
-        <properties>
-            <property name="enableNativeTypeHint" value="false" />
+            <property name="lineLimit" value="120"/>
+            <property name="absoluteLineLimit" value="120"/>
         </properties>
     </rule>
 

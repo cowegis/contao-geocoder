@@ -80,7 +80,7 @@ final readonly class SearchAction
         }
     }
 
-    protected function buildQuery(Request $request): GeocodeQuery
+    private function buildQuery(Request $request): GeocodeQuery
     {
         $query = GeocodeQuery::create((string) $request->query->get('q'));
         $query = $query->withLocale($request->getLocale());

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 
+use Contao\Model\Collection;
 use Contao\StringUtil;
 use Cowegis\ContaoGeocoder\Model\ProviderModel;
 use Cowegis\ContaoGeocoder\Model\ProviderRepository;
@@ -55,11 +56,13 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
 
         $providers = $this->repository->findByIds($providerIds);
 
-        foreach ($providers ?: [] as $provider) {
-            assert($provider instanceof ProviderModel);
-            /** @psalm-var TProviderConfig $providerConfig */
-            $providerConfig = $provider->row();
-            $chain->add($factory->create($provider->type, $providerConfig));
+        if ($providers instanceof Collection) {
+            foreach ($providers as $provider) {
+                assert($provider instanceof ProviderModel);
+                /** @psalm-var TProviderConfig $providerConfig */
+                $providerConfig = $provider->row();
+                $chain->add($factory->create($provider->type, $providerConfig));
+            }
         }
 
         return $this->createDecorator($chain, $config);

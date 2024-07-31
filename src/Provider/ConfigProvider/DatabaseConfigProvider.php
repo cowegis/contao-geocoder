@@ -6,6 +6,7 @@ namespace Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 
 use ArrayIterator;
 use Contao\CoreBundle\Framework\ContaoFramework;
+use Contao\Model\Collection;
 use Cowegis\ContaoGeocoder\Model\ProviderRepository;
 use Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
@@ -42,7 +43,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
             ['order' => 'FIELD( .isDefault, \'1\',\'\')'],
         );
 
-        if ($collection !== null) {
+        if ($collection instanceof Collection) {
             return new ArrayIterator($collection->fetchAll());
         }
 
