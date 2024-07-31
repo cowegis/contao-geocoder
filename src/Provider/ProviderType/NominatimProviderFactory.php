@@ -36,7 +36,7 @@ final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
      */
     public function create(array $config, ProviderFactory $factory): Provider
     {
-        $rootUrl      = $config['nominatim_root_url'] ?? null;
+        $rootUrl = $config['nominatim_root_url'] ?? null;
         if ($rootUrl === null || $rootUrl === '') {
             $rootUrl = 'https://nominatim.openstreetmap.org';
         }
