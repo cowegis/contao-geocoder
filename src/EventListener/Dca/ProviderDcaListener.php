@@ -10,7 +10,6 @@ use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
-use Symfony\Component\Routing\RouterInterface;
 
 use function implode;
 use function is_array;
@@ -22,7 +21,6 @@ final class ProviderDcaListener extends AbstractListener
         DcaManager $dcaManager,
         private readonly ProviderFactory $providerFactory,
         private readonly Geocoder $geocoder,
-        private readonly RouterInterface $router,
         private readonly Connection $connection,
     ) {
         parent::__construct($dcaManager);
@@ -74,18 +72,6 @@ final class ProviderDcaListener extends AbstractListener
         }
 
         return $options;
-    }
-
-    /** @SuppressWarnings(PHPMD.UnusedFormalParameter) */
-    public function playgroundButton(string|null $href, string $label, string $title, string $class): string
-    {
-        return sprintf(
-            '<a href="%s" title="%s" class="%s">%s</a> ',
-            $this->router->generate('cowegis_geocoder_playground'),
-            $title,
-            $class,
-            $label,
-        );
     }
 
     public function setDefault(DataContainer $dataContainer): void

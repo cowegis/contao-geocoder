@@ -23,12 +23,6 @@
             <trans-unit id="tl_cowegis_geocoder_provider.new.1">
                 <source>Create new provider configuration</source>
             </trans-unit>
-            <trans-unit id="tl_cowegis_geocoder_provider.playground.0">
-                <source>Playground</source>
-            </trans-unit>
-            <trans-unit id="tl_cowegis_geocoder_provider.playground.1">
-                <source>Test configured providers</source>
-            </trans-unit>
             <trans-unit id="tl_cowegis_geocoder_provider.edit.0">
                 <source>Edit provider</source>
             </trans-unit>

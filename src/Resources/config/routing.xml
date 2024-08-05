@@ -4,12 +4,6 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="cowegis_geocoder_playground"
-           path="/cowegis/geocoder/playground"
-           controller="Cowegis\ContaoGeocoder\Action\BackendPlaygroundAction"
-           methods="GET|POST">
-        <default key="_scope">backend</default>
-    </route>
     <route id="cowegis_geocoder_provider_search"
            path="/cowegis/geocoder/search/{providerId}"
            controller="Cowegis\ContaoGeocoder\Action\SearchAction"
