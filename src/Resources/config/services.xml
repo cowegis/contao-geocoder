@@ -86,22 +86,9 @@
             <factory service="Cowegis\ContaoGeocoder\Provider\GeocoderFactory" method="__invoke" />
         </service>
 
-        <!-- Actions -->
-        <service id="Cowegis\ContaoGeocoder\Action\BackendPlaygroundAction" public="true">
-            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\Geocoder" />
-            <argument type="service" id="twig" />
-            <argument type="service" id="form.factory" />
-        </service>
-
         <service id="Cowegis\ContaoGeocoder\Action\SearchAction" public="true">
             <argument type="service" id="Cowegis\ContaoGeocoder\Provider\Geocoder" />
             <argument type="service" id="netzmacht.contao_toolkit.contao.config_adapter" />
-        </service>
-
-        <!-- Forms -->
-        <service id="Cowegis\ContaoGeocoder\Form\PlaygroundFormType">
-            <argument type="service" id="Cowegis\ContaoGeocoder\Provider\Geocoder" />
-            <tag name="form.type" />
         </service>
 
         <!-- Routing -->

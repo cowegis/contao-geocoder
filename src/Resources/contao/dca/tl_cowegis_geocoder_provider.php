@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
+use Contao\DC_Table;
 use Cowegis\ContaoGeocoder\EventListener\Dca\ProviderDcaListener;
 
 $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
     'config'          => [
-        'dataContainer'     => 'Table',
+        'dataContainer'     => DC_Table::class,
         'enableVersioning'  => true,
         'markAsCopy'        => 'headline',
         'onsubmit_callback' => [[ProviderDcaListener::class, 'setDefault']],
@@ -28,10 +29,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'label_callback' => [ProviderDcaListener::class, 'formatLabel'],
         ],
         'global_operations' => [
-            'playground' => [
-                'button_callback' => [ProviderDcaListener::class, 'playgroundButton'],
-                'class'           => 'header_cowegis_geocoder_playground',
-            ],
             'all'        => [
                 'href'       => 'act=select',
                 'class'      => 'header_edit_all',

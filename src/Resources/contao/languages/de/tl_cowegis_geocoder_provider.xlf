@@ -30,14 +30,6 @@
                 <source>Create new provider configuration</source>
                 <target>Neuen Geokodierungs-Service konfigurieren</target>
             </trans-unit>
-            <trans-unit id="tl_cowegis_geocoder_provider.playground.0">
-                <source>Playground</source>
-                <target>Spielplatz</target>
-            </trans-unit>
-            <trans-unit id="tl_cowegis_geocoder_provider.playground.1">
-                <source>Test configured providers</source>
-                <target>Konfigurierte Geokodierungs-Service ausprobieren</target>
-            </trans-unit>
             <trans-unit id="tl_cowegis_geocoder_provider.edit.0">
                 <source>Edit provider</source>
                 <target>Service bearbeiten</target>
