@@ -1,9 +1,0 @@
-{
-    "type": "project",
-    "require": {
-        "rector\/rector": "^1.0"
-    },
-    "config": {
-        "allow-plugins": true
-    }
-}
