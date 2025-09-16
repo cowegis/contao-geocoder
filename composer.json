@@ -47,7 +47,7 @@
     "geocoder-php/nominatim-provider": "^5.1",
     "netzmacht/phpspec-phpcq-plugin": "@dev",
     "phpcq/runner-bootstrap": "@dev",
-    "phpspec/phpspec": "^6.0 || ^7.0"
+    "phpspec/phpspec": "^7.0 || ^8.0"
   },
   "conflict": {
     "contao/manager-plugin": "<2.1 || >= 3.0",
