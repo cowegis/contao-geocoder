@@ -13,9 +13,9 @@ use PhpSpec\ObjectBehavior;
 
 final class GeocoderProviderDecoratorSpec extends ObjectBehavior
 {
-    private const string TITLE = 'foo';
+    private const TITLE = 'foo';
 
-    private const string ID = '4';
+    private const ID = '4';
 
     public function let(GeocoderProvider $provider): void
     {
