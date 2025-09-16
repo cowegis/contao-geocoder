@@ -15,7 +15,7 @@ abstract class BaseProviderTypeFactory implements ProviderTypeFactory
     use GeocoderProviderDecoratorFactory;
 
     /** @const list<string> */
-    protected const array FEATURES = [];
+    protected const FEATURES = [];
 
     #[Override]
     public function supports(string $feature): bool

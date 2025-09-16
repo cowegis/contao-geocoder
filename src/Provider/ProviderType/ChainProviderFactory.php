@@ -29,7 +29,7 @@ use function assert;
  */
 final class ChainProviderFactory extends BaseProviderTypeFactory
 {
-    protected const array FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
+    protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
     public function __construct(private readonly ProviderRepository $repository)
     {

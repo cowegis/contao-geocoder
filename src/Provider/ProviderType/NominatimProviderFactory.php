@@ -21,7 +21,7 @@ use Override;
  */
 final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
 {
-    protected const array FEATURES = [Provider::FEATURE_REVERSE, Provider::FEATURE_ADDRESS];
+    protected const FEATURES = [Provider::FEATURE_REVERSE, Provider::FEATURE_ADDRESS];
 
     #[Override]
     public function name(): string

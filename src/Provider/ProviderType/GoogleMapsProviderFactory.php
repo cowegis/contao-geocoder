@@ -19,7 +19,7 @@ use Override;
  */
 final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
 {
-    protected const array FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
+    protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
     #[Override]
     public function name(): string

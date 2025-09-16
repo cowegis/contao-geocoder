@@ -8,8 +8,8 @@ use Geocoder\Provider\Provider as GeocoderProvider;
 
 interface Provider extends GeocoderProvider
 {
-    public const string FEATURE_ADDRESS = 'address';
-    public const string FEATURE_REVERSE = 'reverse';
+    public const FEATURE_ADDRESS = 'address';
+    public const FEATURE_REVERSE = 'reverse';
 
     public function title(): string;
 
