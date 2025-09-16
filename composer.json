@@ -45,7 +45,7 @@
     "contao/manager-plugin": "^2.1",
     "geocoder-php/google-maps-provider": "^4.4",
     "geocoder-php/nominatim-provider": "^5.1",
-    "netzmacht/phpspec-phpcq-plugin": "@dev",
+    "netzmacht/phpspec-phpcq-plugin": "^1.0",
     "phpcq/runner-bootstrap": "@dev",
     "phpspec/phpspec": "^7.0 || ^8.0"
   },
