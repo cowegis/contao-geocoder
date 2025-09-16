@@ -11,6 +11,7 @@ use Geocoder\Provider\Provider as GeocodeProvider;
 use Geocoder\Query\GeocodeQuery;
 use Geocoder\Query\ReverseQuery;
 use IteratorAggregate;
+use Override;
 use Traversable;
 
 use function array_keys;
@@ -42,21 +43,25 @@ final class Geocoder implements GeocodeProvider, IteratorAggregate
     }
 
     /** @return Traversable<Provider> */
+    #[Override]
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->providers);
     }
 
+    #[Override]
     public function geocodeQuery(GeocodeQuery $query): Collection
     {
         return $this->defaultProvider()->geocodeQuery($query);
     }
 
+    #[Override]
     public function reverseQuery(ReverseQuery $query): Collection
     {
         return $this->defaultProvider()->reverseQuery($query);
     }
 
+    #[Override]
     public function getName(): string
     {
         return 'cowegis_geocoder';

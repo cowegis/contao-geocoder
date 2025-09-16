@@ -10,7 +10,7 @@
     <arg value="nps"/>
 
     <!-- Required for the SlevomatCodingStandard which utilizes composer dependencies -->
-    <autoload>vendor/autoload.php</autoload>
+    <autoload>.phpcq/plugins/doctrine-coding-standard/vendor/autoload.php</autoload>
 
     <!-- Include full Doctrine Coding Standard -->
     <rule ref="Doctrine"/>

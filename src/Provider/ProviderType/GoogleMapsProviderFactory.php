@@ -7,6 +7,7 @@ namespace Cowegis\ContaoGeocoder\Provider\ProviderType;
 use Cowegis\ContaoGeocoder\Provider\Provider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Geocoder\Provider\GoogleMaps\GoogleMaps;
+use Override;
 
 /**
  * @psalm-type TGoogleMapsConfig = array{
@@ -18,8 +19,9 @@ use Geocoder\Provider\GoogleMaps\GoogleMaps;
  */
 final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
 {
-    protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
+    protected const array FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
+    #[Override]
     public function name(): string
     {
         return 'google_maps';
@@ -32,6 +34,7 @@ final class GoogleMapsProviderFactory extends BaseHttpProviderTypeFactory
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
+    #[Override]
     public function create(array $config, ProviderFactory $factory): Provider
     {
         $region = $config['google_region'] ?? null;

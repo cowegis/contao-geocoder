@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider;
 
 use Geocoder\Exception\ProviderNotRegistered;
+use Override;
 
 use function array_key_exists;
 use function array_keys;
@@ -14,11 +15,13 @@ final class AggregateProviderFactory implements ProviderFactory
     /** @var array<string, ProviderTypeFactory> */
     private array $factories = [];
 
+    #[Override]
     public function register(ProviderTypeFactory $factory): void
     {
         $this->factories[$factory->name()] = $factory;
     }
 
+    #[Override]
     public function supports(string $type, string $feature): bool
     {
         if (! array_key_exists($type, $this->factories)) {
@@ -29,6 +32,7 @@ final class AggregateProviderFactory implements ProviderFactory
     }
 
     /** {@inheritDoc} */
+    #[Override]
     public function create(string $type, array $config): Provider
     {
         if (! array_key_exists($type, $this->factories)) {
@@ -39,6 +43,7 @@ final class AggregateProviderFactory implements ProviderFactory
     }
 
     /** {@inheritDoc} */
+    #[Override]
     public function typeNames(): array
     {
         return array_keys($this->factories);

@@ -10,6 +10,7 @@ use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Doctrine\DBAL\Connection;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
 use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
+use Override;
 
 use function implode;
 use function is_array;
@@ -26,6 +27,7 @@ final class ProviderDcaListener extends AbstractListener
         parent::__construct($dcaManager);
     }
 
+    #[Override]
     public static function getName(): string
     {
         return 'tl_cowegis_geocoder_provider';

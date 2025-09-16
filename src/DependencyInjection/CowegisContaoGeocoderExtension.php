@@ -8,6 +8,7 @@ use Cowegis\ContaoGeocoder\Provider\ProviderType\GoogleMapsProviderFactory;
 use Cowegis\ContaoGeocoder\Provider\ProviderType\NominatimProviderFactory;
 use Geocoder\Provider\GoogleMaps\GoogleMaps;
 use Geocoder\Provider\Nominatim\Nominatim;
+use Override;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -19,6 +20,7 @@ use function class_exists;
 final class CowegisContaoGeocoderExtension extends Extension
 {
     /** @param array|mixed[] $configs */
+    #[Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader(

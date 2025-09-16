@@ -11,6 +11,7 @@ use Cowegis\ContaoGeocoder\Model\ProviderRepository;
 use Cowegis\ContaoGeocoder\Provider\Provider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Geocoder\Provider\Chain\Chain;
+use Override;
 
 use function array_map;
 use function assert;
@@ -28,12 +29,13 @@ use function assert;
  */
 final class ChainProviderFactory extends BaseProviderTypeFactory
 {
-    protected const FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
+    protected const array FEATURES = [Provider::FEATURE_ADDRESS, Provider::FEATURE_REVERSE];
 
     public function __construct(private readonly ProviderRepository $repository)
     {
     }
 
+    #[Override]
     public function name(): string
     {
         return 'chain';
@@ -46,6 +48,7 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
+    #[Override]
     public function create(array $config, ProviderFactory $factory): Provider
     {
         $chain       = new Chain();

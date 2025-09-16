@@ -11,6 +11,7 @@ use Cowegis\ContaoGeocoder\Model\ProviderRepository;
 use Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use IteratorAggregate;
+use Override;
 use Traversable;
 
 use function count;
@@ -28,6 +29,7 @@ final class DatabaseConfigProvider implements IteratorAggregate, ConfigProvider
     }
 
     /** @return Traversable<array{type: string, title: ?string, id: string}> */
+    #[Override]
     public function getIterator(): Traversable
     {
         $types = $this->providerFactory->typeNames();

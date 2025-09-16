@@ -6,6 +6,7 @@ namespace Cowegis\ContaoGeocoder\DependencyInjection\Compiler;
 
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory;
+use Override;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -14,6 +15,7 @@ final class RegisterProviderTypeFactoriesPass implements CompilerPassInterface
 {
     use PriorityTaggedServiceTrait;
 
+    #[Override]
     public function process(ContainerBuilder $container): void
     {
         if (! $container->hasDefinition(ProviderFactory::class)) {

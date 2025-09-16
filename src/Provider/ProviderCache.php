@@ -5,11 +5,16 @@ declare(strict_types=1);
 namespace Cowegis\ContaoGeocoder\Provider;
 
 use Geocoder\Provider\Cache\ProviderCache as GeocoderProviderCache;
+use Override;
 
 final class ProviderCache extends GeocoderProviderCache
 {
-    /** {@inheritDocs} */
-    // phpcs:ignore SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
+    /**
+     * {@inheritDocs}
+     *
+     * phpcs:disable SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingAnyTypeHint
+     */
+    #[Override]
     protected function getCacheKey($query): string
     {
         $cacheKey = parent::getCacheKey($query);

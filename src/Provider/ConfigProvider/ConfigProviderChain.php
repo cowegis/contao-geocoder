@@ -8,6 +8,7 @@ use AppendIterator;
 use Cowegis\ContaoGeocoder\Provider\ConfigProvider;
 use IteratorAggregate;
 use IteratorIterator;
+use Override;
 use Traversable;
 
 /**
@@ -33,6 +34,7 @@ final class ConfigProviderChain implements IteratorAggregate, ConfigProvider
      *
      * @psalm-suppress MixedReturnTypeCoercion
      */
+    #[Override]
     public function getIterator(): Traversable
     {
         $iterator = new AppendIterator();

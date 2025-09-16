@@ -9,6 +9,7 @@ use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Cowegis\ContaoGeocoder\Provider\QueryCallbackProvider;
 use Geocoder\Provider\Nominatim\Nominatim;
 use Geocoder\Query\GeocodeQuery;
+use Override;
 
 /**
  * @psalm-type TNominatimConfig = array{
@@ -20,8 +21,9 @@ use Geocoder\Query\GeocodeQuery;
  */
 final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
 {
-    protected const FEATURES = [Provider::FEATURE_REVERSE, Provider::FEATURE_ADDRESS];
+    protected const array FEATURES = [Provider::FEATURE_REVERSE, Provider::FEATURE_ADDRESS];
 
+    #[Override]
     public function name(): string
     {
         return 'nominatim';
@@ -34,6 +36,7 @@ final class NominatimProviderFactory extends BaseHttpProviderTypeFactory
      *
      * @psalm-suppress MoreSpecificImplementedParamType
      */
+    #[Override]
     public function create(array $config, ProviderFactory $factory): Provider
     {
         $rootUrl = $config['nominatim_root_url'] ?? null;
