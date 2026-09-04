@@ -8,8 +8,8 @@ use Contao\DataContainer;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
 use Doctrine\DBAL\Connection;
+use Netzmacht\Contao\Toolkit\Dca\DcaManager;
 use Netzmacht\Contao\Toolkit\Dca\Listener\AbstractListener;
-use Netzmacht\Contao\Toolkit\Dca\Manager as DcaManager;
 use Override;
 
 use function implode;

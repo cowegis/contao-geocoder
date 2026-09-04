@@ -22,8 +22,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use function array_filter;
 use function assert;
 use function in_array;
-use function is_array;
-use function is_string;
 use function parse_url;
 use function sprintf;
 
@@ -69,7 +67,6 @@ final class SearchAction
         $query    = $this->buildQuery($request);
         $result   = $qeocoder->geocodeQuery($query);
         $format   = $request->query->get('format', 'json');
-        assert(is_string($format));
 
         switch ($format) {
             case 'json':
@@ -191,7 +188,6 @@ final class SearchAction
         $allowedDomains = StringUtil::deserialize($this->configAdapter->get('cowegis_geocoder_referrer_domains'), true);
         $referrer       = (string) $request->headers->get('referer');
         $referrer       = (string) parse_url($referrer, PHP_URL_HOST);
-        assert(is_array($allowedDomains));
 
         // No referer given, skip
         if ($referrer === '') {

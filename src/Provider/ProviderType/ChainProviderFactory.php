@@ -54,7 +54,7 @@ final class ChainProviderFactory extends BaseProviderTypeFactory
         $chain       = new Chain();
         $providerIds = array_map(
             'intval',
-            (array) StringUtil::deserialize($config['chain_providers'] ?? '', true),
+            StringUtil::deserialize($config['chain_providers'] ?? '', true),
         );
 
         $providers = $this->repository->findByIds($providerIds);
