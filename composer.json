@@ -40,7 +40,7 @@
     "symfony/twig-bundle": "^6.4 || ^7.4",
     "symfony/yaml": "^6.4 || ^7.4",
     "twig/twig": "^3.0",
-    "willdurand/geocoder": "^4.6"
+    "willdurand/geocoder": "^4.6 || ^5.0"
   },
   "require-dev": {
     "contao/manager-plugin": "^2.1",
