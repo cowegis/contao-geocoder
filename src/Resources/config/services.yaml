@@ -1,0 +1,103 @@
+parameters:
+    cowegis.contao_geocoder.cache_dir: '%kernel.cache_dir%/cowegis/geocode'
+
+services:
+    _defaults:
+        autowire: false
+        autoconfigure: true
+        public: false
+
+    # Repository
+    Cowegis\ContaoGeocoder\Model\ProviderRepository:
+        tags:
+            - { name: netzmacht.contao_toolkit.repository, model: Cowegis\ContaoGeocoder\Model\ProviderModel }
+
+    # Cache
+    cowegis.contao_geocoder.cache.file_system:
+        class: Symfony\Component\Cache\Adapter\FilesystemAdapter
+        arguments:
+            - ''
+            - 0
+            - '%cowegis.contao_geocoder.cache_dir%'
+
+    cowegis.contao_geocoder.cache:
+        class: Symfony\Component\Cache\Psr16Cache
+        arguments:
+            - '@cowegis.contao_geocoder.cache.file_system'
+
+    # HTTP client
+    cowegis.contao_geocoder.http_client:
+        class: Symfony\Component\HttpClient\Psr18Client
+
+    # Provider factories
+    Cowegis\ContaoGeocoder\Provider\ProviderType\GoogleMapsProviderFactory:
+        arguments:
+            - '@cowegis.contao_geocoder.http_client'
+        tags:
+            - { name: Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory }
+
+    Cowegis\ContaoGeocoder\Provider\ProviderType\NominatimProviderFactory:
+        arguments:
+            - '@cowegis.contao_geocoder.http_client'
+        tags:
+            - { name: Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory }
+
+    Cowegis\ContaoGeocoder\Provider\ProviderType\ChainProviderFactory:
+        arguments:
+            - '@Cowegis\ContaoGeocoder\Model\ProviderRepository'
+        tags:
+            - { name: Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory }
+
+    Cowegis\ContaoGeocoder\Provider\ProviderFactory:
+        class: Cowegis\ContaoGeocoder\Provider\AggregateProviderFactory
+        arguments:
+            - !tagged_iterator Cowegis\ContaoGeocoder\Provider\ProviderTypeFactory
+
+    Cowegis\ContaoGeocoder\Provider\CacheProviderFactory:
+        decorates: Cowegis\ContaoGeocoder\Provider\ProviderFactory
+        arguments:
+            - '@Cowegis\ContaoGeocoder\Provider\CacheProviderFactory.inner'
+            - '@cowegis.contao_geocoder.cache'
+
+    # Config providers
+    Cowegis\ContaoGeocoder\Provider\ConfigProvider:
+        class: Cowegis\ContaoGeocoder\Provider\ConfigProvider\ConfigProviderChain
+        arguments:
+            - !tagged_iterator Cowegis\ContaoGeocoder\Provider\ConfigProvider
+            - '@Cowegis\ContaoGeocoder\Provider\ProviderFactory'
+
+    Cowegis\ContaoGeocoder\Provider\ConfigProvider\DatabaseConfigProvider:
+        arguments:
+            - '@Cowegis\ContaoGeocoder\Model\ProviderRepository'
+            - '@Cowegis\ContaoGeocoder\Provider\ProviderFactory'
+            - '@contao.framework'
+        tags:
+            - { name: Cowegis\ContaoGeocoder\Provider\ConfigProvider, priority: 0 }
+
+    Cowegis\ContaoGeocoder\Provider\ConfigProvider\ApplicationConfigProvider:
+        arguments:
+            - '%cowegis.contao_geocoder.config.providers%'
+        tags:
+            - { name: Cowegis\ContaoGeocoder\Provider\ConfigProvider, priority: 10 }
+
+    # Geocoder
+    Cowegis\ContaoGeocoder\Provider\GeocoderFactory:
+        arguments:
+            - '@Cowegis\ContaoGeocoder\Provider\ConfigProvider'
+            - '@Cowegis\ContaoGeocoder\Provider\ProviderFactory'
+
+    Cowegis\ContaoGeocoder\Provider\Geocoder:
+        class: Cowegis\ContaoGeocoder\Provider\Geocoder
+        factory: ['@Cowegis\ContaoGeocoder\Provider\GeocoderFactory', '__invoke']
+
+    Cowegis\ContaoGeocoder\Action\SearchAction:
+        public: true
+        arguments:
+            - '@Cowegis\ContaoGeocoder\Provider\Geocoder'
+            - '@netzmacht.contao_toolkit.contao.config_adapter'
+
+    # Routing
+    Cowegis\ContaoGeocoder\Routing\SearchUrlGenerator:
+        arguments:
+            - '@router'
+            - '@netzmacht.contao_toolkit.contao.config_adapter'

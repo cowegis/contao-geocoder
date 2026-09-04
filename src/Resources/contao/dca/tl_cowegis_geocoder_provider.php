@@ -3,14 +3,12 @@
 declare(strict_types=1);
 
 use Contao\DC_Table;
-use Cowegis\ContaoGeocoder\EventListener\Dca\ProviderDcaListener;
 
 $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
     'config'          => [
         'dataContainer'     => DC_Table::class,
         'enableVersioning'  => true,
         'markAsCopy'        => 'headline',
-        'onsubmit_callback' => [[ProviderDcaListener::class, 'setDefault']],
         'sql'               => [
             'keys' => [
                 'id'        => 'primary',
@@ -25,8 +23,7 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'flag'   => 1,
         ],
         'label'             => [
-            'fields'         => ['title', 'type'],
-            'label_callback' => [ProviderDcaListener::class, 'formatLabel'],
+            'fields' => ['title', 'type'],
         ],
         'global_operations' => [
             'all'        => [
@@ -96,7 +93,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'exclude'          => true,
             'filter'           => true,
             'inputType'        => 'select',
-            'options_callback' => [ProviderDcaListener::class, 'typeOptions'],
             'reference'        => &$GLOBALS['TL_LANG']['tl_cowegis_geocoder_provider']['types'],
             'eval'             => [
                 'mandatory'          => true,
@@ -130,7 +126,6 @@ $GLOBALS['TL_DCA']['tl_cowegis_geocoder_provider'] = [
             'exclude'          => true,
             'filter'           => true,
             'inputType'        => 'checkboxWizard',
-            'options_callback' => [ProviderDcaListener::class, 'providerOptions'],
             'eval'             => [
                 'mandatory' => true,
                 'tl_class'  => 'clr',

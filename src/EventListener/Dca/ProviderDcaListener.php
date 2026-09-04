@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\EventListener\Dca;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\DataContainer;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Cowegis\ContaoGeocoder\Provider\ProviderFactory;
@@ -39,6 +40,7 @@ final class ProviderDcaListener extends AbstractListener
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @psalm-suppress MixedArgument
      */
+    #[AsCallback(table: 'tl_cowegis_geocoder_provider', target: 'list.label.label')]
     public function formatLabel(array $row, string $label, DataContainer $dataContainer): string
     {
         $value = $this->getFormatter()->formatValue('type', $row['type'], $dataContainer);
@@ -55,12 +57,14 @@ final class ProviderDcaListener extends AbstractListener
     }
 
     /** @return string[] */
+    #[AsCallback(table: 'tl_cowegis_geocoder_provider', target: 'fields.type.options')]
     public function typeOptions(): array
     {
         return $this->providerFactory->typeNames();
     }
 
     /** @return string[] */
+    #[AsCallback(table: 'tl_cowegis_geocoder_provider', target: 'fields.chain_providers.options')]
     public function providerOptions(DataContainer|null $dataContainer = null): array
     {
         $options = [];
@@ -76,6 +80,7 @@ final class ProviderDcaListener extends AbstractListener
         return $options;
     }
 
+    #[AsCallback(table: 'tl_cowegis_geocoder_provider', target: 'config.onsubmit')]
     public function setDefault(DataContainer $dataContainer): void
     {
         /** @psalm-suppress MixedPropertyFetch */

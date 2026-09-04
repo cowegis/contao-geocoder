@@ -1,0 +1,15 @@
+cowegis_geocoder_provider_search:
+    path: /cowegis/geocoder/search/{providerId}
+    controller: Cowegis\ContaoGeocoder\Action\SearchAction
+    methods: GET
+    defaults:
+        _scope: frontend
+    requirements:
+        providerId: .+
+
+cowegis_geocoder_search:
+    path: /cowegis/geocoder/search
+    controller: Cowegis\ContaoGeocoder\Action\SearchAction
+    methods: GET
+    defaults:
+        _scope: frontend

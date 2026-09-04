@@ -12,7 +12,7 @@ use Override;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 use function class_exists;
 
@@ -23,7 +23,7 @@ final class CowegisContaoGeocoderExtension extends Extension
     #[Override]
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new XmlFileLoader(
+        $loader = new YamlFileLoader(
             $container,
             new FileLocator(__DIR__ . '/../Resources/config'),
         );
@@ -34,8 +34,8 @@ final class CowegisContaoGeocoderExtension extends Extension
         $container->setParameter('cowegis.contao_geocoder.config.default_provider', $config['default_provider']);
         $container->setParameter('cowegis.contao_geocoder.config.providers', $config['providers']);
 
-        $loader->load('services.xml');
-        $loader->load('listeners.xml');
+        $loader->load('services.yaml');
+        $loader->load('listeners.yaml');
 
         $this->checkNominatimSupport($container);
         $this->checkGoogleMapsSupport($container);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Cowegis\ContaoGeocoder\EventListener\Hook;
 
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Netzmacht\Contao\Toolkit\Routing\RequestScopeMatcher;
 use Netzmacht\Contao\Toolkit\View\Assets\AssetsManager;
 
@@ -13,6 +14,7 @@ final readonly class BackendListener
     {
     }
 
+    #[AsHook('initializeSystem')]
     public function onInitializeSystem(): void
     {
         if (! $this->scopeMatcher->isBackendRequest()) {

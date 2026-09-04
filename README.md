@@ -22,7 +22,7 @@ Features
 Requirements
 ------------
 
- - Contao `^4.13 || ^5.3`
+ - Contao `^5.3`
  - PHP `^8.2`
 
 Installation

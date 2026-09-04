@@ -42,11 +42,11 @@ final class PluginSpec extends ObjectBehavior
     ): void {
         $this->shouldImplement(RoutingPluginInterface::class);
 
-        $resolver->resolve(Argument::containingString('Resources/config/routing.xml'))
+        $resolver->resolve(Argument::containingString('Resources/config/routing.yaml'))
             ->shouldBeCalledOnce()
             ->willReturn($loader);
 
-        $loader->load(Argument::containingString('Resources/config/routing.xml'))
+        $loader->load(Argument::containingString('Resources/config/routing.yaml'))
             ->shouldBeCalledOnce()
             ->willReturn($routeCollection);
 
