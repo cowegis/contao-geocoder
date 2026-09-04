@@ -18,7 +18,6 @@ final class ProviderRepository extends ContaoRepository
     /**
      * @param int[] $providerIds
      *
-     * @return ProviderModel[]|Collection|null
      * @psalm-return Collection|null
      *
      * @psalm-suppress MixedReturnStatement

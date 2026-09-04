@@ -9,18 +9,15 @@ use Contao\CoreBundle\Framework\Adapter;
 use Contao\StringUtil;
 use Cowegis\ContaoGeocoder\Provider\Geocoder;
 use Geocoder\Collection;
-use Geocoder\Location;
 use Geocoder\Model\AdminLevel;
 use Geocoder\Provider\Provider;
 use Geocoder\Query\GeocodeQuery;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use function array_filter;
-use function assert;
 use function in_array;
 use function parse_url;
 use function sprintf;
@@ -59,7 +56,7 @@ final class SearchAction
     {
     }
 
-    public function __invoke(Request $request, string|null $providerId = null): Response
+    public function __invoke(Request $request, string|null $providerId = null): JsonResponse
     {
         $this->checkFirewall($request);
 
@@ -95,8 +92,6 @@ final class SearchAction
         $data = [];
 
         foreach ($collection as $item) {
-            assert($item instanceof Location);
-
             $record      = [];
             $coordinates = $item->getCoordinates();
             $boundingBox = $item->getBounds();
